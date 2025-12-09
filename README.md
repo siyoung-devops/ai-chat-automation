@@ -15,13 +15,13 @@ git checkout master  <br>
 git pull origin master <br>
 
 2. 각자의 브랜치로 이동 <br>
-git checkout 브랜치이름 <br>
+git checkout 개인브랜치이름 <br>
 
 3. merge해서 병합하기 <br>
 git merge master <br>
 
 4. 내 브랜치를 원격에 push해서 반영 <br>
-git push origin master    <br>
+git push origin 개인브랜치이름    <br>
 
 이렇게 해야 conflit를 방지할 수 있어요!  <br>
 master브랜치로 업데이트 받기전에 커밋하시면 큰1나요 <br>
