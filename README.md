@@ -8,6 +8,8 @@ Selenium 기반 웹 자동화와 JSON 데이터 관리 기능을 제공하는 Py
 # Git & GitHub 사용법 가이드
 
 ## 각자의 브랜치에서 코드를 수정하고 커밋할때 주의점
+## master 브랜치로 병합하기 전에 꼭 팀원들에게 알려줘야 합니다! 
+
 1. 커밋전에 항상 최신 master를 pull해서 받아주세요! <br>
 git checkout master  <br>
 git pull origin master <br>
