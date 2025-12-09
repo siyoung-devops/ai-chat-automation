@@ -8,33 +8,30 @@ Selenium 기반 웹 자동화와 JSON 데이터 관리 기능을 제공하는 Py
 # Git & GitHub 사용법 가이드
 
 ## 각자의 브랜치에서 코드를 수정하고 커밋할때 주의점
-1. 커밋전에 항상 최신 master를 pull해서 받아주세요!
-git checkout master  
-git pull origin master
+1. 커밋전에 항상 최신 master를 pull해서 받아주세요! <br>
+git checkout master  <br>
+git pull origin master <br>
 
-2. 각자의 브랜치로 이동
-git checkout 브랜치이름
+2. 각자의 브랜치로 이동 <br>
+git checkout 브랜치이름 <br>
 
-3. merge!
-git merge master
+3. merge해서 병합하기 <br>
+git merge master <br>
 
-이렇게 해야 conflit를 방지할 수 있어요! 
-master브랜치로 업데이트 받기전에 커밋하시면 큰1나요
-![alt text](양파쿵야.jpg)
-
-
+이렇게 해야 conflit를 방지할 수 있어요!  <br>
+master브랜치로 업데이트 받기전에 커밋하시면 큰1나요 <br>
+![양파쿵야](src/resources/assets/양파쿵야.jpg) <br>
 
 
-# 브랜치 전환
-git checkout master 
 
-# 최근 커밋 확인
-git log --oneline
 
-# 변경 사항 비교
-git diff
-
-# 특정 커밋 되돌리기
+# git사용시 유용한 것들
+1. git checkout master <br>
+2. 최근 커밋 확인 <br>
+git log --oneline <br>
+3. 변경 사항 비교 <br>
+git diff <br>
+4. 특정 커밋 되돌리기 <br>
 git revert <commit_id>
 
 
