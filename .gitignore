@@ -6,6 +6,7 @@ vite.config.ts.*
 *.tar.gz
 ._*
 .venv/
+venv/
 
 # 파이썬 캐시
 __pycache__/
