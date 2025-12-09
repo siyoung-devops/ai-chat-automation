@@ -1,29 +1,82 @@
+---
+
+## 프로젝트 소개
+Selenium 기반 웹 자동화와 JSON 데이터 관리 기능을 제공하는 Python 프로젝트입니다.  
+
+---
+
+# Git & GitHub 사용법 가이드
+
+## 각자의 브랜치에서 코드를 수정하고 커밋할때 주의점
+1. 커밋전에 항상 최신 master를 pull해서 받아주세요!
+git checkout master  
+git pull origin master
+
+2. 각자의 브랜치로 이동
+git checkout 브랜치이름
+
+3. merge!
+git merge master
+
+이렇게 해야 conflit를 방지할 수 있어요! 
+master브랜치로 업데이트 받기전에 커밋하시면 큰1나요
+![alt text](양파쿵야.jpg)
 
 
 
 
+# 브랜치 전환
+git checkout master 
+
+# 최근 커밋 확인
+git log --oneline
+
+# 변경 사항 비교
+git diff
+
+# 특정 커밋 되돌리기
+git revert <commit_id>
 
 
+
+---
+
+## 설치
+```bash
+
+# 가상환경 생성 (Python 3.11.9 기준)
+python -m venv .venv      
+source venv/bin/activate  # macOS/Linux
+venv\Scripts\activate     # Windows
+
+# 패키지 설치
+pip install -r requirements.txt
+
+
+## 기술 스택
+Python 3.11
+Selenium
+webdriver-manager
+JSON 데이터 처리
 
 📁 각 폴더에 대한 상세한 설명
-- src/
-    1. 자동화 프레임워크의 핵심 코드입니다. POM 클래스와 공통 유틸리티 함수 등 Selenium을 활용하여 UI 자동화에 필요한 코드들이 포함됩니다.
-- tests/
-    1. Pytest를 사용하여 작성된 실제 테스트 케이스가 위치하며, confest.py 파일을 통해 초기 설정을 관리합니다.
-    2. confesrt.py를 기반으로 test_mai.py, test_login.py 등의 테스트를 진행합니다. 
-- src/resources/assets 와 src/resources/testdata
-    1. 테스트 수행에 필요한 데이터 파일, 이미지 등 리소스를 관리합니다.
-    2. ex) user_data.json
-- config/
-    1. 환경별 URL, 브라우저 설정 등 다양한 환경 구성을 관리하는 설정 파일을 보관합니다.
-- reports/
-    1. 테스트 실행 결과로 생성된 HTML 보고서, 로그 파일, 실패 시 스크린샷 등을 저장합니다.
-- pytest.ini
-    1. Pytest 실행 시 적용할 옵션을 정의하는 설정 파일입니다. ex) 테스트 경로 지정, 마커 설정
-    2. 현재 pythonpath = src로 지정되어, src 기준 임포트 가능하게 했습니다. 
-- requirements.txt
-    1. 프로젝트에서 사용하는 모든 Python 관련 설치 파일을 명시합니다.
-- Jenkinsfile
-    1. Jenkins CI/CD 파이프라인 정의로 Build, Test, Report 단계 등을 명시적으로 관리합니다.
-- defines.py, headers.py
-    1. 각자 찾은 selector, xpath와 헤더들을 따로 관리하기 위한 파일입니다. 
+helpychat-project/
+├─ reports/
+│   ├─ logs/          # 테스트 실행 로그
+│   └─ screenshots/   # 테스트 실패/성공 시 캡처된 스크린샷
+│
+├─ src/
+│   ├─ config/        # 환경별 URL, 브라우저 옵션 등 설정 파일
+│   ├─ managers/      # DriverManager, FileManager 등 관리 클래스
+│   ├─ pages/         # Page Object Model(POM) 클래스
+│   ├─ resources/     # 테스트 데이터 및 이미지 리소스
+│   └─ utils/         # 공통 유틸리티 함수 및 도구
+│       ├─ defines.py # Selector, XPath 등 관리
+│       └─ headers.py # 헤더 정보 관리
+├─ tests/
+│   ├─ conftest.py    # 테스트 초기 설정 관리(fixture 등)
+│   └─ test_main.py   # 실제 Pytest 테스트 케이스
+│
+├─ pytest.ini          # Pytest 실행 옵션 (ex: pythonpath=src)
+├─ requirements.txt    # 프로젝트 Python 패키지 명시
+└─ Jenkinsfile         # CI/CD 파이프라인 정의
