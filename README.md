@@ -37,6 +37,8 @@ git push origin master <br>
 master브랜치로 업데이트 받기전에 커밋하시면 큰1나요 <br>
 
 
+8. 12/12 코드 리뷰 받기 전 commit 하는 코드에 프로젝트 코드를 추가해주세요!<br>
+git commit -m "QHCQ-9 <message>" <br>
 
 
 # git사용시 유용한 것들
