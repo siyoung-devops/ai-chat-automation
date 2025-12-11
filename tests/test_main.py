@@ -1,11 +1,12 @@
 from utils.headers import *
 
 
-def test_main(main_page, fm):
-    main_page.go_to_main_page()
+def test_main(logged_in_main):
+    page = logged_in_main
+    time.sleep(3)
+    print("바로 메인페이지로 레츠기릿")
+    
+    
 
-    # 임시 코드
-    user_data = fm.read_json_file("user_data.json")
-    print(user_data)
     
     
