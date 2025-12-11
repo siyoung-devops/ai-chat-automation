@@ -1,7 +1,7 @@
 from utils.headers import *
 
 from pages.base_page import BasePage
-from utils.defines import TARGET_URL, SELECTORS, NAME
+from utils.defines import TARGET_URL, SELECTORS, NAME, XPATH
 
 class MainPage(BasePage):
     def go_to_main_page(self):
@@ -21,16 +21,67 @@ class MainPage(BasePage):
         list_items[idx].click()
         time.sleep(1)
     
-    def scroll_up(self):
-        #driver.execute_script("window.scrollBy(0, -200);")  # 200px씩 위로
-        time.sleep(0.3)  # 잠시 대기 후 다시 체크
 
+    def scroll_up_chat(self, step=200):
+        scroll_area = self.get_element_by_xpath(XPATH["SCROLL_MAIN_CHAT"])
+        if scroll_area is None:
+            print("스크롤 영역을 찾을 수 없습니다.")
+            return
+
+        scroll_to_top = None
+        while True:
+            current_scroll_top = self.driver.execute_script("return arguments[0].scrollTop;", scroll_area)
+            
+            if current_scroll_top == 0 or current_scroll_top == scroll_to_top:
+                print("맨 위 도착!")
+                break
+            
+            # 테스트 용 ===================================
+            print(f"[up] current_scroll_top :{current_scroll_top} == scroll_to_top :{scroll_to_top} ?")
+            #  ==========================================
+            
+            self.driver.execute_script(f"arguments[0].scrollBy(0, {-step});", scroll_area)
+            time.sleep(0.3)
+            
+            scroll_to_top = current_scroll_top
     
+    def scroll_down_chat(self, step=200):
+        scroll_area = self.get_element_by_xpath(XPATH["SCROLL_MAIN_CHAT"])
+        if scroll_area is None:
+            print("스크롤 영역을 찾을 수 없습니다.")
+            return
+
+        scroll_to_btm = None
+        while True:
+            current_scroll_top = self.driver.execute_script("return arguments[0].scrollTop;", scroll_area)  
+            scroll_height = self.driver.execute_script("return arguments[0].scrollHeight;", scroll_area)    
+
+            if current_scroll_top + scroll_area.size['height'] >= scroll_height:
+                print("화면 맨 아래 도착!")
+                break
+            
+            if current_scroll_top == scroll_to_btm:
+                print("화면 맨 아래 도착!")
+                break
+            
+            # 테스트 용 ====================================
+            print(f"[down] current_scroll_top :{current_scroll_top} + scroll_area.size['height']: {scroll_area.size['height']} >= scroll_height :{scroll_height} ?")
+            #  ==========================================
+            
+            self.driver.execute_script(f"arguments[0].scrollBy(0, {step});", scroll_area)
+            time.sleep(0.3)
+
+            scroll_to_btm = current_scroll_top
        
     def click_btn_scroll_to_bottom(self):
+        self.scroll_up_chat()
+        
         btn_scroll = self.get_element_by_css_selector(SELECTORS["SCROLL_TO_BOTTOM_BUTTON"])
+        
         if btn_scroll.is_enabled():
             btn_scroll.click()
+            print("맨 아래로 스크롤 버튼 클릭")
+            time.sleep(1)
         else:
-            print("버튼이 비활성화되어 있음.")
-        time.sleep(0.5)
+            print("맨 밑으로 스크롤하는 버튼 찾을 수 없음")
+        

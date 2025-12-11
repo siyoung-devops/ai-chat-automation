@@ -41,4 +41,5 @@ XPATH = {
     "BTN_SIGNUP" : "//button[@type = 'submit']",
     "BTN_MEMBER" : "//a[contains(@href,'account')]",
     "SIGNUP_FAIL" : "//p",
+    "SCROLL_MAIN_CHAT" : "//div[contains(@class,'css-ovflmb')]",
 }
