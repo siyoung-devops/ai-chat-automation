@@ -18,6 +18,15 @@ def driver():
 
     yield driver
     dm.quit_driver()
+
+# 수진 - 회원가입 용 driver를 따로 만들었어요
+@pytest.fixture(scope="function")
+def signup_driver() :
+    dm = DriverManager()
+    driver = dm.create_driver()
+    
+    yield driver
+    dm.quit_driver()
     
 @pytest.fixture
 def fm():
@@ -32,6 +41,11 @@ def main_page(driver):
 def login_page(driver):
     page = LoginPage(driver)
     return page
+
+@pytest.fixture
+def signup_page(signup_driver) :
+    from pages.signup_page import SignupPage
+    return SignupPage(signup_driver)
 
 
 

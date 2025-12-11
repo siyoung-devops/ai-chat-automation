@@ -8,6 +8,8 @@ import json
 import os
 import pytest
 import csv
+import random
+import string
 from datetime import datetime
 
 # 크롬 브라우저

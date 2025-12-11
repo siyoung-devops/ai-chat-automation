@@ -56,3 +56,9 @@ class SignupPage(BasePage):
     def check_signup_success(self) :
         success = self.get_element_by_xpath(XPATH["CHECK_SIGNUP"])
         return success.text.strip()
+    
+    def check_signup_fail(self) :
+        fail = self.get_element_by_xpath(XPATH["SIGNUP_FAIL"])
+        return fail.text.strip()
+        
+    
