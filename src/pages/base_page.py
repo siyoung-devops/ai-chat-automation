@@ -15,14 +15,25 @@ class BasePage:
         time.sleep(1)
         
     
-    # 예시입니다!
-    # id, selector, xpath, name등 함수를 하나씩 만드는게 나을지
-    # 아예 함수하나만 만들어서, 외부에서 By.XPATH, By.ID 이런식으로 매개변수를 넣어서 이용할지 
-    # 어떤게 좋을지 논의해보면 좋을거같아요!
-    def get_element_by_id(self, id, timeout=5):
+    def get_element(self, by, value, timeout=5):
         try:
             wait = WebDriverWait(self.driver, timeout)
-            return wait.until(EC.presence_of_element_located((By.ID, id)))
+            return wait.until(EC.presence_of_element_located((by, value)))
         except (TimeoutException, NoSuchElementException):
-            print("element를 by.id로 찾을 수 없음.")
+            print(f"element를 {by} = {value} 로 찾을 수 없음.")
             return None
+
+    def get_element_by_id(self, id):
+        return self.get_element(By.ID, id)
+
+    def get_element_by_name(self, name):
+        return self.get_element(By.NAME, name)
+
+    def get_element_by_xpath(self, xp):
+        return self.get_element(By.XPATH, xp)
+    
+    def get_element_by_tag(self, tag):
+        return self.get_element(By.TAG_NAME, tag)
+
+    def get_element_by_css_selector(self, cs):
+        return self.get_element(By.CSS_SELECTOR, cs)
