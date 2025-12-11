@@ -1,8 +1,14 @@
 from utils.headers import *
+from pages.member_page import MemberPage
+from managers.driver_manager import DriverManager
 
+def test_main_in(logged_in_main):
+    page = logged_in_main
 
-#commit Test12323213213213
-#이거 좀 테스트 조 ㅁ제발
-
-# 다시 테스트
-#프로젝트 코드 넣어서 테스트
+def test_member_in():    
+    driver = DriverManager().create_driver()
+    try:
+        page = MemberPage(driver)
+        
+    finally:
+        driver.quit()
