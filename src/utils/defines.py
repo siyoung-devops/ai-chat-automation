@@ -4,6 +4,7 @@
 # 예시입니다!!
 TARGET_URL = {
     "MAIN_URL": "https://qaproject.elice.io/ai-helpy-chat",
+    "SIGNUP_URL" : "https://accounts.elice.io/accounts/signup/method?continue_to=https%3A%2F%2Fqaproject.elice.io%2Fai-helpy-chat&lang=en-US&org=qaproject"
 }
 
 
