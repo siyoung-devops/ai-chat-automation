@@ -17,6 +17,11 @@ SELECTORS = {
   
 }
 
+# By.ID
+ID = {
+    "SIGNUP_EMAIL" : ":r5:",
+}
+
 # By.NAME
 NAME = {
     "INPUT_ID" : "loginId",    
@@ -25,4 +30,7 @@ NAME = {
 
 XPATH = {
     "BTN_LOGIN": "//button[normalize-space()='Login']",
+    "BTN_CREATE_ACCOUNT" : "//a[contains(@href, 'signup')]",
+    "BTN_CREATE_EMAIL" : "//button",
+    "SIGNUP_PW" : "//input[contains(@id, 'PasswordTextField')]"
 }
