@@ -9,6 +9,9 @@ class MainPage(BasePage):
         time.sleep(0.5)
 
     def click_new_chat_button(self):
-        btn = self.get_element_by_css_selector(SELECTORS["BTN_LOGIN"])
+        btn = self.get_element_by_css_selector(SELECTORS["BTN_NEW_CHAT"])
         btn.click()
-        time.sleep(0.3)
+        time.sleep(0.5)
+    
+    def click_on_past_chats(self):
+        pass

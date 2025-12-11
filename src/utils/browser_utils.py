@@ -20,6 +20,7 @@ class BrowserUtils:
         driver.get(url)
         time.sleep(0.5)
         for cookie in cookies:
+            cookie.pop("domain", None)
             driver.add_cookie(cookie)
 
         return True
