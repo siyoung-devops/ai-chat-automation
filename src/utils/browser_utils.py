@@ -1,9 +1,7 @@
 from utils.headers import *
 
 from utils.context import LoginContext
-from utils.defines import TARGET_URL
 
-#fm = FileManager()
 
 class BrowserUtils:
     def save_cookies(self, driver, fm, file_name = "cookies.json"):

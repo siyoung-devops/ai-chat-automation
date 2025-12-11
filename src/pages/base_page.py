@@ -51,3 +51,6 @@ class BasePage:
         
     def get_elements_by_xpath(self, xp) :
         return self.get_elements(By.XPATH, xp)
+    
+    def get_elements_by_css_selector(self, cs) :
+        return self.get_elements(By.CSS_SELECTOR, cs)
