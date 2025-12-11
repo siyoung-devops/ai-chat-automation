@@ -13,3 +13,6 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
+
+# 쿠키 파일 : 각자 달라서 받을 필요x
+cookies.json

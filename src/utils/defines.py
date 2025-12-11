@@ -14,6 +14,7 @@ TARGET_URL = {
 
 SELECTORS = {
     "BTN_NEW_CHAT" : 'a[href="/ai-helpy-chat"]',
+    "MEMBER_MODAL" : ".css-jgzpb4",
   
 }
 
@@ -32,5 +33,7 @@ XPATH = {
     "BTN_LOGIN": "//button[normalize-space()='Login']",
     "BTN_CREATE_ACCOUNT" : "//a[contains(@href, 'signup')]",
     "BTN_CREATE_EMAIL" : "//button",
-    "SIGNUP_PW" : "//input[contains(@id, 'PasswordTextField')]"
+    "SIGNUP_PW" : "//input[contains(@id, 'PasswordTextField')]",
+    "BTN_MEMBER" : "//a[contains(@href, 'account')]",
+    
 }
