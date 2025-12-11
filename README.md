@@ -15,7 +15,7 @@ Selenium 기반 웹 자동화와 JSON 데이터 관리 기능을 제공하는 Py
 3. push
 4. Merge Request -> 저희 깃랩 사이트에 머지 리퀘스트 버튼이 생성되더라구요
 5. 리뷰 후 merge 버튼 클릭
-   * 옵션에 delete branch 머시기 클릭해주시면 좋을것같아요
+   * 옵션에 delete branch 머시기 해제하기!!!
 6. 머지 완료
 
 7. 다른 사람이 머지 한것을 항상 업데이트!
