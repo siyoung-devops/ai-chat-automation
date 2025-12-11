@@ -37,3 +37,17 @@ class BasePage:
 
     def get_element_by_css_selector(self, cs):
         return self.get_element(By.CSS_SELECTOR, cs)
+    
+    
+    # 수진 - 여러 요소 받는 함수도 만들었습니다
+    def get_elements(self, by, value, timeout=5) :
+        try :
+            wait = WebDriverWait(self.driver, timeout)
+            wait.until(EC.presence_of_all_elements_located((by, value)))
+            return self.driver.find_elements(by, value)
+        except (TimeoutException, NoSuchElementException):
+            print(f"elements를 {by} = {value} 로 찾을 수 없음.")
+            return []
+        
+    def get_elements_by_xpath(self, xp) :
+        return self.get_elements(By.XPATH, xp)
