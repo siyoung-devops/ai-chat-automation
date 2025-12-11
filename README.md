@@ -15,16 +15,30 @@ git checkout master  <br>
 git pull origin master <br>
 
 2. 각자의 브랜치로 이동 <br>
-git checkout 브랜치이름 <br>
+git checkout 개인브랜치이름 <br>
 
 3. merge해서 병합하기 <br>
-git merge master <br>
+git merge master  # 내 브랜치에 master 최신 내용을 반영 <br> 
+
+4. 내 브랜치를 원격에 push해서 반영 <br>
+git push origin 개인브랜치이름    <br>
+
+5. 작업 브랜치에서 master에 병합 준비<br>
+git checkout master<br>
+git pull origin master   # 다른 사람이 master를 업데이트했을 수도 있으니 먼저 pull<br>
+
+6. 내 브랜치 merge <br>
+git merge 개인브랜치이름 <br>
+
+7. 원격 master에도 내 작업이 반영됨 (최종)
+git push origin master <br>
 
 이렇게 해야 conflit를 방지할 수 있어요!  <br>
 master브랜치로 업데이트 받기전에 커밋하시면 큰1나요 <br>
-![양파쿵야](src/resources/assets/양파쿵야.jpg) <br>
 
 
+8. 12/12 코드 리뷰 받기 전 commit 하는 코드에 프로젝트 코드를 추가해주세요!<br>
+git commit -m "QHCQ-9 <message>" <br>
 
 
 # git사용시 유용한 것들
