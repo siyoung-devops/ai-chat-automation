@@ -28,3 +28,4 @@ class LoginPage(BasePage):
     def click_login_button(self):
         btn = self.get_element_by_xpath(XPATH["BTN_LOGIN"])
         btn.click()
+        time.sleep(0.3)
