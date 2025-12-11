@@ -9,13 +9,17 @@ FULLSCREEN_SIZE = (SCREEN_WIDTH, SCREEN_HEIGHT)
 
 TARGET_URL = {
     "MAIN_URL": "https://qaproject.elice.io/ai-helpy-chat",
-    "SIGNUP_URL" : "https://accounts.elice.io/accounts/signup/method?continue_to=https%3A%2F%2Fqaproject.elice.io%2Fai-helpy-chat&lang=en-US&org=qaproject"
 }
 
 
 SELECTORS = {
 
   
+}
+
+# By.ID
+ID = {
+    "SIGNUP_EMAIL" : ":r5:",
 }
 
 # By.NAME
@@ -26,4 +30,7 @@ NAME = {
 
 XPATH = {
     "BTN_LOGIN": "//button[normalize-space()='Login']",
+    "BTN_CREATE_ACCOUNT" : "//a[contains(@href, 'signup')]",
+    "BTN_CREATE_EMAIL" : "//button",
+    "SIGNUP_PW" : "//input[contains(@id, 'PasswordTextField')]"
 }
