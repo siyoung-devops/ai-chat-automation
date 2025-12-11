@@ -3,11 +3,12 @@ from utils.headers import *
 
 def test_new_chat(logged_in_main):
     page = logged_in_main
-    time.sleep(5)
-    print("바로 메인페이지로 레츠기릿")
+    time.sleep(2)
+  
+    page.click_on_past_chat(0)
     
-    page.click_new_chat_button()
-        
+    
+    #page.click_new_chat_button()
+    time.sleep(2)
 
-    
-    
+   
