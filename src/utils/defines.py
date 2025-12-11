@@ -13,7 +13,7 @@ TARGET_URL = {
 
 
 SELECTORS = {
-
+    "BTN_NEW_CHAT" : 'a[href="/ai-helpy-chat"]',
   
 }
 
