@@ -10,31 +10,17 @@ Selenium 기반 웹 자동화와 JSON 데이터 관리 기능을 제공하는 Py
 ## 각자의 브랜치에서 코드를 수정하고 커밋할때 주의점
 ## master 브랜치로 병합하기 전에 꼭 팀원들에게 알려줘야 합니다! 
 
-1. 커밋전에 항상 최신 master를 pull해서 받아주세요! <br>
-git checkout master  <br>
-git pull origin master <br>
+1. 개인 브랜치에서 작업
+2. commit 
+3. push
+4. Merge Request -> 저희 깃랩 사이트에 머지 리퀘스트 버튼이 생성되더라구요
+5. 리뷰 후 merge 버튼 클릭
+   * 옵션에 delete branch 머시기 클릭해주시면 좋을것같아요
+6. 머지 완료
 
-2. 각자의 브랜치로 이동 <br>
-git checkout 개인브랜치이름 <br>
-
-3. merge해서 병합하기 <br>
-git merge master  # 내 브랜치에 master 최신 내용을 반영 <br> 
-
-4. 내 브랜치를 원격에 push해서 반영 <br>
-git push origin 개인브랜치이름    <br>
-
-5. 작업 브랜치에서 master에 병합 준비<br>
-git checkout master<br>
-git pull origin master   # 다른 사람이 master를 업데이트했을 수도 있으니 먼저 pull<br>
-
-6. 내 브랜치 merge <br>
-git merge 개인브랜치이름 <br>
-
-7. 원격 master에도 내 작업이 반영됨 (최종)
-git push origin master <br>
-
-이렇게 해야 conflit를 방지할 수 있어요!  <br>
-master브랜치로 업데이트 받기전에 커밋하시면 큰1나요 <br>
+7. 다른 사람이 머지 한것을 항상 업데이트!
+   * 개인 브랜치에서 pull 
+   * git hub desktop 쓰시는 분들 fetch -> pull 
 
 
 8. 12/12 코드 리뷰 받기 전 commit 하는 코드에 프로젝트 코드를 추가해주세요!<br>
