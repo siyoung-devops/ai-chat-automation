@@ -6,6 +6,7 @@ from managers.driver_manager import (
     DriverManager
 )
 
+# 성공 테스트
 def test_signup_success() :
     driver = DriverManager().create_driver()
     
@@ -25,4 +26,5 @@ def test_signup_success() :
         
     finally :
         driver.quit()
+        
         
