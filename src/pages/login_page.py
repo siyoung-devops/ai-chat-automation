@@ -1,7 +1,7 @@
 from utils.headers import *
 
 from pages.base_page import BasePage
-from utils.defines import NAME, XPATH, TARGET_URL
+from utils.defines import NAME, XPATH,SELECTORS, TARGET_URL
 
 class LoginPage(BasePage):
     def go_to_login_page(self):
@@ -32,3 +32,8 @@ class LoginPage(BasePage):
         btn = self.get_element_by_xpath(XPATH["BTN_LOGIN"])
         btn.click()
         time.sleep(0.3)
+        
+    def login_remove_history(self): #아이디 저장 내용 초기화용
+        btn = self.get_element_by_css_selector(SELECTORS["REMOVE_HISROTY"])
+        btn.click()
+        time.sleep(0.5)

@@ -8,6 +8,7 @@ from managers.file_manager import FileManager
 
 from pages.main_page import MainPage
 from pages.login_page import LoginPage
+from pages.member_page import MemberPage
 
 # 모든 fixture를 관리하는 곳
 
@@ -47,6 +48,11 @@ def signup_page(signup_driver) :
     from pages.signup_page import SignupPage
     return SignupPage(signup_driver)
 
+@pytest.fixture
+def member_page(driver):
+    page = MemberPage(driver)
+    return page
+
 
 
 # 항상 로그인한 상태로 접속한 상태에서 테스트할 수 있도록
@@ -58,12 +64,13 @@ def user_data(fm):
     return fm.read_json_file("user_data.json")
 
 @pytest.fixture
-def logged_in_main(driver, fm, user_data, main_page, login_page):
+def logged_in_main(driver, fm, user_data, main_page, login_page,member_page):
     ctx = LoginContext(
         driver=driver,
         fm=fm,
         login_page=login_page,
         main_page=main_page,
+        member_page=member_page,
         user_data=user_data
     )
     
