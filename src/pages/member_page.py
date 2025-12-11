@@ -16,6 +16,6 @@ class MemberPage(BasePage):
         time.sleep(0.5)
         self.get_element_by_xpath(XPATH["BTN_MEMBER"]).click()
         time.sleep(0.5)
-        print("계정관리페이지이동")
+        print("계정관리 페이지 이동")
     
     
