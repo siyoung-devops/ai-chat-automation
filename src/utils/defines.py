@@ -36,5 +36,6 @@ XPATH = {
     "BTN_CREATE_EMAIL" : "//button",
     "SIGNUP_AGREE" : "//input[contains(@class, 'PrivateSwitchBase')]",
     "CHECK_SIGNUP" : "//a[contains(@href, 'recover')]",
-    "BTN_SIGNUP" : "//button[@type = 'submit']"
+    "BTN_SIGNUP" : "//button[@type = 'submit']",
+    "BTN_MEMBER" : "//a[contains(@href,'account')]"
 }
