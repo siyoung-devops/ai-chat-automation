@@ -26,7 +26,7 @@ ID = {
 NAME = {
     "INPUT_ID" : "loginId",    
     "INPUT_PW" : "password",  
-    "INPUT_NAME" : "fullname"  
+    "INPUT_NAME" : "fullname",
 }
 
 # By.XPATH
@@ -37,5 +37,6 @@ XPATH = {
     "SIGNUP_AGREE" : "//input[contains(@class, 'PrivateSwitchBase')]",
     "CHECK_SIGNUP" : "//a[contains(@href, 'recover')]",
     "BTN_SIGNUP" : "//button[@type = 'submit']",
-    "BTN_MEMBER" : "//a[contains(@href,'account')]"
+    "BTN_MEMBER" : "//a[contains(@href,'account')]",
+    "SIGNUP_FAIL" : "//p",
 }
