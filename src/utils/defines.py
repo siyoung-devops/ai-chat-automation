@@ -20,15 +20,17 @@ SELECTORS = {
 
 # By.ID
 ID = {
-    "SIGNUP_EMAIL" : ":r5:",
+    "CHECKBOX_HEADER" : "agreement-header",
 }
 
 # By.NAME
 NAME = {
     "INPUT_ID" : "loginId",    
-    "INPUT_PW" : "password",    
+    "INPUT_PW" : "password",  
+    "INPUT_NAME" : "fullname"  
 }
 
+# By.XPATH
 XPATH = {
     "BTN_LOGIN": "//button[normalize-space()='Login']",
     "BTN_CREATE_ACCOUNT" : "//a[contains(@href, 'signup')]",
@@ -36,4 +38,7 @@ XPATH = {
     "SIGNUP_PW" : "//input[contains(@id, 'PasswordTextField')]",
     "BTN_MEMBER" : "//a[contains(@href, 'account')]",
     
+    "SIGNUP_AGREE" : "//input[contains(@class, 'PrivateSwitchBase')]",
+    "CHECK_SIGNUP" : "//a[contains(@href, 'recover')]",
+    "BTN_SIGNUP" : "//button[@type = 'submit']"
 }
