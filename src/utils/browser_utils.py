@@ -39,3 +39,10 @@ class BrowserUtils:
             self.save_cookies(ctx.driver, ctx.fm, ctx.file_name)
 
         return ctx.main_page
+
+
+# 수진 - 회원가입 시 랜덤 이메일 주소 생성
+def random_string(length=8):
+    """영문 대소문자 + 숫자 조합으로 랜덤 문자열 생성"""
+    chars = string.ascii_letters + string.digits
+    return ''.join(random.choice(chars) for _ in range(length))
