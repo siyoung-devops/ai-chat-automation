@@ -15,6 +15,8 @@ TARGET_URL = {
 SELECTORS = {
     "BTN_NEW_CHAT" : 'a[href="/ai-helpy-chat"]',
     "MEMBER_MODAL" : ".css-jgzpb4",
+    "CHAT_LIST_ITEMS" : "a[data-item-index]",
+    "SCROLL_TO_BOTTOM_BUTTON" : 'button[aria-label="맨 아래로 스크롤"]',
 }
 
 # By.ID
