@@ -5,7 +5,7 @@ from utils.defines import NAME, XPATH, TARGET_URL
 
 class LoginPage(BasePage):
     def go_to_login_page(self):
-        self.go_to_page(TARGET_URL["LOGIN_URL"]) # url 아직업어용
+        self.go_to_page(TARGET_URL["MAIN_URL"]) # url 아직업어용
 
     def input_id(self, username):
         element = self.get_element_by_name(NAME["INPUT_ID"])
@@ -22,6 +22,9 @@ class LoginPage(BasePage):
         time.sleep(0.3)
 
     def input_user_data(self, user_data):
+        # user_data가 리스트인 경우 첫 번째 원소 사용
+        if isinstance(user_data, list):
+            user_data = user_data[0]
         self.input_id(user_data["username"])
         self.input_pw(user_data["password"])
 
