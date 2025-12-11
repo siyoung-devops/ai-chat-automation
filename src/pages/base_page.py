@@ -15,28 +15,32 @@ class BasePage:
         time.sleep(1)
         
     
-    def get_element(self, by, value, timeout=5):
+    def get_element(self, by, value, option="presence", timeout=5):
         try:
             wait = WebDriverWait(self.driver, timeout)
-            return wait.until(EC.presence_of_element_located((by, value)))
+            if option == "presence":
+                return wait.until(EC.presence_of_element_located((by, value)))
+            
+            elif option == "visibility":
+                return wait.until(EC.visibility_of_element_located((by, value)))
         except (TimeoutException, NoSuchElementException):
             print(f"element를 {by} = {value} 로 찾을 수 없음.")
             return None
 
-    def get_element_by_id(self, id):
-        return self.get_element(By.ID, id)
+    def get_element_by_id(self, id, option="presence"):
+        return self.get_element(By.ID, id, option)
 
-    def get_element_by_name(self, name):
-        return self.get_element(By.NAME, name)
+    def get_element_by_name(self, name, option="presence"):
+        return self.get_element(By.NAME, name, option)
 
-    def get_element_by_xpath(self, xp):
-        return self.get_element(By.XPATH, xp)
+    def get_element_by_xpath(self, xp, option="presence"):
+        return self.get_element(By.XPATH, xp, option)
     
-    def get_element_by_tag(self, tag):
-        return self.get_element(By.TAG_NAME, tag)
+    def get_element_by_tag(self, tag, option="presence"):
+        return self.get_element(By.TAG_NAME, tag, option)
 
-    def get_element_by_css_selector(self, cs):
-        return self.get_element(By.CSS_SELECTOR, cs)
+    def get_element_by_css_selector(self, cs, option="presence"):
+        return self.get_element(By.CSS_SELECTOR, cs, option)
     
     
     # 수진 - 여러 요소 받는 함수도 만들었습니다
