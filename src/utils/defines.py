@@ -17,6 +17,7 @@ SELECTORS = {
     "MEMBER_MODAL" : ".css-jgzpb4",
     "CHAT_LIST_ITEMS" : "a[data-item-index]",
     "SCROLL_TO_BOTTOM_BUTTON" : 'button[aria-label="맨 아래로 스크롤"]',
+    "REMOVE_HISROTY" : ".css-i16wzc",
 }
 
 # By.ID
