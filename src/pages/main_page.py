@@ -82,6 +82,59 @@ class MainPage(BasePage):
             btn_scroll.click()
             print("맨 아래로 스크롤 버튼 클릭")
             time.sleep(1)
-        else:
-            print("맨 밑으로 스크롤하는 버튼 찾을 수 없음")
+
+    
+    def click_btn_send(self):
+        btn_scroll = self.get_element_by_xpath(XPATH["BTN_SEND"])
         
+        if btn_scroll.is_enabled():
+            btn_scroll.click()
+            print("채팅 보내기 성공")
+            time.sleep(1)
+    
+    
+    def click_btn_stop(self):
+        # 취소 버튼은 hidden 으로 되어있음
+        try:
+            btn_stop = self.get_element_by_xpath(XPATH["BTN_STOP"], option="visibility")
+            if btn_stop.is_displayed():
+                btn_stop.click()
+                time.sleep(1)
+                return True
+            return False
+        except:
+            return False
+            
+            
+    def is_visible_btn_stop(self):
+        try:
+            btn_stop = self.get_element_by_xpath(XPATH["BTN_STOP"], option="visibility")
+            if btn_stop.is_displayed():
+                return False  # 채팅 진행 중
+            return True       # 채팅 완료
+        except:
+            # stop 버튼이 아예 없으면 완료로 판단
+            return True
+    
+            
+        # 응답이 완료되었는지 확인
+    def check_is_chat_complete(self):
+        while True:
+            if not self.is_visible_btn_stop():
+                print("AI응답 완료, 채팅 종료")
+                time.sleep(0.5)
+                return
+            
+    def input_chat_data(self, data):
+        input_chat = self.get_element_by_css_selector(SELECTORS["TEXTAREA"])
+        input_chat.click()
+        input_chat.clear()
+        time.sleep(1)
+        
+        # 데이터 입력
+        input_chat.send_keys(data)
+        self.click_btn_send()
+
+        
+        
+    
