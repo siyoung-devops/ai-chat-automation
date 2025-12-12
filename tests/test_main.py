@@ -18,20 +18,33 @@ def test_main_chat(logged_in_main):
     
     # 4.  최근 메시지로 스크롤 정상 이동 = PHC-TS03-TC026 
     page.click_btn_scroll_to_bottom()
-    
-    # 5. 새 대화 = PHC-TS03-TC014
-    page.click_new_chat_button()
-    time.sleep(2)
+    time.sleep(0.5)
 
 
 # 대화 테스트 
-def test_conversation(logged_in_main):
+def test_conversation(logged_in_main, fm):
     page = logged_in_main
     
+    # 5. 새 대화 = PHC-TS03-TC014
+    page.click_new_chat_button()
+    
+    # 6. AI 응답 테스트 PHC-TS03-TC004
+    ai_dict = fm.read_json_file("ai_text_data.json")
+    ai_input_lst = ai_dict["inputs"]
+    
+    for idx, item in enumerate(ai_input_lst):
+        if item["type"] == "text":
+            page.input_chat_data(item["content"])
+            time.sleep(1.5)
+            
+            # 추후 5초 이상 응답완료 안됐을때로 변경예정
+            if idx == 2 and not page.check_is_chat_complete():
+                # 7. AI 응답 취소 - PHC-TS03-TC005, 
+                page.click_btn_stop()
+                time.sleep(1)
+
+    
+    # 8. AI 응답 재생성 - PHC-TS03-TC006
     
     
-    pass
-    
-    
-    
-    
+    # 9. 

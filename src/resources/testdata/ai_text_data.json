@@ -6,15 +6,23 @@
     },
     {
       "type": "text",
-      "content": "안녕~"
+      "content": "ㅎㅇ"
     },
+    {
+      "type": "text",
+      "content": "짱구가 뭐야?? 1000자 이상으로 설명해줄래?"
+    }
+
+  ],
+
+  "requests" : [
     {
       "type": "image",
       "content": "짱구 이미지 만들어줘"
     },
     {
       "type": "image",
-      "content": "미래 도시 풍경 일러스트"
+      "content": "크리스마스 이미지 만들어줘"
     },
     {
       "type": "websearch",

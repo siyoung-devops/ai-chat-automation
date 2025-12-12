@@ -19,7 +19,7 @@ SELECTORS = {
     "SCROLL_TO_BOTTOM_BUTTON" : 'button[aria-label="맨 아래로 스크롤"]',
     "TEXTAREA" : "textarea[name='input']",
     "UPDATE_BTN" : "#root > div.MuiStack-root.css-1k8t7d9 > div > main > div.css-ts9wun.e9qrkv71 > div > section:nth-child(1) > div.MuiBox-root.css-0 > table > tbody > tr:nth-child(1) > td:nth-child(2) > div > div > button > svg",
-    
+    "CHECK_CHAT_COMPLETE" : 'div[data-status="complete"]',
 
 }
 
@@ -48,5 +48,8 @@ XPATH = {
     "SCROLL_MAIN_CHAT" : "//div[contains(@class,'css-ovflmb')]",
     "BTN_UPLOAD" : "//button[contains(@class,'MuiIconButton-root') and .//svg[contains(@data-icon,'plus')]]",
     "BTN_SEND" : "//button[@aria-label='보내기']",
+    "BTN_STOP" : '//button[@aria-label="취소"]',
+    "BTN_RETRY" : '//button[@aria-label="다시 생성"]',
+    "BTN_COPY" : '//button[@aria-label="복사"]',
     
 }

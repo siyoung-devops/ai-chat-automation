@@ -55,6 +55,10 @@ class SignupPage(BasePage):
         btn = self.get_element_by_xpath(XPATH["BTN_SIGNUP"])
         btn.click()
         
+    def btn_element(self) :
+        btn = self.get_element_by_xpath(XPATH["BTN_SIGNUP"])
+        return btn
+        
     def check_signup_success(self) :
         success = self.get_element_by_xpath(XPATH["CHECK_SIGNUP"])
         print("회원가입 완료")
