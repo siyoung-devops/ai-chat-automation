@@ -19,6 +19,7 @@ SELECTORS = {
     "SCROLL_TO_BOTTOM_BUTTON" : 'button[aria-label="맨 아래로 스크롤"]',
     "UPDATE_NAME" : ".css-9jgcee",
     "TEXTAREA" : "textarea[name='input']",
+    "CHECK_CHAT_COMPLETE" : 'div[data-status="complete"]',
 
 }
 
@@ -49,6 +50,9 @@ XPATH = {
     "BTN_SEND" : "//button[@aria-label='보내기']",
     "PASS_ELEMENT" : "//p[contains(text(), '통신사')]",
     "PASS_IFRAME" : "//iframe[contains(@src, 'certificates')]",
-    "SIGNUP_VIEW_PW" : "//button[contains(@aria-controls, 'Password')]"
+    "SIGNUP_VIEW_PW" : "//button[contains(@aria-controls, 'Password')]",
+    "BTN_STOP" : '//button[@aria-label="취소"]',
+    "BTN_RETRY" : '//button[@aria-label="다시 생성"]',
+    "BTN_COPY" : '//button[@aria-label="복사"]',
     
 }
