@@ -1,21 +1,16 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "Python: Current File (pytest)",
-            "type": "python",
-            "request": "launch",
-            "program": "${workspaceFolder}/.venv/bin/pytest",   // .venv 가상환경 파일명을 의논해서 통일해야 할것같아요!
-            "console": "integratedTerminal",
-            "args": [
-                "${file}",                              // 현재 열려 있는 파일(${file})을 테스트 대상으로, 출력은 바로 콘솔로
-                "-s"
-            ],
-            "cwd": "${workspaceFolder}",                // 작업 디렉토리를 프로젝트 루트로 고정
-            "env": {
-                "PYTHONPATH": "${workspaceFolder}/src"  // src 기준 임포트 가능하게 하기 위함
-            },
-            "justMyCode": false
-        }
-    ]
+  "configurations": [
+    {
+      "name": "Python: Pytest", // VSCode에서 디버그 실행할 때 표시되는 이름
+      "type": "python", // Python 디버깅 모드 사용
+      "request": "launch", // 새 프로세스를 실행해서 디버깅 시작
+      "module": "pytest", // python -m pytest 로 실행하는 것과 동일
+      "args": [
+        //"tests/test_tttt.py", // ← 특정 파일만 지정하고 싶을 경우
+        "-v"
+      ], // pytest 실행 시 -v 옵션 추가
+      "console": "integratedTerminal", // VSCode 내부 터미널에서 실행
+      "justMyCode": false // 외부 라이브러리 코드까지 디버깅 허용
+    }
+  ]
 }
