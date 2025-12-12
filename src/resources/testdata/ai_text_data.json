@@ -1,0 +1,28 @@
+{
+  "inputs": [
+    {
+      "type": "text",
+      "content": "오늘 날짜는 뭐야?"
+    },
+    {
+      "type": "text",
+      "content": "안녕~"
+    },
+    {
+      "type": "image",
+      "content": "짱구 이미지 만들어줘"
+    },
+    {
+      "type": "image",
+      "content": "미래 도시 풍경 일러스트"
+    },
+    {
+      "type": "websearch",
+      "content": "최신 주식 시장에 대한 정보를 구글에서 찾아줄래?"
+    },
+    {
+      "type": "websearch",
+      "content": "짱구에 대한 정보를 구글에서 찾아줄래?"
+    }
+  ]
+}

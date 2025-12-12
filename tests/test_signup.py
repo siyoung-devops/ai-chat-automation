@@ -254,4 +254,3 @@ def test_signup_success_no_optional(signup_page) :
     
     assert "Forgot" in success, "PHC-TS02-TC015 : Test fail"
     print("PHC-TS02-TC015 : Test success")
-        
