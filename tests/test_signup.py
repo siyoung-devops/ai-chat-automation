@@ -2,6 +2,7 @@ from utils.headers import *
 from pages.signup_page import (
     SignupPage
 )
+
 from utils.browser_utils import random_string
 
 generated_email = None # 전역 변수, TC 1번째의 이메일을 받아 2번째 중복 테스트에 사용하려고
@@ -71,6 +72,7 @@ def test_signup_fail_no_address(signup_page) :
         "return arguments[0].validationMessage;", email_input
     )
     
+
     assert "@" in msg, "PHC-TS02-TC004 : Test fail" 
     print("PHC-TS02-TC004 : Test success")
 
@@ -121,5 +123,4 @@ def test_signup_fail_pw_less(signup_page) :
     fail = signup_page.check_signup_fail()
     
     assert "password stronger!" in fail, "PHC-TS02-TC007 : Test fail" 
-    print("PHC-TS02-TC007 : Test success")
-        
+    print("PHC-TS02-TC007 : Test success")   

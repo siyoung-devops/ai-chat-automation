@@ -53,10 +53,7 @@ def member_page(driver):
 
 
 
-# 항상 로그인한 상태로 접속한 상태에서 테스트할 수 있도록
-# 로그인 후 쿠키 저장
-# 브라우저 시작 시 쿠키 로드
-# 로그인 없이 메인 페이지 바로가기 
+####### 메안화면 확인용 #######
 @pytest.fixture
 def user_data(fm):
     return fm.read_json_file("user_data.json")
@@ -73,4 +70,4 @@ def logged_in_main(driver, fm, user_data, main_page, login_page,member_page):
     )
     
     browser_utils = BrowserUtils()
-    return browser_utils.login_with_cookies(ctx)
+    return browser_utils.auto_login(ctx)

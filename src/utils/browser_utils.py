@@ -24,12 +24,12 @@ class BrowserUtils:
 
         return True
 
-    def login_with_cookies(self, ctx: LoginContext):
-        loaded_cookies = self.load_cookies(ctx.driver, ctx.fm, ctx.url)
-
+    #    loaded_cookies = self.load_cookies(ctx.driver, ctx.fm, ctx.url)
+    
+    def auto_login(self, ctx: LoginContext):
         ctx.main_page.go_to_main_page()
 
-        # 로그인 여부를 dom 기반으로 변경 ㅠㅠ
+        # 로그인 여부를 dom 기반으로 확인
         el_id = ctx.login_page.get_element_by_name(NAME["INPUT_ID"], option = "visibility")
         el_pw = ctx.login_page.get_element_by_name(NAME["INPUT_PW"], option = "visibility")
         

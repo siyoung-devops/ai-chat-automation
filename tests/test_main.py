@@ -5,6 +5,8 @@ def test_main_chat(logged_in_main):
     page = logged_in_main
     time.sleep(5)
   
+    # 메뉴 탭 열기 접기 추가 
+  
     # 1. 기존 대화 선택 = PHC-TS03-TC001
     page.click_on_past_chat(0)
     
@@ -21,9 +23,14 @@ def test_main_chat(logged_in_main):
     page.click_new_chat_button()
     time.sleep(2)
 
-# def test_conversation(main_page):
-#     #main_page.go_to_main_page()
-#     pass
+
+# 대화 테스트 
+def test_conversation(logged_in_main):
+    page = logged_in_main
+    
+    
+    
+    pass
     
     
     
