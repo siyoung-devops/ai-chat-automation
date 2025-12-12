@@ -67,5 +67,17 @@ class SignupPage(BasePage):
     def check_signup_fail(self) :
         fail = self.get_element_by_xpath(XPATH["SIGNUP_FAIL"])
         return fail.text.strip()
-        
+    
+    def iframe_element(self) :
+        iframe = self.get_element_by_xpath(XPATH["PASS_IFRAME"])
+        print("본인인증 화면 로드 완료")
+        return iframe
+    
+    def iframe_pass_element(self) :
+        element = self.get_element_by_xpath(XPATH["PASS_ELEMENT"])
+        return element
+    
+    def view_password(self) :
+        element = self.get_element_by_xpath(XPATH["SIGNUP_VIEW_PW"])
+        element.click()
     
