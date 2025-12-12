@@ -19,3 +19,4 @@ class MemberPage(BasePage):
         print("계정관리 페이지 이동")
     
     
+    
