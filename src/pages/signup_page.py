@@ -22,6 +22,7 @@ class SignupPage(BasePage):
         element.send_keys(email)
         time.sleep(0.5)
         print("이메일 입력 완료")
+        return element
         
     def signup_pw(self, password) :
         element = self.get_element_by_name(NAME["INPUT_PW"])
@@ -30,6 +31,7 @@ class SignupPage(BasePage):
         element.send_keys(password)
         time.sleep(0.5)
         print("비밀번호 입력 완료")
+        return element
         
     def signup_name(self, name) :
         element = self.get_element_by_name(NAME["INPUT_NAME"])
@@ -38,6 +40,7 @@ class SignupPage(BasePage):
         element.send_keys(name)
         time.sleep(0.5)
         print("이름 입력 완료")
+        return element
         
     def checkbox_spread(self) :
         header = self.get_element_by_id(ID["CHECKBOX_HEADER"])
@@ -51,8 +54,14 @@ class SignupPage(BasePage):
     def btn_create(self) :
         btn = self.get_element_by_xpath(XPATH["BTN_SIGNUP"])
         btn.click()
-        print("회원가입 완료")
         
     def check_signup_success(self) :
         success = self.get_element_by_xpath(XPATH["CHECK_SIGNUP"])
+        print("회원가입 완료")
         return success.text.strip()
+    
+    def check_signup_fail(self) :
+        fail = self.get_element_by_xpath(XPATH["SIGNUP_FAIL"])
+        return fail.text.strip()
+        
+    

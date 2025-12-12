@@ -14,7 +14,12 @@ TARGET_URL = {
 
 SELECTORS = {
     "BTN_NEW_CHAT" : 'a[href="/ai-helpy-chat"]',
-  
+    "MEMBER_MODAL" : ".css-jgzpb4",
+    "CHAT_LIST_ITEMS" : "a[data-item-index]",
+    "SCROLL_TO_BOTTOM_BUTTON" : 'button[aria-label="맨 아래로 스크롤"]',
+    "REMOVE_HISROTY" : ".css-i16wzc",
+    "TEXTAREA" : "textarea[name='input']",
+
 }
 
 # By.ID
@@ -26,7 +31,7 @@ ID = {
 NAME = {
     "INPUT_ID" : "loginId",    
     "INPUT_PW" : "password",  
-    "INPUT_NAME" : "fullname"  
+    "INPUT_NAME" : "fullname",
 }
 
 # By.XPATH
@@ -36,5 +41,11 @@ XPATH = {
     "BTN_CREATE_EMAIL" : "//button",
     "SIGNUP_AGREE" : "//input[contains(@class, 'PrivateSwitchBase')]",
     "CHECK_SIGNUP" : "//a[contains(@href, 'recover')]",
-    "BTN_SIGNUP" : "//button[@type = 'submit']"
+    "BTN_SIGNUP" : "//button[@type = 'submit']",
+    "BTN_MEMBER" : "//a[contains(@href,'account')]",
+    "SIGNUP_FAIL" : "//p",
+    "SCROLL_MAIN_CHAT" : "//div[contains(@class,'css-ovflmb')]",
+    "BTN_UPLOAD" : "//button[contains(@class,'MuiIconButton-root') and .//svg[contains(@data-icon,'plus')]]",
+    "BTN_SEND" : "//button[@aria-label='보내기']",
+    
 }

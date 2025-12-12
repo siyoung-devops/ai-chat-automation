@@ -1,11 +1,12 @@
 from utils.headers import *
 
 from pages.base_page import BasePage
-from utils.defines import NAME, XPATH, TARGET_URL
+from utils.defines import NAME, XPATH,SELECTORS, TARGET_URL
 
 class LoginPage(BasePage):
     def go_to_login_page(self):
         self.go_to_page(TARGET_URL["LOGIN_URL"])
+
 
     # 입력값 제어 메서드
     def input_id(self, username):
@@ -23,6 +24,9 @@ class LoginPage(BasePage):
         time.sleep(0.3)
 
     def input_user_data(self, user_data):
+        # user_data가 리스트인 경우 첫 번째 원소 사용
+        if isinstance(user_data, list):
+            user_data = user_data[0]
         self.input_id(user_data["username"])
         self.input_pw(user_data["password"])
 
