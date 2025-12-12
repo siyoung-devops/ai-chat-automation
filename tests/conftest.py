@@ -1,32 +1,33 @@
 from utils.headers import *
 from utils.context import LoginContext
 from utils.browser_utils import BrowserUtils
-from utils.browser_setup import create_driver
 from utils.context import LoginContext
 
+from managers.driver_manager import DriverManager
 from managers.file_manager import FileManager
-from pages.signup_page import SignupPage
- 
+
 from pages.main_page import MainPage
 from pages.login_page import LoginPage
 from pages.member_page import MemberPage
 
 # 모든 fixture를 관리하는 곳
-# session = 하나의 드라이버 공유
+
 @pytest.fixture(scope="session")
 def driver():
-    driver = create_driver()
+    dm = DriverManager()
+    driver = dm.create_driver()
+
     yield driver
-    driver.quit()
+    dm.quit_driver()
 
 # 수진 - 회원가입 용 driver를 따로 만들었어요
-# function = 테스트마다 새 드라이버 생성
 @pytest.fixture(scope="function")
 def signup_driver() :
-    driver = create_driver()
+    dm = DriverManager()
+    driver = dm.create_driver()
+    
     yield driver
-    driver.quit()
-
+    dm.quit_driver()
     
 @pytest.fixture
 def fm():
@@ -44,6 +45,7 @@ def login_page(driver):
 
 @pytest.fixture
 def signup_page(signup_driver) :
+    from pages.signup_page import SignupPage
     return SignupPage(signup_driver)
 
 @pytest.fixture
@@ -63,6 +65,20 @@ def user_data(fm):
 
 @pytest.fixture
 def logged_in_main(driver, fm, user_data, main_page, login_page,member_page):
+    ctx = LoginContext(
+        driver=driver,
+        fm=fm,
+        login_page=login_page,
+        main_page=main_page,
+        member_page=member_page,
+        user_data=user_data
+    )
+    
+    browser_utils = BrowserUtils()
+    return browser_utils.login_with_cookies(ctx)
+
+@pytest.fixture
+def logged_in_member(driver, fm, user_data, main_page, login_page,member_page):
     ctx = LoginContext(
         driver=driver,
         fm=fm,
