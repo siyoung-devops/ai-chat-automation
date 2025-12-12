@@ -17,8 +17,9 @@ SELECTORS = {
     "MEMBER_MODAL" : ".css-jgzpb4",
     "CHAT_LIST_ITEMS" : "a[data-item-index]",
     "SCROLL_TO_BOTTOM_BUTTON" : 'button[aria-label="맨 아래로 스크롤"]',
-    "UPDATE_NAME" : ".css-9jgcee",
     "TEXTAREA" : "textarea[name='input']",
+    "UPDATE_BTN" : "#root > div.MuiStack-root.css-1k8t7d9 > div > main > div.css-ts9wun.e9qrkv71 > div > section:nth-child(1) > div.MuiBox-root.css-0 > table > tbody > tr:nth-child(1) > td:nth-child(2) > div > div > button > svg",
+    
 
 }
 
