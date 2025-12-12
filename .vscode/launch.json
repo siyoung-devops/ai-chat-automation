@@ -6,11 +6,15 @@
       "request": "launch", // 새 프로세스를 실행해서 디버깅 시작
       "module": "pytest", // python -m pytest 로 실행하는 것과 동일
       "args": [
-        "tests/test_main.py", // ← 특정 파일만 지정하고 싶을 경우
+        "${workspaceFolder}/tests/test_main.py", // ← 특정 파일만 지정하고 싶을 경우
         "-v"
       ], // pytest 실행 시 -v 옵션 추가
       "console": "integratedTerminal", // VSCode 내부 터미널에서 실행
-      "justMyCode": false // 외부 라이브러리 코드까지 디버깅 허용
+      "justMyCode": false, // 외부 라이브러리 코드까지 디버깅 허용     
+      "env": {
+      "PYTHONPATH": "${workspaceFolder}"     // 👈 모듈 import 해결
+    },
+    "cwd": "${workspaceFolder}"         // 👈 작업 디렉토리 명시
     }
   ]
 }

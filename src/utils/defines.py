@@ -14,12 +14,12 @@ TARGET_URL = {
 
 SELECTORS = {
     "BTN_NEW_CHAT" : 'a[href="/ai-helpy-chat"]',
-    "MEMBER_MODAL" : ".css-jgzpb4",
+    "MEMBER_MODAL" : "button.MuiAvatar-root.MuiAvatar-circular",
     "CHAT_LIST_ITEMS" : "a[data-item-index]",
     "SCROLL_TO_BOTTOM_BUTTON" : 'button[aria-label="맨 아래로 스크롤"]',
     "TEXTAREA" : "textarea[name='input']",
-    "UPDATE_BTN" : "#root > div.MuiStack-root.css-1k8t7d9 > div > main > div.css-ts9wun.e9qrkv71 > div > section:nth-child(1) > div.MuiBox-root.css-0 > table > tbody > tr:nth-child(1) > td:nth-child(2) > div > div > button > svg",
     "CHECK_CHAT_COMPLETE" : 'div[data-status="complete"]',
+    "EDIT_BUTTONS" : 'button.MuiIconButton-root',
 
 }
 
@@ -32,6 +32,8 @@ ID = {
 NAME = {
     "INPUT_ID" : "loginId",    
     "INPUT_PW" : "password",  
+    "INPUT_NAME" : "fullname",
+    "BTN_MKT" : "marketing",
     "INPUT_NAME" : "fullname",
 }
 
@@ -51,5 +53,11 @@ XPATH = {
     "BTN_STOP" : '//button[@aria-label="취소"]',
     "BTN_RETRY" : '//button[@aria-label="다시 생성"]',
     "BTN_COPY" : '//button[@aria-label="복사"]',
+    "BOX_LANG" : "//div[@aria-haspopup='listbox']",
+    "BTNS_UPDATE" : "//*[contains(@class,'css-69t54h')]/tbody/tr/td/div/div/button",
+    "SUBMIT_NAME" : "//button[@type='submit' and normalize-space(.)='완료']",
+    "NAME_ROW": "//tr[.//td[normalize-space(.)='이름']]",
+    "NAME_EDIT_BTN": "//tr[.//td[normalize-space(.)='이름']]",
+    
     
 }
