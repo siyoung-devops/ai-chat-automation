@@ -19,7 +19,9 @@ class MemberPage(BasePage):
         print("계정관리 페이지 이동")
     
     def click_name_update(self): #이름 수정 활성화 
-        self.get_element_by_css_selector(SELECTORS["UPDATE_NAME"]).click()
-        time.sleep(0.5)
+        member_btn = self.get_elements_by_css_selector(SELECTORS["UPDATE_NAME"])
+        member_btn[0].click()
+        time.sleep(6)
+        print("이름 변경 활성화")
         
     

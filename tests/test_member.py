@@ -3,7 +3,12 @@ from utils.browser_utils import BrowserUtils
 from pages.member_page import MemberPage
 
 
-def test_member_page(logged_in_member):
-    page = logged_in_member
+def test_go_to_main(logged_in_main):
+    page = logged_in_main
 
-    page.click_member_btn() #계정관리 접속
+def test_go_to_member(member_page): #계정관리 접속
+    page = member_page
+    page.click_member_btn()
+
+    page.click_name_update()
+    
