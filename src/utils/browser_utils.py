@@ -4,6 +4,7 @@ from utils.context import LoginContext
 from utils.defines import NAME
 
 class BrowserUtils:
+    
     def save_cookies(self, driver, fm, file_name = "cookies.json"):
         cookies = driver.get_cookies()
         fm.save_json_file(file_name, cookies)
