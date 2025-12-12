@@ -58,3 +58,11 @@ class BasePage:
     
     def get_elements_by_css_selector(self, cs) :
         return self.get_elements(By.CSS_SELECTOR, cs)
+    
+    def use_execute_script(self, js, *args):
+        """공용 JS 실행 헬퍼"""
+        if args and args[0]:
+            return self.driver.execute_script(js, *args)
+        else:
+            print(f"❌ 요소 없음: {js}")
+            return False
