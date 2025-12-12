@@ -19,6 +19,7 @@ SELECTORS = {
     "SCROLL_TO_BOTTOM_BUTTON" : 'button[aria-label="맨 아래로 스크롤"]',
     "REMOVE_HISROTY" : ".css-i16wzc",
     "TEXTAREA" : "textarea[name='input']",
+    "CHECK_CHAT_COMPLETE" : 'div[data-status="complete"]',
 
 }
 
@@ -47,5 +48,8 @@ XPATH = {
     "SCROLL_MAIN_CHAT" : "//div[contains(@class,'css-ovflmb')]",
     "BTN_UPLOAD" : "//button[contains(@class,'MuiIconButton-root') and .//svg[contains(@data-icon,'plus')]]",
     "BTN_SEND" : "//button[@aria-label='보내기']",
+    "BTN_STOP" : '//button[@aria-label="취소"]',
+    "BTN_RETRY" : '//button[@aria-label="다시 생성"]',
+    "BTN_COPY" : '//button[@aria-label="복사"]',
     
 }
