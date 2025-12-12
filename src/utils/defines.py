@@ -47,5 +47,8 @@ XPATH = {
     "SCROLL_MAIN_CHAT" : "//div[contains(@class,'css-ovflmb')]",
     "BTN_UPLOAD" : "//button[contains(@class,'MuiIconButton-root') and .//svg[contains(@data-icon,'plus')]]",
     "BTN_SEND" : "//button[@aria-label='보내기']",
+    "PASS_ELEMENT" : "//p[contains(text(), '통신사')]",
+    "PASS_IFRAME" : "//iframe[contains(@src, 'certificates')]",
+    "SIGNUP_VIEW_PW" : "//button[contains(@aria-controls, 'Password')]"
     
 }
