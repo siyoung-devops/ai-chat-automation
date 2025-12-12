@@ -18,6 +18,8 @@ SELECTORS = {
     "CHAT_LIST_ITEMS" : "a[data-item-index]",
     "SCROLL_TO_BOTTOM_BUTTON" : 'button[aria-label="맨 아래로 스크롤"]',
     "REMOVE_HISROTY" : ".css-i16wzc",
+    "TEXTAREA" : "textarea[name='input']",
+
 }
 
 # By.ID
@@ -43,4 +45,7 @@ XPATH = {
     "BTN_MEMBER" : "//a[contains(@href,'account')]",
     "SIGNUP_FAIL" : "//p",
     "SCROLL_MAIN_CHAT" : "//div[contains(@class,'css-ovflmb')]",
+    "BTN_UPLOAD" : "//button[contains(@class,'MuiIconButton-root') and .//svg[contains(@data-icon,'plus')]]",
+    "BTN_SEND" : "//button[@aria-label='보내기']",
+    
 }
