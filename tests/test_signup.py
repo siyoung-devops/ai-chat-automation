@@ -248,9 +248,77 @@ def test_signup_success_no_optional(signup_page) :
     signup_page.signup_name("이수진")
     elements = signup_page.signup_checkbox()
     elements[0].click()
+    time.sleep(0.5)
+    signup_page.checkbox_spread()
     elements[4].click()
     signup_page.btn_create()
     success = signup_page.check_signup_success()
     
     assert "Forgot" in success, "PHC-TS02-TC015 : Test fail"
     print("PHC-TS02-TC015 : Test success")
+    
+# PHC-TS02-TC016
+def test_signup_fail_no_required(signup_page) :
+    email = random_string()
+    
+    signup_page.go_to_signup_page()
+    signup_page.signup_email(f"{email}@gmail.com")
+    signup_page.signup_pw("asdf1234!")
+    signup_page.signup_name("이수진")
+    elements = signup_page.signup_checkbox()
+    elements[0].click()
+    time.sleep(0.5)
+    signup_page.checkbox_spread()
+    elements[3].click()
+    btn = signup_page.btn_element()
+    
+    assert btn.get_attribute("disabled") is not None, "PHC-TS02-TC016 : Test fail"
+    print("PHC-TS02-TC016 : Test success")
+    
+# PHC-TS02-TC017
+def test_signup_14_age_verify(signup_page) :
+    email = random_string()
+    
+    signup_page.go_to_signup_page()
+    signup_page.signup_email(f"{email}@gmail.com")
+    signup_page.signup_pw("asdf1234!")
+    signup_page.signup_name("이수진")
+    elements = signup_page.signup_checkbox()
+    elements[0].click()
+    time.sleep(0.5)
+    signup_page.checkbox_spread()
+    elements[1].click()
+    btn = signup_page.btn_element()
+    
+    if "Verify" in btn.text.strip() :
+        btn.click()
+        # pass 인증화면 iframe으로 되어있음
+        iframe = signup_page.iframe_element()
+        signup_page.driver.switch_to.frame(iframe) # iframe 화면으로 이동
+        # pass 인증화면 요소 찾기
+        pass_element = signup_page.iframe_pass_element()
+        
+        assert "통신사" in pass_element.text.strip(), "PHC-TS02-TC017 : Test fail"
+        print("PHC-TS02-TC017 : Test success")
+        
+    else :
+        try :
+            signup_page.iframe_element()
+        except TimeoutException :
+            print("PHC-TS02-TC017 : Test fail")
+            
+# PHC-TS02-TC021
+def test_signup_view_password(signup_page) :
+    email = random_string()
+    
+    signup_page.go_to_signup_page()
+    signup_page.signup_email(f"{email}@gmail.com")
+    element = signup_page.signup_pw("asdf1234!")
+    signup_page.signup_name("이수진")
+    signup_page.view_password()
+    assert element.get_attribute("type") == "text", "PHC-TS02-TC021 : Test fail"
+    print("PHC-TS02-TC021 : Test success")
+    
+    signup_page.view_password()
+    assert element.get_attribute("type") == "password", "PHC-TS02-TC021 : Test fail"
+    print("PHC-TS02-TC021 : Test success")
