@@ -1,140 +1,105 @@
-from utils.headers import *
-
+import time
 from pages.base_page import BasePage
-from utils.defines import TARGET_URL, SELECTORS, NAME, XPATH
+from utils.defines import SELECTORS, XPATH, TARGET_URL
+
+from controllers.chat_input_controller import ChatInputController
+from controllers.clipboard_controller import ClipboardController
+from controllers.response_controller import ResponseController
+from controllers.scroll_controller import ScrollController
+
+from states.response_state import ResponseState
 
 class MainPage(BasePage):
     def go_to_main_page(self):
         self.go_to_page(TARGET_URL["MAIN_URL"])
+
+    def click_new_chat(self):
+        self.get_element_by_css_selector(SELECTORS["BTN_NEW_CHAT"]).click()
         time.sleep(0.5)
 
-    def click_new_chat_button(self):
-        btn = self.get_element_by_css_selector(SELECTORS["BTN_NEW_CHAT"])
-        btn.click()
-        time.sleep(0.5)
-    
-    def click_on_past_chat(self, idx):
-        list_items = self.get_elements_by_css_selector(SELECTORS["CHAT_LIST_ITEMS"])
-        if not list_items:
-            print("대화 내역이 없습니다.")
-        
-        list_items[idx].click()
+    def click_on_past_chat(self, index):
+        items = self.get_elements_by_css_selector(SELECTORS["CHAT_LIST_ITEMS"])
+        if not items:
+            raise Exception("대화 내역이 없습니다.")
+        items[index].click()
         time.sleep(1)
-    
 
-    def scroll_up_chat(self, step=200):
-        scroll_area = self.get_element_by_xpath(XPATH["SCROLL_MAIN_CHAT"])
-        if scroll_area is None:
-            print("스크롤 영역을 찾을 수 없습니다.")
-            return
+    # Scroll
+    def scroll_up_chat(self):
+        area = self.get_element_by_xpath(XPATH["SCROLL_MAIN_CHAT"])
+        ScrollController.scroll_up(self.driver, area)
 
-        scroll_to_top = None
-        while True:
-            current_scroll_top = self.driver.execute_script("return arguments[0].scrollTop;", scroll_area)
-            
-            if current_scroll_top == 0 or current_scroll_top == scroll_to_top:
-                print("맨 위 도착!")
-                break
-            
-            # 테스트 용 ===================================
-            print(f"[up] current_scroll_top :{current_scroll_top} == scroll_to_top :{scroll_to_top} ?")
-            #  ==========================================
-            
-            self.driver.execute_script(f"arguments[0].scrollBy(0, {-step});", scroll_area)
-            time.sleep(0.3)
-            
-            scroll_to_top = current_scroll_top
-    
-    def scroll_down_chat(self, step=200):
-        scroll_area = self.get_element_by_xpath(XPATH["SCROLL_MAIN_CHAT"])
-        if scroll_area is None:
-            print("스크롤 영역을 찾을 수 없습니다.")
-            return
+    def scroll_down_chat(self):
+        area = self.get_element_by_xpath(XPATH["SCROLL_MAIN_CHAT"])
+        ScrollController.scroll_down(self.driver, area)
 
-        scroll_to_btm = None
-        while True:
-            current_scroll_top = self.driver.execute_script("return arguments[0].scrollTop;", scroll_area)  
-            scroll_height = self.driver.execute_script("return arguments[0].scrollHeight;", scroll_area)    
+    def click_btn_scroll_to_bottom(self, timeout=5):
+        start = time.time()
 
-            if current_scroll_top + scroll_area.size['height'] >= scroll_height:
-                print("화면 맨 아래 도착!")
-                break
-            
-            if current_scroll_top == scroll_to_btm:
-                print("화면 맨 아래 도착!")
-                break
-            
-            # 테스트 용 ====================================
-            print(f"[down] current_scroll_top :{current_scroll_top} + scroll_area.size['height']: {scroll_area.size['height']} >= scroll_height :{scroll_height} ?")
-            #  ==========================================
-            
-            self.driver.execute_script(f"arguments[0].scrollBy(0, {step});", scroll_area)
+        while time.time() - start < timeout:
+            btn = self.get_element_by_css_selector(SELECTORS["SCROLL_TO_BOTTOM_BUTTON"])
+
+            if btn and btn.is_displayed():
+                try:
+                    btn.click()
+                    print("맨 밑으로 이동")
+                    return True
+                except Exception:
+                    pass
+
+            self.scroll_up_chat()
             time.sleep(0.3)
 
-            scroll_to_btm = current_scroll_top
-       
-    def click_btn_scroll_to_bottom(self):
-        self.scroll_up_chat()
-        
-        btn_scroll = self.get_element_by_css_selector(SELECTORS["SCROLL_TO_BOTTOM_BUTTON"])
-        
-        if btn_scroll.is_enabled():
-            btn_scroll.click()
-            print("맨 아래로 스크롤 버튼 클릭")
-            time.sleep(1)
+        raise TimeoutError("스크롤 버튼 안보임")
 
-    
-    def click_btn_send(self):
-        btn_scroll = self.get_element_by_xpath(XPATH["BTN_SEND"])
-        
-        if btn_scroll.is_enabled():
-            btn_scroll.click()
-            print("채팅 보내기 성공")
-            time.sleep(1)
-    
-    
-    def click_btn_stop(self):
-        # 취소 버튼은 hidden 으로 되어있음
-        try:
-            btn_stop = self.get_element_by_xpath(XPATH["BTN_STOP"], option="visibility")
-            if btn_stop.is_displayed():
-                btn_stop.click()
-                time.sleep(1)
-                return True
-            return False
-        except:
-            return False
-            
-            
-    def is_visible_btn_stop(self):
-        try:
-            btn_stop = self.get_element_by_xpath(XPATH["BTN_STOP"], option="visibility")
-            if btn_stop.is_displayed():
-                return False  # 채팅 진행 중
-            return True       # 채팅 완료
-        except:
-            # stop 버튼이 아예 없으면 완료로 판단
-            return True
-    
-            
-        # 응답이 완료되었는지 확인
-    def check_is_chat_complete(self):
-        while True:
-            if not self.is_visible_btn_stop():
-                print("AI응답 완료, 채팅 종료")
-                time.sleep(0.5)
-                return
-            
-    def input_chat_data(self, data):
-        input_chat = self.get_element_by_css_selector(SELECTORS["TEXTAREA"])
-        input_chat.click()
-        input_chat.clear()
-        time.sleep(1)
-        
-        # 데이터 입력
-        input_chat.send_keys(data)
-        self.click_btn_send()
+    # Chat
+    def click_send(self):
+        btn = self.get_element_by_xpath(XPATH["BTN_SEND"])
+        if btn.is_enabled():
+            btn.click()
 
+    def input_chat(self, text: str):
+        textarea = self.get_element_by_css_selector(SELECTORS["TEXTAREA"])
+
+        ChatInputController.send_text(textarea, text)
+        self.click_send()
         
-        
+        # 람다.. 라는게 있었지 = lambda: 표현식, 
+        # 아래 형식과 같은 것, 표현하고자 하는 함수를 한줄로 쓰고 싶을때 사용
+        # def wait_condition():
+        #   return self.get_element_by_xpath(...)
+        # wait_for_resp를 즉시 실행하지 않고 함수를 인자로 넘겨서 조건을 만족할때 까지 계속 호출함. 
+        result = ResponseController.wait_for_resp(
+            lambda: self.get_element_by_xpath(
+                XPATH["BTN_STOP"], option="visibility"
+            )
+        )
+        if result == ResponseState.TIMEOUT:
+            raise TimeoutError("AI 응답 시간 초과")
     
+    def click_btn_retry(self):
+        btns = self.get_elements_by_xpath(XPATH["BTN_RETRY"])
+        if not btns:
+            raise Exception("다시 생성하기 버튼이 없음.")
+        btns[-1].click()
+
+        ResponseController.wait_for_resp(
+            lambda: self.get_element_by_xpath(
+                XPATH["BTN_STOP"], option="visibility"
+            )
+        )
+
+    # Clipboard
+    def copy_last_response(self):
+        btns = self.get_elements_by_xpath(XPATH["BTN_COPY_RESPONSE"])
+        if not btns:
+            raise Exception("복사 버튼이 없음.")
+
+        btns[-1].click()
+        time.sleep(0.3)
+        return ClipboardController.read()
+    
+    def paste_last_response(self):
+        textarea = self.get_element_by_css_selector(SELECTORS["TEXTAREA"])
+        ChatInputController.paste_text(textarea)
+        time.sleep(0.3)

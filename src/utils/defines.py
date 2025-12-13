@@ -56,7 +56,7 @@ XPATH = {
     "PASS_ELEMENT" : "//p[contains(text(), '통신사')]",
     "PASS_IFRAME" : "//iframe[contains(@src, 'certificates')]",
     "SIGNUP_VIEW_PW" : "//button[contains(@aria-controls, 'Password')]",
-    "BTN_STOP" : '//button[@aria-label="취소"]',
+    "BTN_COPY_RESPONSE" : '//button[@aria-label="취소"]',
     "BTN_RETRY" : '//button[@aria-label="다시 생성"]',
     "BTN_COPY" : '//button[@aria-label="복사"]',
     "BOX_LANG" : "//div[@aria-haspopup='listbox']",
@@ -75,4 +75,5 @@ XPATH = {
     "BTN_PWD_EDIT" : "//tr[td[normalize-space(.)='비밀번호']]//button[contains(@class,'MuiIconButton-root')]",
     "SUBMIT_PWD" : "//button[@type='submit' and normalize-space(.)='완료']",
     
+    "BTN_COPY_QUESTION" : "//div[@data-floating='true'])[last()]",
 }
