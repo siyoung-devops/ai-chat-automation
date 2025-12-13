@@ -8,55 +8,55 @@ def test_go_to_main(logged_in_main):
 def test_go_to_member(member_page): 
     member_page.go_to_member_page()
 #PHC-TS05-TC001
-# def test_update_name_normal(member_page,test_cases):
-#     data = test_cases["normal"]
-#     assert member_page.refresh_member_account_page()
-#     assert member_page.open_name_edit_form()
-#     assert member_page.member_name(data["value"])
-#     assert member_page.submit_name()
+def test_update_name_normal(member_page,test_cases):
+    data = test_cases["normal"]
+    assert member_page.refresh_member_account_page()
+    assert member_page.open_name_edit_form()
+    assert member_page.member_name(data["value"])
+    assert member_page.submit_name()
 
-# def test_update_name_tab_blank(member_page,test_cases):
-#     data = test_cases["spacebar_blank"]
-#     assert member_page.refresh_member_account_page()
-#     assert member_page.open_name_edit_form()
-#     assert member_page.member_name(data["value"])
-#     assert not member_page.submit_name()
+def test_update_name_tab_blank(member_page,test_cases):
+    data = test_cases["spacebar_blank"]
+    assert member_page.refresh_member_account_page()
+    assert member_page.open_name_edit_form()
+    assert member_page.member_name(data["value"])
+    assert not member_page.submit_name()
 
-# def test_update_name_spacebar_blank(member_page,test_cases):
-#     data = test_cases["tab_blank"]
-#     assert member_page.refresh_member_account_page()
-#     assert member_page.open_name_edit_form()
-#     assert member_page.member_name(data["value"])
-#     assert not member_page.submit_name()
+def test_update_name_spacebar_blank(member_page,test_cases):
+    data = test_cases["tab_blank"]
+    assert member_page.refresh_member_account_page()
+    assert member_page.open_name_edit_form()
+    assert member_page.member_name(data["value"])
+    assert not member_page.submit_name()
 
-# def test_update_name_newline(member_page,test_cases):
-#     data = test_cases["newline"]
-#     assert member_page.refresh_member_account_page()
-#     assert member_page.open_name_edit_form()
-#     assert member_page.member_name(data["value"])
-#     assert not member_page.submit_name()
+def test_update_name_newline(member_page,test_cases):
+    data = test_cases["newline"]
+    assert member_page.refresh_member_account_page()
+    assert member_page.open_name_edit_form()
+    assert member_page.member_name(data["value"])
+    assert not member_page.submit_name()
 
-# def test_update_name_code_html(member_page,test_cases):
-#     data = test_cases["code_html"]
-#     assert member_page.refresh_member_account_page()
-#     assert member_page.open_name_edit_form()
-#     assert member_page.member_name(data["value"])
-#     assert member_page.submit_name()
+def test_update_name_code_html(member_page,test_cases):
+    data = test_cases["code_html"]
+    assert member_page.refresh_member_account_page()
+    assert member_page.open_name_edit_form()
+    assert member_page.member_name(data["value"])
+    assert member_page.submit_name()
 
-# def test_update_name_character_blank(member_page,test_cases):
-#     data = test_cases["character_blank"]
-#     assert member_page.refresh_member_account_page()
-#     assert member_page.open_name_edit_form()
-#     assert member_page.member_name(data["value"])
-#     assert member_page.submit_name()
+def test_update_name_character_blank(member_page,test_cases):
+    data = test_cases["character_blank"]
+    assert member_page.refresh_member_account_page()
+    assert member_page.open_name_edit_form()
+    assert member_page.member_name(data["value"])
+    assert member_page.submit_name()
     
-# #PHC-TS05-TC002
-# def test_update_name_maximum(member_page,test_cases):
-#     data = test_cases["maximum_name"]
-#     assert member_page.refresh_member_account_page()
-#     assert member_page.open_name_edit_form()
-#     assert member_page.member_name(data["value"])
-#     assert member_page.submit_name()
+#PHC-TS05-TC002
+def test_update_name_maximum(member_page,test_cases):
+    data = test_cases["maximum_name"]
+    assert member_page.refresh_member_account_page()
+    assert member_page.open_name_edit_form()
+    assert member_page.member_name(data["value"])
+    assert member_page.submit_name()
 
 #PHC-TS05-TC003
 def test_update_name_lang_thai_true(member_page,test_cases):

@@ -74,7 +74,6 @@ class BasePage:
             print(f"  {i}: {is_active} {handle[:8]}...")
         
         return current_handle, all_handles
-
     def ensure_account_window(self, timeout=10):
         """계정 창 확인/전환 (이미 있으면 전환만)"""
         handles = self.driver.window_handles

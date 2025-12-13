@@ -59,8 +59,7 @@ XPATH = {
     "BOX_LANG" : "//div[@aria-haspopup='listbox']",
     "BTNS_UPDATE" : "//*[contains(@class,'css-69t54h')]/tbody/tr/td/div/div/button",
     "SUBMIT_NAME" : "//button[@type='submit' and normalize-space(.)='완료']",
-    "NAME_ROW": "//tr[.//td[normalize-space(.)='이름']]",
-    "NAME_EDIT_BTN": "//tr[.//td[normalize-space(.)='이름']]",
-    
+    "NAME_ROW": "//table[contains(@class,'css-69t54h')]//tr[td[normalize-space(.)='이름']]",
+    "NAME_EDIT_BTN": "//button[contains(@class,'MuiIconButton-root')]",
     
 }
