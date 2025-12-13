@@ -59,15 +59,22 @@ def user_data(fm):
     return fm.read_json_file("user_data.json")
 
 @pytest.fixture
-def logged_in_main(driver, fm, user_data, main_page, login_page,member_page):
+def logged_in_main(driver, fm, user_data, main_page, login_page,member_page,signup_page):
     ctx = LoginContext(
         driver=driver,
         fm=fm,
         login_page=login_page,
         main_page=main_page,
         member_page=member_page,
+        signup_page=signup_page,
         user_data=user_data
     )
     
     browser_utils = BrowserUtils()
     return browser_utils.auto_login(ctx)
+
+#memeber 테스트 데이터 받는 fixture: json 한 번만 읽는 용도
+@pytest.fixture
+def test_cases(fm):
+    data = fm.read_json_file("member_test_data.json")
+    return data or {}

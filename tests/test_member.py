@@ -1,50 +1,106 @@
 from utils.headers import *
 
 from pages.member_page import MemberPage
-
 #메인페이지 접속
 def test_go_to_main(logged_in_main):
     page = logged_in_main
-
 #계정관리 접속(새창)
 def test_go_to_member(member_page): 
     member_page.go_to_member_page()
-
-#이름, 이메일, 휴대폰 번호, 비밀번호 수정 버튼
-# def click_first_update_btn(member_page):
-#     btns = member_page.update_info()  # 항상 새로 찾음
-#     assert btns, "수정 버튼 없음"
-#     btns[0].click()
-def test_debug_name_button(member_page):
-    assert member_page.go_to_member_page()
-    idx = member_page.debug_find_name_edit_button()
-    assert idx is not None
-
-# @pytest.mark.parametrize("value, should_save", [
-#     ("   ", False),  # 1: 탭/여러 공백 → 저장 안 돼야 한다
-#     (" ", False),    # 2: 스페이스 1개
-#     ("\n \r\n", False),  # 3: 개행 포함
-#     ("<html><head></head><body>&nbsp;</body></html>", True),  # 4: 코드 형태 (예: 허용)
-#     ("ㅤ", True),    # 5: 특수 공백
-# ])
-# def test_update_name_cases(member_page, value, should_save):
-#     # 1) 항상 폼 새로 열기
+#PHC-TS05-TC001
+# def test_update_name_normal(member_page,test_cases):
+#     data = test_cases["normal"]
+#     assert member_page.refresh_member_account_page()
 #     assert member_page.open_name_edit_form()
+#     assert member_page.member_name(data["value"])
+#     assert member_page.submit_name()
 
-#     # 2) 값 입력
-#     assert member_page.member_name(value)
+# def test_update_name_tab_blank(member_page,test_cases):
+#     data = test_cases["spacebar_blank"]
+#     assert member_page.refresh_member_account_page()
+#     assert member_page.open_name_edit_form()
+#     assert member_page.member_name(data["value"])
+#     assert not member_page.submit_name()
 
-#     # 3) 저장 시도
-#     result = member_page.submit_name()
+# def test_update_name_spacebar_blank(member_page,test_cases):
+#     data = test_cases["tab_blank"]
+#     assert member_page.refresh_member_account_page()
+#     assert member_page.open_name_edit_form()
+#     assert member_page.member_name(data["value"])
+#     assert not member_page.submit_name()
 
-#     # 4) 기대 결과 검증
-#     if should_save:
-#         assert result, f"'{value}' 는 저장되어야 하는 값인데 실패함"
-#     else:
-#         assert not result, f"'{value}' 는 저장되면 안 되는 값인데 저장됨"
+# def test_update_name_newline(member_page,test_cases):
+#     data = test_cases["newline"]
+#     assert member_page.refresh_member_account_page()
+#     assert member_page.open_name_edit_form()
+#     assert member_page.member_name(data["value"])
+#     assert not member_page.submit_name()
 
-# def test_btn_mkt(member_page):
-#     member_page.click_to_mkt()
+# def test_update_name_code_html(member_page,test_cases):
+#     data = test_cases["code_html"]
+#     assert member_page.refresh_member_account_page()
+#     assert member_page.open_name_edit_form()
+#     assert member_page.member_name(data["value"])
+#     assert member_page.submit_name()
+
+# def test_update_name_character_blank(member_page,test_cases):
+#     data = test_cases["character_blank"]
+#     assert member_page.refresh_member_account_page()
+#     assert member_page.open_name_edit_form()
+#     assert member_page.member_name(data["value"])
+#     assert member_page.submit_name()
     
-# def test_update_lang(member_page):
-#     member_page.choose_lan_dropbox()
+# #PHC-TS05-TC002
+# def test_update_name_maximum(member_page,test_cases):
+#     data = test_cases["maximum_name"]
+#     assert member_page.refresh_member_account_page()
+#     assert member_page.open_name_edit_form()
+#     assert member_page.member_name(data["value"])
+#     assert member_page.submit_name()
+
+#PHC-TS05-TC003
+def test_update_name_lang_thai_true(member_page,test_cases):
+    data = test_cases["thai_name_t"]
+    assert member_page.refresh_member_account_page()
+    assert member_page.open_name_edit_form()
+    assert member_page.member_name(data["value"])
+    assert member_page.submit_name()
+
+def test_update_name_lang_thai_false(member_page,test_cases):
+    data = test_cases["thai_name_f"]
+    assert member_page.refresh_member_account_page()
+    assert member_page.open_name_edit_form()
+    assert member_page.member_name(data["value"])
+    assert member_page.submit_name()
+
+def test_update_name_lang_jpn_true(member_page,test_cases):
+    data = test_cases["jpn_name_t"]
+    assert member_page.refresh_member_account_page()
+    assert member_page.open_name_edit_form()
+    assert member_page.member_name(data["value"])
+    assert member_page.submit_name()
+
+def test_update_name_lang_jpn_false(member_page,test_cases):
+    data = test_cases["jpn_name_f"]
+    assert member_page.refresh_member_account_page()
+    assert member_page.open_name_edit_form()
+    assert member_page.member_name(data["value"])
+    assert member_page.submit_name()
+
+def test_update_name_lang_eng_true(member_page,test_cases):
+    data = test_cases["eng_name_t"]
+    assert member_page.refresh_member_account_page()
+    assert member_page.open_name_edit_form()
+    assert member_page.member_name(data["value"])
+    assert member_page.submit_name()
+
+def test_update_name_lang_eng_false(member_page,test_cases):
+    data = test_cases["eng_name_f"]
+    assert member_page.refresh_member_account_page()
+    assert member_page.open_name_edit_form()
+    assert member_page.member_name(data["value"])
+    assert member_page.submit_name()
+
+#PHC-TS05-TC004
+def test_update_mail(member_page,test_cases):
+    data = test_cases["eng_name_f"]
