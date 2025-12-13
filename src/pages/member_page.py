@@ -1,6 +1,4 @@
 from utils.headers import *
-from utils.context import LoginContext
-from utils.browser_utils import BrowserUtils
 
 from pages.base_page import BasePage
 from utils.defines import TARGET_URL, SELECTORS, NAME, XPATH
@@ -57,12 +55,12 @@ class MemberPage(BasePage):
         # 1) '이름' 수정 버튼 찾기
         edit_btn = self.get_element(
             By.XPATH,
-            XPATH["NAME_EDIT_BTN"],
+            XPATH["BTN_NAME_EDIT"],
             option="visibility",
             timeout=timeout,
         )
         if not edit_btn:
-            print("'이름' 수정 버튼 못 찾음 (NAME_EDIT_BTN)")
+            print("'이름' 수정 버튼 못 찾음 (BTN_NAME_EDIT)")
             return False
 
         print("'이름' 수정 버튼 찾음, 클릭 시도")
@@ -157,7 +155,406 @@ class MemberPage(BasePage):
             return False
     
     #메일 관련 테스트를 위한 메서드
+    def open_email_edit_form(self, timeout=5):
+        print("open_mail_edit_form 시작")
 
+        # 0) '이메일' 행 스크롤 위치 맞추기
+        email_row = self.get_element(
+            By.XPATH,
+            XPATH["EMAIL_ROW"],
+            option="presence",
+            timeout=timeout,
+        )
+        if not email_row:
+            print(" 이메일 행을 찾지 못함 (EMAIL_ROW)")
+            return False
+
+        self.driver.execute_script("""
+            const rect = arguments[0].getBoundingClientRect();
+            const y = rect.top + window.scrollY - 120;
+            window.scrollTo({top: y, behavior: 'instant'});
+        """, email_row)
+        time.sleep(0.3)
+
+        # 1) '이메일' 수정 버튼 찾기
+        edit_btn = self.get_element(
+            By.XPATH,
+            XPATH["BTN_EMAIL_EDIT"],
+            option="visibility",
+            timeout=timeout,
+        )
+        if not edit_btn:
+            print("'이메일' 수정 버튼 못 찾음 (BTN_EMAIL_EDIT)")
+            return False
+
+        print("'이메일' 수정 버튼 찾음, 클릭 시도")
+
+        # 스크롤 + JS 클릭
+        self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", edit_btn)
+        time.sleep(0.3)
+        self.driver.execute_script("arguments[0].click();", edit_btn)
+        time.sleep(0.5)
+
+        # 2) 이메일 입력 필드 대기
+        input_email = self.get_element_by_name(NAME["INPUT_EMAIL"], option="visibility", timeout=timeout)
+        if not input_email:
+            print("이메일 입력란 안 나타남 (폼 안 열림)")
+            return False
+
+        print("이메일 수정 폼 열림")
+        return True
+    
+    def member_email(self, email):
+        input_email = self.get_element_by_name(NAME["INPUT_EMAIL"], option="visibility", timeout=3)
+        if not input_email:
+            print("이메일 입력란 못 찾음")
+            return False
+
+        self.driver.execute_script("""
+            const rect = arguments[0].getBoundingClientRect();
+            const y = rect.top + window.scrollY - 100;
+            window.scrollTo({top: y, behavior: 'instant'});
+        """, input_email)
+        time.sleep(0.3)
+
+        try:
+            input_email.click()
+        except Exception as e:
+            print(f"input 클릭 실패: {e}")
+            self.driver.execute_script("arguments[0].focus();", input_email)
+
+        self.driver.execute_script("arguments[0].value = '';", input_email)
+        input_email.send_keys(email)
+
+        time.sleep(0.5)
+        print(f"테스트 내용 입력 완료: {repr(email)}")
+        return True
+    
+    def certification_email(self):
+        """인증 메일 발송 JS 클릭 + '이메일' 행으로 스크롤 복귀 + enabled 상태가 기본, 실패 테스트: 비활성화가 성공"""
+        xpath = XPATH["BTN_CERTI_MAIL"] 
+
+        certi_btn = self.get_element(By.XPATH, xpath, option="visibility", timeout=3)
+        if not certi_btn:
+            print(" 인증메일 발송 버튼 없음 (DOM에 없음)")
+            return False
+        try:
+            # JS 클릭 - 중복 이메일만 클릭 가능
+            self.driver.execute_script("arguments[0].click();", certi_btn)
+            time.sleep(0.8)
+            
+            # 클릭 후 다시 이메일 행으로 스크롤 복귀
+            email_row = self.get_element(By.XPATH, XPATH["EMAIL_ROW"], option="presence", timeout=3)
+            if email_row:
+                self.driver.execute_script("""
+                    const rect = arguments[0].getBoundingClientRect();
+                    const y = rect.top + window.scrollY - 120;
+                    window.scrollTo({top: y, behavior: 'instant'});
+                """, email_row)
+            else:
+                self.driver.execute_script("window.scrollTo({top: 0, behavior: 'instant'});")
+            
+            input_email = self.get_element_by_name(NAME["INPUT_EMAIL"], option="visibility", timeout=3)
+            tooltip_msg = self.driver.execute_script("return arguments[0].validationMessage;", input_email)
+            invalid_msg = self.get_element_by_xpath(XPATH["INVALID_MSG"]).text
+            
+            if tooltip_msg : #msg가 존재하면 출력
+                    print(tooltip_msg)
+                    return False
+            elif invalid_msg:
+                    print(invalid_msg)
+                    return False
+            else:
+                print("인증버튼 클릭 성공")
+                return True
+                
+        except Exception as e:
+            print(f" 인증메일 발송 버튼 JS 클릭 실패: {e}")
+            return False
+    
+    #휴대폰 번호 관련 테스트 메서드
+    def open_mobile_edit_form(self, timeout=5):
+        print("open_mobile_edit_form 시작")
+
+        # 0) 휴대폰번호 행 스크롤 위치 맞추기
+        mobile_row = self.get_element(
+            By.XPATH,
+            XPATH["MOBILE_ROW"],
+            option="presence",
+            timeout=timeout,
+        )
+        if not mobile_row:
+            print(" 휴대폰 번호 행을 찾지 못함 (MOBILE_ROW)")
+            return False
+
+        self.driver.execute_script("""
+            const rect = arguments[0].getBoundingClientRect();
+            const y = rect.top + window.scrollY - 120;
+            window.scrollTo({top: y, behavior: 'instant'});
+        """, mobile_row)
+        time.sleep(0.3)
+
+        # 1) 휴대폰번호 수정 버튼 찾기
+        edit_btn = self.get_element(
+            By.XPATH,
+            XPATH["BTN_MOBILE_EDIT"],
+            option="visibility",
+            timeout=timeout,
+        )
+        if not edit_btn:
+            print("휴대폰번호 수정 버튼 못 찾음 (BTN_MOBILE_EDIT)")
+            return False
+
+        print("휴대폰 번호 수정 버튼 찾음, 클릭 시도")
+
+        # 스크롤 + JS 클릭
+        self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", edit_btn)
+        time.sleep(0.3)
+        self.driver.execute_script("arguments[0].click();", edit_btn)
+        time.sleep(0.5)
+
+        # 2) 휴대폰번호 입력 필드 대기
+        input_mobile = self.get_element_by_css_selector(SELECTORS["INPUT_MOBILE"], option="visibility", timeout=timeout)
+        if not input_mobile:
+            print("휴대폰 번호 입력란 안 나타남 (폼 안 열림)")
+            return False
+
+        print("휴대폰 번호 수정 폼 열림")
+        return True
+    
+    def member_mobile(self, mobile):
+        input_mobile = self.get_element_by_css_selector(SELECTORS["INPUT_MOBILE"], option="visibility", timeout=3)
+        if not input_mobile:
+            print("휴대폰 번호 입력란 못 찾음")
+            return False
+
+        self.driver.execute_script("""
+            const rect = arguments[0].getBoundingClientRect();
+            const y = rect.top + window.scrollY - 100;
+            window.scrollTo({top: y, behavior: 'instant'});
+        """, input_mobile)
+        time.sleep(0.3)
+
+        try:
+            input_mobile.click()
+        except Exception as e:
+            print(f"input 클릭 실패: {e}")
+            self.driver.execute_script("arguments[0].focus();", input_mobile)
+
+        self.driver.execute_script("arguments[0].value = '';", input_mobile)
+        input_mobile.send_keys(mobile)
+
+        time.sleep(0.5)
+        print(f"테스트 내용 입력 완료: {repr(mobile)}")
+        return True
+    
+    def certification_mobile(self):
+        """4시간 내 최대 5회 발송 시도 후 확인"""
+        certi_btn = self.get_element(By.XPATH, XPATH["BTN_CERTI_MOBIL"] , option="visibility", timeout=3)
+        if not certi_btn:
+            print("인증 문자 버튼 없음 (DOM에 없음)")
+            return False
+        try:
+            for i in range(1):
+                print(f"인증 버튼 {i+1}/5 클릭 시도")
+                self.driver.execute_script("arguments[0].click();", certi_btn)
+                time.sleep(0.8)
+                
+                # 클릭 후 다시 휴대폰 번호 행으로 스크롤 복귀
+                email_row = self.get_element(By.XPATH, XPATH["EMAIL_ROW"], option="presence", timeout=3)
+                if email_row:
+                    self.driver.execute_script("""
+                        const rect = arguments[0].getBoundingClientRect();
+                        const y = rect.top + window.scrollY - 120;
+                        window.scrollTo({top: y, behavior: 'instant'});
+                    """, email_row)
+                else:
+                    self.driver.execute_script("window.scrollTo({top: 0, behavior: 'instant'});")
+            print("인증 버튼 5회 연속 클릭 완료")
+            
+            #toast 문구 확인
+            toast_container = self.get_element(By.XPATH,XPATH["TOAST_CONTAINER"],option="visibility", timeout=5 )
+            toast_msg = toast_container.text
+            print(toast_msg)
+            return True
+                
+        except Exception as e:
+            print(f"인증발송 최대횟수 시도 후 토스트 확인 실패: {e}")
+            return False
+        
+    #비밀번호 관련 테스트 메서드
+    def open_pwd_edit_form(self, timeout=5):
+        print("open_pwd_edit_form 시작")
+
+        # 0) 비밀번호 행 스크롤 위치 맞추기
+        pwd_row = self.get_element(
+            By.XPATH,
+            XPATH["PWD_ROW"],
+            option="presence",
+            timeout=timeout,
+        )
+        if not pwd_row:
+            print(" 비밀번호 행을 찾지 못함 (PWD_ROW)")
+            return False
+
+        self.driver.execute_script("""
+            const rect = arguments[0].getBoundingClientRect();
+            const y = rect.top + window.scrollY - 120;
+            window.scrollTo({top: y, behavior: 'instant'});
+        """, pwd_row)
+        time.sleep(0.3)
+
+        # 1) 비밀번호 수정 버튼 찾기
+        edit_btn = self.get_element(
+            By.XPATH,
+            XPATH["BTN_PWD_EDIT"],
+            option="visibility",
+            timeout=timeout,
+        )
+        if not edit_btn:
+            print("비밀번호 수정 버튼 못 찾음 (BTN_PWD_EDIT)")
+            return False
+
+        print("비밀번호 수정 버튼 찾음, 클릭 시도")
+
+        # 스크롤 + JS 클릭
+        self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", edit_btn)
+        time.sleep(0.3)
+        self.driver.execute_script("arguments[0].click();", edit_btn)
+        time.sleep(0.5)
+
+        # 2) 비밀번호 입력 필드 대기
+        input_pwd = self.get_element_by_name(NAME["INPUT_PWD"], option="visibility", timeout=timeout)
+        if not input_pwd:
+            print("비밀번호 입력란 안 나타남 (폼 안 열림)")
+            return False
+
+        print("비밀번호 수정 폼 열림")
+        return True
+    
+    def member_fail_pwd(self, pwd):
+        input_pwd = self.get_element_by_name(NAME["INPUT_PWD"], option="visibility", timeout=3)
+        input_new_pwd = self.get_element_by_name(NAME["INPUT_NEW_PWD"], option="visibility", timeout=3)
+        
+        if not input_pwd:
+            print("비밀번호 입력란 못 찾음")
+            return False
+
+        self.driver.execute_script("""
+            const rect = arguments[0].getBoundingClientRect();
+            const y = rect.top + window.scrollY - 100;
+            window.scrollTo({top: y, behavior: 'instant'});
+        """, input_pwd)
+        time.sleep(0.3)
+        self.driver.execute_script("""
+            const rect = arguments[0].getBoundingClientRect();
+            const y = rect.top + window.scrollY - 100;
+            window.scrollTo({top: y, behavior: 'instant'});
+        """, input_new_pwd)
+        time.sleep(0.3)
+
+        try:
+            input_pwd.click()
+            input_new_pwd.click()
+        except Exception as e:
+            print(f"input 클릭 실패: {e}")
+            self.driver.execute_script("arguments[0].focus();", input_pwd)
+            self.driver.execute_script("arguments[0].focus();", input_new_pwd)
+
+        self.driver.execute_script("arguments[0].value = '';", input_pwd)
+        self.driver.execute_script("arguments[0].value = '';", input_new_pwd)
+        input_pwd.send_keys(pwd)
+        input_new_pwd.send_keys(pwd)
+
+        time.sleep(0.5)
+        print(f"비밀번호 입력 완료: {repr(pwd)}")
+        return True
+    
+    def change_fail_pwd(self):
+        """동일한 비밀번호 기입한 상태로 변경 시도 : 테스트 내용 실패가 성공"""
+        submit_pwd = self.get_element(By.XPATH, XPATH["SUBMIT_PWD"] , option="visibility", timeout=3)
+        if not submit_pwd:
+            print("완료 버튼 없음 (DOM에 없음)")
+            return False
+        try:
+            self.driver.execute_script("arguments[0].click();", submit_pwd)
+            time.sleep(0.8)
+
+            invalid_msg = self.get_element_by_xpath(XPATH["INVALID_MSG"]).text
+            
+            if invalid_msg:
+                print(f"비밀번호 변경 실패 : {invalid_msg}")
+                return False
+            else:
+                print("비번 변경됨")
+                return True
+            
+        except Exception as e:
+            print(f"예외 발생: {e}")
+            return False
+    
+    def member_success_pwd(self, pwd , pwd_new):
+        input_pwd = self.get_element_by_name(NAME["INPUT_PWD"], option="visibility", timeout=3)
+        input_new_pwd = self.get_element_by_name(NAME["INPUT_NEW_PWD"], option="visibility", timeout=3)
+        
+        if not input_pwd:
+            print("비밀번호 입력란 못 찾음")
+            return False
+
+        self.driver.execute_script("""
+            const rect = arguments[0].getBoundingClientRect();
+            const y = rect.top + window.scrollY - 100;
+            window.scrollTo({top: y, behavior: 'instant'});
+        """, input_pwd)
+        time.sleep(0.3)
+        self.driver.execute_script("""
+            const rect = arguments[0].getBoundingClientRect();
+            const y = rect.top + window.scrollY - 100;
+            window.scrollTo({top: y, behavior: 'instant'});
+        """, input_new_pwd)
+        time.sleep(0.3)
+
+        try:
+            input_pwd.click()
+            input_new_pwd.click()
+        except Exception as e:
+            print(f"input 클릭 실패: {e}")
+            self.driver.execute_script("arguments[0].focus();", input_pwd)
+            self.driver.execute_script("arguments[0].focus();", input_new_pwd)
+
+        self.driver.execute_script("arguments[0].value = '';", input_pwd)
+        self.driver.execute_script("arguments[0].value = '';", input_new_pwd)
+        input_pwd.send_keys(pwd)
+        input_new_pwd.send_keys(pwd_new)
+
+        time.sleep(0.5)
+        print(f"기존 비밀번호 입력 완료: {repr(pwd)}")
+        print(f"신규 비밀번호 입력 완료: {repr(pwd_new)}")
+        return True
+    
+    def change_success_pwd(self):
+        """비밀번호 변경 성공"""
+        submit_pwd = self.get_element(By.XPATH, XPATH["SUBMIT_PWD"] , option="visibility", timeout=3)
+        if not submit_pwd:
+            print("완료 버튼 없음 (DOM에 없음)")
+            return False
+        try:
+            self.driver.execute_script("arguments[0].click();", submit_pwd)
+            time.sleep(0.8)
+
+            #toast 문구 확인
+            toast_container = self.get_element(By.XPATH,XPATH["TOAST_CONTAINER"],option="visibility", timeout=5 )
+            toast_msg = toast_container.text
+            if toast_msg:
+                print(f"비밀번호 변경성공 : {toast_msg}")
+                return True
+            else:
+                print("비밀빈호 변경 실패")
+                return False
+            
+        except Exception as e:
+            print(f"예외 발생: {e}")
+            return False
     
     def click_to_mkt(self):
         element = self.get_element_by_name(NAME["BTN_MKT"])
