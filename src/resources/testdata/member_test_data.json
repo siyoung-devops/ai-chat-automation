@@ -50,6 +50,31 @@
     "eng_name_f": {
       "value": "Möller",
       "should_save": true
+    },
+    "email_blank_tab": {
+      "value": "    ",
+      "should_save": true
+    },
+    "email_duplication": {
+      "value": "mmmisol@naver.com",
+      "should_save": true
+    },
+    "email_character": {
+      "value": "qa3team02@eli_cer.com",
+      "should_save": true
+    },
+    "mobile": {
+      "value": "011-1234-5678",
+      "should_save": true
+    },
+    "valid_pwd": {
+      "value": "xptmxm12!",
+      "should_save": true
+    },
+    "exist_pwd": {
+      "value": "team02fighting!",
+      "should_save": true
     }
   }
+  
   

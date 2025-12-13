@@ -19,7 +19,7 @@ SELECTORS = {
     "SCROLL_TO_BOTTOM_BUTTON" : 'button[aria-label="맨 아래로 스크롤"]',
     "TEXTAREA" : "textarea[name='input']",
     "CHECK_CHAT_COMPLETE" : 'div[data-status="complete"]',
-    "EDIT_BUTTONS" : 'button.MuiIconButton-root',
+    "INPUT_MOBILE" : "input[name='to'][autocomplete='tel']",
 
 }
 
@@ -35,6 +35,9 @@ NAME = {
     "INPUT_NAME" : "fullname",
     "BTN_MKT" : "marketing",
     "INPUT_NAME" : "fullname",
+    "INPUT_EMAIL" : "to",
+    "INPUT_PWD" :"password",
+    "INPUT_NEW_PWD" : "newPassword",
 }
 
 # By.XPATH
@@ -57,9 +60,19 @@ XPATH = {
     "BTN_RETRY" : '//button[@aria-label="다시 생성"]',
     "BTN_COPY" : '//button[@aria-label="복사"]',
     "BOX_LANG" : "//div[@aria-haspopup='listbox']",
-    "BTNS_UPDATE" : "//*[contains(@class,'css-69t54h')]/tbody/tr/td/div/div/button",
     "SUBMIT_NAME" : "//button[@type='submit' and normalize-space(.)='완료']",
     "NAME_ROW": "//table[contains(@class,'css-69t54h')]//tr[td[normalize-space(.)='이름']]",
-    "NAME_EDIT_BTN": "//button[contains(@class,'MuiIconButton-root')]",
+    "BTN_NAME_EDIT": "//tr[td[normalize-space(.)='이름']]//button[contains(@class,'MuiIconButton-root')]",
+    "EMAIL_ROW" : "//table[contains(@class,'css-69t54h')]//tr[td[normalize-space(.)='이메일']]",
+    "BTN_EMAIL_EDIT": "//tr[td[normalize-space(.)='이메일']]//button[contains(@class,'MuiIconButton-root')]",
+    "BTN_CERTI_MAIL" : "//button[@type='submit' and normalize-space(.)='인증메일 발송']",
+    "INVALID_MSG" : "//p[contains(@id,'helper-text')]",
+    "MOBILE_ROW": "//table[contains(@class,'css-69t54h')]//tr[td[normalize-space(.)='휴대폰 번호']]",
+    "BTN_MOBILE_EDIT" : "//tr[td[normalize-space(.)='휴대폰 번호']]//button[contains(@class,'MuiIconButton-root')]",
+    "BTN_CERTI_MOBIL" : "//button[@type='submit' and contains(@class,'MuiLoadingButton-root')]",
+    "TOAST_CONTAINER" : "//div[@role='alert'][@aria-describedby='notistack-snackbar']",
+    "PWD_ROW" : "//table[contains(@class,'css-69t54h')]//tr[td[normalize-space(.)='비밀번호']]",
+    "BTN_PWD_EDIT" : "//tr[td[normalize-space(.)='비밀번호']]//button[contains(@class,'MuiIconButton-root')]",
+    "SUBMIT_PWD" : "//button[@type='submit' and normalize-space(.)='완료']",
     
 }
