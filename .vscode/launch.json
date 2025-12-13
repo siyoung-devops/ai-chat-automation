@@ -7,7 +7,8 @@
       "module": "pytest", // python -m pytest 로 실행하는 것과 동일
       "args": [
         "tests/test_main.py", // ← 특정 파일만 지정하고 싶을 경우
-        "-v"
+        "-v",
+        "-s"
       ], // pytest 실행 시 -v 옵션 추가
       "console": "integratedTerminal", // VSCode 내부 터미널에서 실행
       "justMyCode": false // 외부 라이브러리 코드까지 디버깅 허용
