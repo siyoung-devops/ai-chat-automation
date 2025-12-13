@@ -61,10 +61,38 @@ class BasePage:
     def get_elements_by_css_selector(self, cs) :
         return self.get_elements(By.CSS_SELECTOR, cs)
     
-    def use_execute_script(self, js, *args):
-        """공용 JS 실행 헬퍼"""
-        if args and args[0]:
-            return self.driver.execute_script(js, *args)
-        else:
-            print(f"❌ 요소 없음: {js}")
-            return False
+    def debug_current_window_safe(self):
+        """안전한 창 디버깅 (제목 없이 핸들만)"""
+        current_handle = self.driver.current_window_handle
+        all_handles = self.driver.window_handles
+        
+        print(f"🔍 현재 활성: {current_handle[:8]}...")
+        print(f"📋 창 목록 ({len(all_handles)}개):")
+        
+        for i, handle in enumerate(all_handles):
+            is_active = "✅" if handle == current_handle else "  "
+            print(f"  {i}: {is_active} {handle[:8]}...")
+        
+        return current_handle, all_handles
+    def ensure_account_window(self, timeout=10):
+        """계정 창 확인/전환 (이미 있으면 전환만)"""
+        handles = self.driver.window_handles
+        
+        # 계정 페이지 URL 패턴
+        account_patterns = ["accounts.elice.io", "member", "account"]
+        
+        for handle in handles:
+            self.driver.switch_to.window(handle)
+            current_url = self.driver.current_url
+            
+            # 계정 페이지면 전환 완료
+            for pattern in account_patterns:
+                if pattern in current_url:
+                    print(f"계정 창 발견: {current_url[:50]}")
+                    self.debug_current_window_safe()
+                    return True
+            
+            time.sleep(0.5)
+        
+        print("계정 창 없음")
+        return False
