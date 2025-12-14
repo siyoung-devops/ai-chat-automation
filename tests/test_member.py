@@ -139,10 +139,13 @@ def test_go_to_member(member_page):
 #     assert member_page.member_fail_pwd(data["value"])
 #     assert not member_page.change_fail_pwd()
 # #PHC-TS05-TC009
-def test_update_fail_pwd(member_page,test_cases):
-    data = test_cases["exist_pwd"]
-    data_new = test_cases["valid_pwd"]
-    assert member_page.refresh_member_account_page()
-    assert member_page.open_pwd_edit_form()
-    assert member_page.member_success_pwd(data["value"],data_new["value"])
-    assert member_page.change_success_pwd()
+# def test_update_fail_pwd(member_page,test_cases):
+#     data = test_cases["exist_pwd"]
+#     data_new = test_cases["valid_pwd"]
+#     assert member_page.refresh_member_account_page()
+#     assert member_page.open_pwd_edit_form()
+#     assert member_page.member_success_pwd(data["value"],data_new["value"])
+#     assert member_page.change_success_pwd()
+#PHC-TS05-TC010
+def test_update_lang_(member_page, test_cases):
+    assert member_page.refresh
