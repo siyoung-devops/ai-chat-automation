@@ -1,56 +1,34 @@
 import time
-
 from states.response_state import ResponseState
 from enums.ai_response import AIresponse
 
-class ResponseController:
-    
-    @staticmethod
-    def until(condition, timeout=15):
-        start = time.time()
+from utils.defines import TIMEOUT_MAX, STOPPED_MAX
 
-        # 특정 상황이 아니라면 15초까지 기다림.
-        while time.time() - start < timeout:
+class ResponseController:
+
+    @staticmethod
+    def until(condition, timeout = TIMEOUT_MAX):
+        start = time.monotonic()
+        while time.monotonic() - start < timeout:
             try:
                 if condition():
                     return True
             except:
                 pass
-
             time.sleep(0.3)
         return False
 
-
     @staticmethod
-    def wait_for_resp(get_stop_btn, timeout=15, stop_time=7):
-        state = ResponseState(get_stop_btn, stop_time)
-
-        finished = ResponseController.until(
-            condition=state.check,  # 위에 until 함수의 컨디션 == state의 check자체를 넘김
-            timeout=timeout         # timeout(15초) 동안 함수 계속 호출, state.check()가 true되면 바로 멈춤. 
+    def wait_for_resp(btn_stop, stop_time = STOPPED_MAX, timeout = TIMEOUT_MAX):
+        state = ResponseState(
+            resp_btn_stop=btn_stop,
+            stop_time=stop_time,
+            resp_timeout=timeout
         )
 
-        if not finished:
-            return AIresponse.TIMEOUT
+        finished = ResponseController.until(
+            condition=state.check,
+            timeout=timeout 
+        )
 
-        return state.result
-    
-    
-    # def wait_for_resp(get_stop_btn, timeout=15, stop_time=7):
-    #     start = time.time()
-    #     stop_clicked = False
-
-    #     while time.time() - start < timeout:
-    #         btn = get_stop_btn()
-
-    #         if not btn or not btn.is_displayed():
-    #             return AIresponse.COMPLETED
-
-    #         if not stop_clicked and time.time() - start >= stop_time:
-    #             btn.click()
-    #             stop_clicked = True
-    #             return AIresponse.CANCELED
-
-    #         time.sleep(0.3)
-
-    #     return AIresponse.TIMEOUT
+        return state.result if finished else AIresponse.TIMEOUT

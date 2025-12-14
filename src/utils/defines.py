@@ -5,6 +5,8 @@ import pyautogui
 # 예시입니다!!
 SCREEN_WIDTH, SCREEN_HEIGHT = pyautogui.size()
 FULLSCREEN_SIZE = (SCREEN_WIDTH, SCREEN_HEIGHT)
+TIMEOUT_MAX = 10
+STOPPED_MAX = 5
 
 
 TARGET_URL = {
@@ -56,9 +58,9 @@ XPATH = {
     "PASS_ELEMENT" : "//p[contains(text(), '통신사')]",
     "PASS_IFRAME" : "//iframe[contains(@src, 'certificates')]",
     "SIGNUP_VIEW_PW" : "//button[contains(@aria-controls, 'Password')]",
-    "BTN_COPY_RESPONSE" : '//button[@aria-label="취소"]',
+
     "BTN_RETRY" : '//button[@aria-label="다시 생성"]',
-    "BTN_COPY" : '//button[@aria-label="복사"]',
+    "BTN_COPY_RESPONE" : '//button[@aria-label="복사"]',
     "BOX_LANG" : "//div[@aria-haspopup='listbox']",
     "SUBMIT_NAME" : "//button[@type='submit' and normalize-space(.)='완료']",
     "NAME_ROW": "//table[contains(@class,'css-69t54h')]//tr[td[normalize-space(.)='이름']]",
@@ -76,4 +78,5 @@ XPATH = {
     "SUBMIT_PWD" : "//button[@type='submit' and normalize-space(.)='완료']",
     
     "BTN_COPY_QUESTION" : "//div[@data-floating='true'])[last()]",
+    "BTN_STOP" : '//button[@aria-label="취소"]',
 }

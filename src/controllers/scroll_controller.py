@@ -1,20 +1,27 @@
 import time
 
+from utils.defines import STOPPED_MAX
+STEP = 500
 
 class ScrollController:
     # scroll_area = self.get_element_by_xpath(XPATH["SCROLL_MAIN_CHAT"])
         
     @staticmethod
-    def scroll_up(driver, scroll_area, step=300):
+    def scroll_up(driver, scroll_area, step=STEP, max_scroll_time=STOPPED_MAX):
 
         if not scroll_area:
             print("스크롤 영역을 찾을 수 없습니다.")
             return
-
+        
+        start_time = time.time()
         prev_top = None
         while True:
             current_top = driver.execute_script("return arguments[0].scrollTop;", scroll_area)
-
+            
+            if time.time() - start_time >= max_scroll_time:
+                print(f"{max_scroll_time}초 경과, 스크롤 중단")
+                break
+        
             if current_top == 0 or current_top == prev_top:
                 print("화면 맨 위 도착!")
                 break
@@ -31,7 +38,7 @@ class ScrollController:
             prev_top = current_top
 
     @staticmethod
-    def scroll_down(driver, scroll_area, step=300):
+    def scroll_down(driver, scroll_area, step=STEP):
 
         if not scroll_area:
             print("스크롤 영역을 찾을 수 없습니다.")
