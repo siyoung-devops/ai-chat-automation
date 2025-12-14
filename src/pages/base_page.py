@@ -25,6 +25,9 @@ class BasePage:
             
             elif option == "visibility":
                 return wait.until(EC.visibility_of_element_located((by, value)))
+            
+            elif option == "clickable":
+                return wait.until(EC.element_to_be_clickable((by, value)))
         except (TimeoutException, NoSuchElementException):
             print(f"element를 {by} = {value} 로 찾을 수 없음.")
             return None

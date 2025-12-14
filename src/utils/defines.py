@@ -15,13 +15,15 @@ TARGET_URL = {
 
 
 SELECTORS = {
-    "BTN_NEW_CHAT" : 'a[href="/ai-helpy-chat"]',
+    "BTNS_HOME_MENU" : 'a[href="/ai-helpy-chat"]',
     "MEMBER_MODAL" : "button.MuiAvatar-root.MuiAvatar-circular",
     "CHAT_LIST_ITEMS" : "a[data-item-index]",
     "SCROLL_TO_BOTTOM_BUTTON" : 'button[aria-label="맨 아래로 스크롤"]',
     "TEXTAREA" : "textarea[name='input']",
     "CHECK_CHAT_COMPLETE" : 'div[data-status="complete"]',
     "INPUT_MOBILE" : "input[name='to'][autocomplete='tel']",
+    "BTN_MENU_BAR" : "button.EliceLayoutSidenavHamburger-root",
+    
 
 }
 
@@ -79,4 +81,13 @@ XPATH = {
     
     "BTN_COPY_QUESTION" : "//div[@data-floating='true'])[last()]",
     "BTN_STOP" : '//button[@aria-label="취소"]',
+    
+    # 메인 화면 '메뉴'
+    "BTN_MENU_OPEN": "//button[normalize-space(.)='메뉴 열기']",
+    "BTN_MENU_CLOSE": "//button[normalize-space(.)='메뉴 접기']",
+        
+    # ai 모델
+    "BTN_MODEL_DROPDOWN" : "//button[.//div[contains(@class,'MuiStack-root')]]",
+    
 }
+
