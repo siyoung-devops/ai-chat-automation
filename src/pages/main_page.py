@@ -7,7 +7,7 @@ from controllers.clipboard_controller import ClipboardController
 from controllers.response_controller import ResponseController
 from controllers.scroll_controller import ScrollController
 
-from states.response_state import ResponseState
+from utils.defines import TIMEOUT_MAX
 
 class MainPage(BasePage):
     def go_to_main_page(self):
@@ -33,16 +33,16 @@ class MainPage(BasePage):
         area = self.get_element_by_xpath(XPATH["SCROLL_MAIN_CHAT"])
         ScrollController.scroll_down(self.driver, area)
 
-    def click_btn_scroll_to_bottom(self, timeout=5):
+    def click_btn_scroll_to_bottom(self, timeout = TIMEOUT_MAX, wait_time=3):
         start = time.time()
 
         while time.time() - start < timeout:
             btn = self.get_element_by_css_selector(SELECTORS["SCROLL_TO_BOTTOM_BUTTON"])
 
-            if btn and btn.is_displayed():
+            if btn and btn.is_enabled():
                 try:
                     btn.click()
-                    print("맨 밑으로 이동")
+                    print("맨 밑으로 이동스크롤 클릭")
                     return True
                 except Exception:
                     pass
@@ -60,22 +60,14 @@ class MainPage(BasePage):
 
     def input_chat(self, text: str):
         textarea = self.get_element_by_css_selector(SELECTORS["TEXTAREA"])
-
         ChatInputController.send_text(textarea, text)
         self.click_send()
-        
-        # 람다.. 라는게 있었지 = lambda: 표현식, 
-        # 아래 형식과 같은 것, 표현하고자 하는 함수를 한줄로 쓰고 싶을때 사용
-        # def wait_condition():
-        #   return self.get_element_by_xpath(...)
-        # wait_for_resp를 즉시 실행하지 않고 함수를 인자로 넘겨서 조건을 만족할때 까지 계속 호출함. 
+    
         result = ResponseController.wait_for_resp(
-            lambda: self.get_element_by_xpath(
-                XPATH["BTN_STOP"], option="visibility"
-            )
+            btn_stop=lambda: self.get_element_by_xpath(XPATH["BTN_STOP"])
         )
-        if result == ResponseState.TIMEOUT:
-            raise TimeoutError("AI 응답 시간 초과")
+        time.sleep(1)
+
     
     def click_btn_retry(self):
         btns = self.get_elements_by_xpath(XPATH["BTN_RETRY"])
@@ -83,23 +75,25 @@ class MainPage(BasePage):
             raise Exception("다시 생성하기 버튼이 없음.")
         btns[-1].click()
 
-        ResponseController.wait_for_resp(
-            lambda: self.get_element_by_xpath(
-                XPATH["BTN_STOP"], option="visibility"
-            )
+        result = ResponseController.wait_for_resp(
+            btn_stop=lambda: self.get_element_by_xpath(XPATH["BTN_STOP"])
         )
+        time.sleep(1)
 
     # Clipboard
     def copy_last_response(self):
-        btns = self.get_elements_by_xpath(XPATH["BTN_COPY_RESPONSE"])
+        btns = self.get_elements_by_xpath(XPATH["BTN_COPY_RESPONE"])
         if not btns:
             raise Exception("복사 버튼이 없음.")
 
         btns[-1].click()
-        time.sleep(0.3)
+        time.sleep(0.5)
+        print("복사 완성")
         return ClipboardController.read()
     
     def paste_last_response(self):
         textarea = self.get_element_by_css_selector(SELECTORS["TEXTAREA"])
-        ChatInputController.paste_text(textarea)
-        time.sleep(0.3)
+        ChatInputController.paste_text(textarea, self.copy_last_response())
+        time.sleep(1)
+        print("붙여넣기 완성")
+

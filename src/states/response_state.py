@@ -1,28 +1,36 @@
 import time
 from enums.ai_response import AIresponse
 
+from utils.defines import TIMEOUT_MAX, STOPPED_MAX
 
 class ResponseState:
-    def __init__(self, get_stop_btn, stop_time):
-        self.get_stop_btn = get_stop_btn
-        self.stop_time = stop_time
-        self.start = time.time()
+    def __init__(self, resp_btn_stop, stop_time=STOPPED_MAX, resp_timeout=TIMEOUT_MAX):
+        self.resp_btn_stop = resp_btn_stop  # 함수형, lambda: WebElement
+        self.stop_time = stop_time          # STOP 클릭 시점
+        self.timeout = resp_timeout         # 최대 대기 시간
+
+        self.start = time.monotonic()
         self.stop_clicked = False
         self.result = None
 
     def check(self):
-        btn = self.get_stop_btn()
+        passed = time.monotonic() - self.start
 
-        # 일단은 stop 버튼이 사라지면 완료로 판단. 
-        if not btn or not btn.is_displayed():
-            self.result = AIresponse.COMPLETED
+        if passed >= self.timeout:
+            self.result = AIresponse.TIMEOUT
+            print("타임 아웃")
             return True
 
-        # stop_time을 경과하면 취소 버튼을 클릭하게 함. 
-        if time.time() - self.start > self.stop_time and not self.stop_clicked:
-            btn.click()
-            self.stop_clicked = True
-            self.result = AIresponse.STOPPED
-            return True
+        if passed >= self.stop_time and not self.stop_clicked:
+            try:
+                btn = self.resp_btn_stop()
+                if btn and btn.is_displayed():
+                    btn.click()
+                    self.stop_clicked = True
+                    self.result = AIresponse.STOPPED
+                    print("취소 버튼 클릭")
+                    return True
+            except:
+                pass
 
         return False
