@@ -85,10 +85,8 @@ XPATH = {
     
     "BTN_COPY_QUESTION" : "//div[@data-floating='true'])[last()]",
     "BTN_STOP" : '//button[@aria-label="취소"]',
-<<<<<<< HEAD
+
     "LANG_ROW" :  "//div[contains(@class,'MuiStack-root')][.//h2[normalize-space(.)='선호 언어']]",
-}
-=======
     
     # 메인 화면 '메뉴' 확인용
     "BTN_MENU_OPEN": "//button[normalize-space(.)='메뉴 열기']",
@@ -122,5 +120,3 @@ XPATH = {
     "AGENT_SEARCH_RESULT" : "//p[contains(text(), 'project')]",
     
 }
-
->>>>>>> master
