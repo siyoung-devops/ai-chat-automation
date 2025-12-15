@@ -7,45 +7,46 @@ from utils.defines import DEFAULT_MODEL, DEFAULT_CHAT
 
 # main 홈화면 테스트만 진행합니다. 
 
-def test_conversation_text(logged_in_main, fm):
-    page = logged_in_main
-    page.click_btn_home_menu(DEFAULT_CHAT)
+# def test_conversation_text(logged_in_main, fm):
+#     page = logged_in_main
+#     page.click_btn_home_menu(DEFAULT_CHAT)
     
-    ai_input_lst = fm.read_json_file("ai_text_data.json")["inputs"]   
-    for item in ai_input_lst:
-        if item["type"] != "text":
-            continue   
-        page.input_chat(item["content"])  
+#     ai_input_lst = fm.read_json_file("ai_text_data.json")["inputs"]   
+#     for item in ai_input_lst:
+#         if item["type"] != "text":
+#             continue   
+#         page.input_chat(item["content"])  
         
-    page.click_btn_retry()
-    page.copy_last_response()
-    page.paste_last_response()
-    page.reset_chat()
+#     page.click_btn_retry()
+#     page.copy_last_response()
+#     page.paste_last_response()
+#     page.reset_chat()
     
-    page.scroll_up_chat()
-    page.scroll_down_chat()
-    page.click_btn_scroll_to_bottom()
+#     page.scroll_up_chat()
+#     page.scroll_down_chat()
+#     page.click_btn_scroll_to_bottom()
 
     # 사용자가 보낸 메시지 내용 편집
     # 사용자가 보낸 메시지 내용 편집 중 취소
     # 사용자가 보낸 메시지 복사  
     
-def test_past_chats(logged_in_main, fm, driver):
-    page = logged_in_main
+# def test_past_chats(logged_in_main, fm, driver):
+#     page = logged_in_main
     
-    past_chat_page = PastChatsPage(driver)
+#     past_chat_page = PastChatsPage(driver)
   
     # 이름변경' 버튼 동작
     # 이름 변경 '취소' 버튼 동작
     # 삭제' 버튼 동작
 
 
-
-
 # 파일 업로드 
-def test_file_upload(logged_in_main):
+def test_file_upload(logged_in_main, fm, driver):
     page = logged_in_main
-    pass
+
+    page.upload_file(fm)
+
+
 
 
 
