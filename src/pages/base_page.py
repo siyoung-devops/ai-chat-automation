@@ -69,8 +69,8 @@ class BasePage:
         current_handle = self.driver.current_window_handle
         all_handles = self.driver.window_handles
         
-        print(f"🔍 현재 활성: {current_handle[:8]}...")
-        print(f"📋 창 목록 ({len(all_handles)}개):")
+        print(f"현재 활성: {current_handle[:8]}...")
+        print(f"창 목록 ({len(all_handles)}개):")
         
         for i, handle in enumerate(all_handles):
             is_active = "✅" if handle == current_handle else "  "

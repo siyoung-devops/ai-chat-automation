@@ -64,6 +64,8 @@ XPATH = {
 
     "BTN_RETRY" : '//button[@aria-label="다시 생성"]',
     "BTN_COPY_RESPONE" : '//button[@aria-label="복사"]',
+    
+    #계정관리
     "BOX_LANG" : "//div[@aria-haspopup='listbox']",
     "SUBMIT_NAME" : "//button[@type='submit' and normalize-space(.)='완료']",
     "NAME_ROW": "//table[contains(@class,'css-69t54h')]//tr[td[normalize-space(.)='이름']]",
@@ -79,13 +81,14 @@ XPATH = {
     "PWD_ROW" : "//table[contains(@class,'css-69t54h')]//tr[td[normalize-space(.)='비밀번호']]",
     "BTN_PWD_EDIT" : "//tr[td[normalize-space(.)='비밀번호']]//button[contains(@class,'MuiIconButton-root')]",
     "SUBMIT_PWD" : "//button[@type='submit' and normalize-space(.)='완료']",
+    "BTN_OAUTH_KKO" : "//li[.//p[normalize-space(.)='카카오']]//button[normalize-space(.)='연결하기']",
+    "BTN_OAUTH_GOOGLE" : "//li[.//p[normalize-space(.)='구글']]//button[normalize-space(.)='연결하기']",
+    "BTN_OAUTH_GITHUB" : "//li[.//p[normalize-space(.)='깃허브']]//button[normalize-space(.)='연결하기']",
+    "LANG_ROW" :  "//div[contains(@class,'MuiStack-root')][.//h2[normalize-space(.)='선호 언어']]",
+    "SOCIAL_ROW" :  "//h2[contains(@class,'MuiTypography-body1')][normalize-space(.)='소셜 연결 계정']",
     
     "BTN_COPY_QUESTION" : "//div[@data-floating='true'])[last()]",
     "BTN_STOP" : '//button[@aria-label="취소"]',
-<<<<<<< HEAD
-    "LANG_ROW" :  "//div[contains(@class,'MuiStack-root')][.//h2[normalize-space(.)='선호 언어']]",
-}
-=======
     
     # 메인 화면 '메뉴'
     "BTN_MENU_OPEN": "//button[normalize-space(.)='메뉴 열기']",
@@ -102,4 +105,3 @@ XPATH = {
     
 }
 
->>>>>>> master

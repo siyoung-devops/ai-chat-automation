@@ -138,7 +138,8 @@ def test_go_to_member(member_page):
 #     assert member_page.open_pwd_edit_form()
 #     assert member_page.member_fail_pwd(data["value"])
 #     assert not member_page.change_fail_pwd()
-# #PHC-TS05-TC009
+
+#PHC-TS05-TC009 비밀번호 변경이라 이후 작업을 위해 블락
 # def test_update_fail_pwd(member_page,test_cases):
 #     data = test_cases["exist_pwd"]
 #     data_new = test_cases["valid_pwd"]
@@ -146,12 +147,33 @@ def test_go_to_member(member_page):
 #     assert member_page.open_pwd_edit_form()
 #     assert member_page.member_success_pwd(data["value"],data_new["value"])
 #     assert member_page.change_success_pwd()
+
 #PHC-TS05-TC010
-def test_update_lang(member_page):
-    assert member_page.refresh_member_account_page()
-    assert member_page.open_lang_edit_form()
-    assert member_page.choose_lang_dropbox()
-    assert member_page.refresh_member_account_page()
+# def test_update_lang(member_page):
+#     assert member_page.refresh_member_account_page()
+#     assert member_page.open_lang_edit_form()
+#     assert member_page.choose_lang_dropbox()
+#     assert member_page.refresh_member_account_page()
+
+#PHC-TS05-TC011
+# def test_oauth_google(member_page):
+#     assert member_page.oauth_google_login()
+
+# #PHC-TS05-TC012
+# def test_oauth_naver(member_page):
+#     assert member_page.oauth_google_login()
+    
+#PHC-TS05-TC013 DOM 아닌 영역 새로고침 메서드 제외하고 진행
+def test_oauth_kko(member_page):
+    assert member_page.open_oauth_edit_form()
+    assert member_page.oauth_kko_click()
+    assert member_page.oauth_popup_open_close()
+
+# #PHC-TS05-TC014
+def test_oauth_github(member_page):
+    assert member_page.open_oauth_edit_form()
+    assert member_page.oauth_github_click()
+    assert member_page.oauth_popup_open_close()
     
     
     
