@@ -48,21 +48,28 @@ class BasePage:
         return self.get_element(By.CSS_SELECTOR, cs, option, timeout)
     
     
-    # 수진 - 여러 요소 받는 함수도 만들었습니다
-    def get_elements(self, by, value, timeout=TIMEOUT_MAX) :
+    def get_elements(self, by, value, option="presence", timeout=TIMEOUT_MAX) :
         try :
             wait = WebDriverWait(self.driver, timeout)
-            wait.until(EC.presence_of_all_elements_located((by, value)))
-            return self.driver.find_elements(by, value)
-        except (TimeoutException, NoSuchElementException):
+            if option == "presence":
+                elements = wait.until(EC.presence_of_all_elements_located((by, value)))
+            elif option == "visible":
+                elements = wait.until(EC.visibility_of_all_elements_located((by, value)))
+            else:
+                elements = self.driver.find_elements(by, value)
+            return elements
+        except TimeoutException:
             print(f"elements를 {by} = {value} 로 찾을 수 없음.")
             return []
         
-    def get_elements_by_xpath(self, xp) :
-        return self.get_elements(By.XPATH, xp)
+    def get_elements_by_id(self, id, option="presence", timeout = TIMEOUT_MAX):
+        return self.get_elements(By.ID, id, option, timeout)
     
-    def get_elements_by_css_selector(self, cs) :
-        return self.get_elements(By.CSS_SELECTOR, cs)
+    def get_elements_by_xpath(self, xp, option="presence", timeout = TIMEOUT_MAX):
+        return self.get_elements(By.XPATH, xp, option, timeout)
+    
+    def get_elements_by_css_selector(self, cs, option, timeout = TIMEOUT_MAX):
+        return self.get_elements(By.CSS_SELECTOR, cs, option, timeout)
     
     def debug_current_window_safe(self):
         """안전한 창 디버깅 (제목 없이 핸들만)"""
