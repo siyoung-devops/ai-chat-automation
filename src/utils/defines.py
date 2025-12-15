@@ -60,7 +60,7 @@ XPATH = {
     "BTN_MEMBER" : "//a[contains(@href,'account')]",
     "SIGNUP_FAIL" : "//p",
     "SCROLL_MAIN_CHAT" : "//div[contains(@class,'css-ovflmb')]",
-    "BTN_UPLOAD" : "//button[contains(@class,'MuiIconButton-root') and .//svg[contains(@data-icon,'plus')]]",
+    "BTN_UPLOAD" : "//svg[@data-testid='plusIcon']/parent::button",
     "BTN_SEND" : "//button[@aria-label='보내기']",
     "PASS_ELEMENT" : "//p[contains(text(), '통신사')]",
     "PASS_IFRAME" : "//iframe[contains(@src, 'certificates')]",
@@ -140,6 +140,15 @@ XPATH = {
     "BTN_AGENT_PUBLISH" : "//button[contains(@form, 'publish')]",
     "CHECK_MAKE" : "//span[contains(@class, 'inherit')]",
     "ERROR_MSG" : "//p[contains(@class, 'error')]",
+    
+    
+    
+    
+    # 업로드 버튼
+    "BTN_UPLOAD_FILE": "//li[.//span[text()='파일 업로드']]",
+    "BTN_GEN_IMAGE": "//li[.//span[text()='이미지 생성']]",
+    "BTN_SEARCH_WEB": "//li[.//span[text()='웹 검색']]",
+    "FILE_INPUT" : "//input[@type='file']",
     
 }
 
