@@ -556,13 +556,44 @@ class MemberPage(BasePage):
             print(f"예외 발생: {e}")
             return False
     
-    def click_to_mkt(self):
-        element = self.get_element_by_name(NAME["BTN_MKT"])
-        element.click()
-        time.sleep(4)
+    #선호 언어 변경 메서드
+    def open_lang_edit_form(self, timeout=5):
+        print("open_lang_edit_form 시작")
+
+        # 0) 선호언어 행 스크롤 위치 맞추기
+        lang_row = self.get_element(
+            By.XPATH,
+            XPATH["LANG_ROW"],
+            option="presence",
+            timeout=timeout,
+        )
+        if not lang_row:
+            print(" 선호 언어 행을 찾지 못함 (LANG_ROW)")
+            return False
+
+        self.driver.execute_script("""
+            const rect = arguments[0].getBoundingClientRect();
+            const y = rect.top + window.scrollY - 120;
+            window.scrollTo({top: y, behavior: 'instant'});
+        """, lang_row)
+        time.sleep(0.3)
+        print("선호 언어 행 찾음")
+        return True
+        
     
     def choose_lang_dropbox(self):
-        element = self.get_element_by_xpath(XPATH["BOX_LANG"])
+        lang_box = self.get_element_by_xpath(XPATH["BOX_LANG"])
+        lang_box.click()
+        time.sleep(2)
+        print("선호 언어 행 클릭")
+        
+        choose_eng =  self.get_element_by_css_selector(SELECTORS["BOX_LANG_ENG"])
+        choose_eng.click()
+        time.sleep(2)
+        return True
+    
+    def click_to_mkt(self):
+        element = self.get_element_by_name(NAME["BTN_MKT"])
         element.click()
         time.sleep(4)
 

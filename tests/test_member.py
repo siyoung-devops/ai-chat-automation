@@ -147,5 +147,11 @@ def test_go_to_member(member_page):
 #     assert member_page.member_success_pwd(data["value"],data_new["value"])
 #     assert member_page.change_success_pwd()
 #PHC-TS05-TC010
-def test_update_lang_(member_page, test_cases):
-    assert member_page.refresh
+def test_update_lang(member_page):
+    assert member_page.refresh_member_account_page()
+    assert member_page.open_lang_edit_form()
+    assert member_page.choose_lang_dropbox()
+    assert member_page.refresh_member_account_page()
+    
+    
+    

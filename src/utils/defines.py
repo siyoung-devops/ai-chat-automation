@@ -22,6 +22,7 @@ SELECTORS = {
     "TEXTAREA" : "textarea[name='input']",
     "CHECK_CHAT_COMPLETE" : 'div[data-status="complete"]',
     "INPUT_MOBILE" : "input[name='to'][autocomplete='tel']",
+    "BOX_LANG_ENG" : "ul[role='listbox'] li[data-value='en-US']",
 
 }
 
@@ -79,4 +80,5 @@ XPATH = {
     
     "BTN_COPY_QUESTION" : "//div[@data-floating='true'])[last()]",
     "BTN_STOP" : '//button[@aria-label="취소"]',
+    "LANG_ROW" :  "//div[contains(@class,'MuiStack-root')][.//h2[normalize-space(.)='선호 언어']]",
 }
