@@ -215,3 +215,87 @@ from enums.ui_status import AIresponse
     
 #     assert btn.get_attribute("disabled") is not None, "PHC-TS06-TC035 : Test Fail"
 #     print("PHC-TS06-TC035 : Test Success")
+
+# PHC-TS06-TC036  
+# def test_agent_setting_delete_card(logged_in_agent, fm) :
+#     agent_page = logged_in_agent
+#     agent_page.go_to_agent_page()
+#     agent_page.make_agent_screen()
+    
+#     data = fm.read_json_file("agent_text_data.json")
+#     card = data["setting_inputs"][3]["content"]
+#     agent_page.setting_card_input(card)
+#     elements = agent_page.check_card_number()
+#     assert len(elements) == 2, "PHC-TS06-TC036 : Test Fail"
+#     agent_page.delete_card()
+#     elements = agent_page.check_card_number()
+#     assert len(elements) == 1, "PHC-TS06-TC036 : Test Fail"
+#     print("PHC-TS06-TC036 : Test Success")
+
+# PHC-TS06-TC037 
+# def test_agent_setting_no_card(logged_in_agent, fm) :
+#     agent_page = logged_in_agent
+#     agent_page.go_to_agent_page()
+#     agent_page.make_agent_screen()
+    
+#     data = fm.read_json_file("agent_text_data.json")
+#     name = data["setting_inputs"][0]["content"]
+#     intro = data["setting_inputs"][1]["content"]
+#     rule = data["setting_inputs"][2]["content"]
+#     agent_page.setting_name_input(name)
+#     agent_page.setting_intro_input(intro)
+#     agent_page.setting_rule_input(rule)
+#     agent_page.setting_card_input("")
+#     time.sleep(2)
+#     btn = agent_page.check_btn_disabled()
+    
+#     assert btn.get_attribute("disabled") is None, "PHC-TS06-TC037 : Test Fail"
+#     print("PHC-TS06-TC037 : Test Success")
+    
+# PHC-TS06-TC038 
+# def test_agent_setting_long_card(logged_in_agent, fm) :
+#     agent_page = logged_in_agent
+#     agent_page.go_to_agent_page()
+#     agent_page.make_agent_screen()
+    
+#     data = fm.read_json_file("agent_text_data.json")
+#     name = data["setting_inputs"][0]["content"]
+#     intro = data["setting_inputs"][1]["content"]
+#     rule = data["setting_inputs"][2]["content"]
+#     card = data["over_inputs"][3]["content"]
+#     agent_page.setting_name_input(name)
+#     agent_page.setting_intro_input(intro)
+#     agent_page.setting_rule_input(rule)
+#     agent_page.setting_card_input(card)
+#     time.sleep(2)
+#     btn = agent_page.check_btn_disabled()
+    
+#     assert btn.get_attribute("disabled") is not None, "PHC-TS06-TC038 : Test Fail"
+#     print("PHC-TS06-TC038 : Test Success")
+
+# PHC-TS06-TC039
+# def test_agent_setting_many_option(logged_in_agent, fm) :
+#     agent_page = logged_in_agent
+#     agent_page.go_to_agent_page()
+#     agent_page.make_agent_screen()
+    
+#     data = fm.read_json_file("agent_text_data.json")
+#     name = data["setting_inputs"][0]["content"]
+#     intro = data["setting_inputs"][1]["content"]
+#     rule = data["setting_inputs"][2]["content"]
+#     card = data["setting_inputs"][3]["content"]
+#     agent_page.setting_name_input(name)
+#     agent_page.setting_intro_input(intro)
+#     agent_page.setting_rule_input(rule)
+#     agent_page.setting_card_input(card)
+    
+#     agent_page.scroll_down_setting()
+#     agent_page.multi_function()
+#     time.sleep(2)
+    
+#     btn = agent_page.check_btn_disabled()
+    
+#     assert btn.get_attribute("disabled") is None, "PHC-TS06-TC039 : Test Fail"
+#     print("PHC-TS06-TC039 : Test Success")
+
+# PHC-TS06-TC040

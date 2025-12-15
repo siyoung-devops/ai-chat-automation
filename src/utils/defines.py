@@ -135,5 +135,8 @@ XPATH = {
     "BTN_AGENT_PUBLISH" : "//button[contains(@form, 'publish')]",
     "CHECK_MAKE" : "//span[contains(@class, 'inherit')]",
     "ERROR_MSG" : "//p[contains(@class, 'error')]",
+    "DELETE_CARD" : "//button[contains(@class, 'css-fyycg6')]",
+    "SELECT_FUNCTION" : "//input[@type = 'checkbox']",
+    "SCROLL_MAKE_AGENT" : "//div[contains(@class, 'css-1q1j9cm')]",
     
 }
