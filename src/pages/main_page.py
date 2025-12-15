@@ -11,15 +11,14 @@ from controllers.response_controller import ResponseController
 from controllers.scroll_controller import ScrollController
 
 
+
 class MainPage(BasePage):
     def __init__(self, driver):
         super().__init__(driver)  
         self.menu_status = MenuStatus.OPENED
-        self.sync_menu_status
         
     def go_to_main_page(self):
         self.go_to_page(TARGET_URL["MAIN_URL"])
-        time.sleep(0.5)
 
     # 이거 나중에 위로 빼야 겠다. 
     def click_btn_home_menu(self, button_text: str):
@@ -39,11 +38,14 @@ class MainPage(BasePage):
             return False
         
 
-    def click_on_past_chat(self, index):
+    def click_on_past_chat(self):
         items = self.get_elements_by_css_selector(SELECTORS["CHAT_LIST_ITEMS"])
         if not items:
             raise Exception("대화 내역이 없습니다.")
-        items[index].click()
+
+        # 인덱스 접근방식 대신, data-item들중 가장 큰 index를 선택하도록. (즉, 가장 밑 대화 클릭)
+        latest = max(items, key=lambda x: int(x.get_attribute("data-item-index")))
+        latest.click()
         time.sleep(1)
 
     # Scroll
@@ -55,11 +57,11 @@ class MainPage(BasePage):
         area = self.get_element_by_xpath(XPATH["SCROLL_MAIN_CHAT"])
         ScrollController.scroll_down(self.driver, area)
 
-    def click_btn_scroll_to_bottom(self, timeout = TIMEOUT_MAX, wait_time=3):
+    def click_btn_scroll_to_bottom(self, timeout = TIMEOUT_MAX):
         start = time.time()
 
         while time.time() - start < timeout:
-            btn = self.get_element_by_css_selector(SELECTORS["SCROLL_TO_BOTTOM_BUTTON"])
+            btn = self.get_element_by_css_selector(SELECTORS["BTN_SCROLL_TO_BOTTOM"])
 
             if btn and btn.is_enabled():
                 try:
@@ -115,8 +117,12 @@ class MainPage(BasePage):
     def paste_last_response(self):
         textarea = self.get_element_by_css_selector(SELECTORS["TEXTAREA"])
         ChatInputController.paste_text(textarea, self.copy_last_response())
-        time.sleep(1)
-        print("붙여넣기 완성")
+        time.sleep(0.5)
+    
+    def reset_chat(self):
+        textarea = self.get_element_by_css_selector(SELECTORS["TEXTAREA"])
+        ChatInputController.reset_text(textarea)
+        time.sleep(0.5)
     
     # 메뉴 
     def sync_menu_status(self):
@@ -137,6 +143,7 @@ class MainPage(BasePage):
         except NoSuchElementException:
             pass
 
+    # 메뉴
     def toggle_menu(self, btn_element):
         if not btn_element:
             print("버튼 찾기 실패")
@@ -152,7 +159,6 @@ class MainPage(BasePage):
                 self.menu_status = MenuStatus.CLOSED
             print(self.menu_status)
 
-
     def action_menu_arrow(self):
         if self.menu_status == MenuStatus.CLOSED: 
             btn_arrow = self.get_element_by_xpath(XPATH["BTN_MENU_OPEN"])
@@ -163,5 +169,5 @@ class MainPage(BasePage):
     def action_menu_bar(self):
         btn_bar = self.get_element_by_css_selector(SELECTORS["BTN_MENU_BAR"])
         self.toggle_menu(btn_bar)
-
-
+    
+    
