@@ -355,7 +355,7 @@ class MemberPage(BasePage):
             print("인증 문자 버튼 없음 (DOM에 없음)")
             return False
         try:
-            for i in range(5):
+            for i in range(6):
                 print(f"인증 버튼 {i+1}/5 클릭 시도")
                 self.driver.execute_script("arguments[0].click();", certi_btn)
                 time.sleep(0.8)
@@ -630,13 +630,44 @@ class MemberPage(BasePage):
         print("깃허브 연결하기 클릭")
         self.oauth_popup_open_close()
         return True
-        
+
+    def oauth_apple_click(self):
+        btn_oauth_apple = self.get_element_by_xpath(XPATH["BTN_OAUTH_APPLE"])
+        btn_oauth_apple.click()
+        time.sleep(7)
+        print("애플 연결하기 클릭")
+        self.oauth_popup_open_close()
+        return True
+    
+    def oauth_facebook_click(self):
+        btn_oauth_facebook = self.get_element_by_xpath(XPATH["BTN_OAUTH_FACEBOOK"])
+        btn_oauth_facebook.click()
+        time.sleep(4)
+        print("페이스북 연결하기 클릭")
+        self.oauth_popup_open_close()
+        return True
+
+    def oauth_whalespace_click(self):
+        btn_oauth_whalespace = self.get_element_by_xpath(XPATH["BTN_OAUTH_WHALESPACE"])
+        btn_oauth_whalespace.click()
+        time.sleep(4)
+        print("웨일스페이스 연결하기 클릭")
+        self.oauth_popup_open_close()
+        return True
+    
+    def oauth_microsoft_click(self):
+        btn_oauth_microsoft = self.get_element_by_xpath(XPATH["BTN_OAUTH_MICROSOFT"])
+        btn_oauth_microsoft.click()
+        time.sleep(4)
+        print("마이크로소프트 연결하기 클릭")
+        self.oauth_popup_open_close()
+        return True    
         
     def oauth_popup_open_close(self):
         handles = self.driver.window_handles
         original_account_window = handles[1] #계정관리창 순서 고정해서 찾기
         # 연동 관련 페이지 URL 패턴
-        oauth_patterns = ["login", "oauth", "signin"]
+        oauth_patterns = ["login", "oauth", "signin","auth"]
         
         for handle in handles:
             self.driver.switch_to.window(handle) #팝업으로 전환
@@ -646,6 +677,7 @@ class MemberPage(BasePage):
                 if pattern in current_url:
                     print(f"연동 팝업 발견: {current_url[:50]}")
                     self.debug_current_window_safe()   #현재창 확인용 메서드
+                    time.sleep(2)
                     self.driver.close()
                     time.sleep(2)
                     print("팝업 창 종료")
