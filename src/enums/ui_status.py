@@ -11,7 +11,8 @@ class MenuStatus(Enum):
     OPENED = auto()
     CLOSED = auto()
     
-class ModelBarStaus(Enum):
-    EXPANDED = auto()   # 모델 선택창 확장
-    COLLAPSED = auto()  # 모델 선택창 축소
+class ModelState(Enum):
+    ENABLED = auto()    # 활성화 모델
+    DISABLED = auto()   # 비활성화
+    ALWAYS_ON = auto()  # 항상 켜두는 것
     

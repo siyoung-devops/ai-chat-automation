@@ -66,6 +66,7 @@ def user_data(fm):
     return fm.read_json_file("user_data.json")
 
 @pytest.fixture
+
 def logged_in_main(driver, fm, user_data, main_page, login_page, member_page, agent_page):
     ctx = LoginContext(
         driver=driver,
