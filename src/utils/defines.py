@@ -22,6 +22,7 @@ SELECTORS = {
     "TEXTAREA" : "textarea[name='input']",
     "CHECK_CHAT_COMPLETE" : 'div[data-status="complete"]',
     "INPUT_MOBILE" : "input[name='to'][autocomplete='tel']",
+    "BOX_LANG_ENG" : "ul[role='listbox'] li[data-value='en-US']",
     "BTN_MENU_BAR" : "button.EliceLayoutSidenavHamburger-root",
     
 
@@ -81,6 +82,10 @@ XPATH = {
     
     "BTN_COPY_QUESTION" : "//div[@data-floating='true'])[last()]",
     "BTN_STOP" : '//button[@aria-label="취소"]',
+<<<<<<< HEAD
+    "LANG_ROW" :  "//div[contains(@class,'MuiStack-root')][.//h2[normalize-space(.)='선호 언어']]",
+}
+=======
     
     # 메인 화면 '메뉴'
     "BTN_MENU_OPEN": "//button[normalize-space(.)='메뉴 열기']",
@@ -97,3 +102,4 @@ XPATH = {
     
 }
 
+>>>>>>> master
