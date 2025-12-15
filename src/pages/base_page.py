@@ -1,11 +1,5 @@
 from utils.headers import *
 
-
-
-# base_page 에서 공통 기능을 관리하는것이 어떨까요?? 
-# base_page > login_page, chat_page, main_page 등 상속받아서 사용하거나
-# 아니면 page_manager로 만들어서 관리하는게 나을지 한번 논의해보면 좋을것같아요!
-
 from utils.defines import TIMEOUT_MAX
 
 class BasePage:

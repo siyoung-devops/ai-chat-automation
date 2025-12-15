@@ -20,7 +20,14 @@ class MainPage(BasePage):
     def go_to_main_page(self):
         self.go_to_page(TARGET_URL["MAIN_URL"])
 
-    # 이거 나중에 위로 빼야 겠다. 
+    # ================= main 공용 ===================== #
+    def click_btn_by_xpath(self, xpath, option):
+        btn = self.get_element_by_xpath(xpath, option)
+        if btn and btn.is_enabled():
+            btn.click()
+        time.sleep(0.3)
+    # ================================================ #        
+            
     def click_btn_home_menu(self, button_text: str):
         try:
             buttons = self.get_elements_by_css_selector(SELECTORS["BTNS_HOME_MENU"])
@@ -37,7 +44,7 @@ class MainPage(BasePage):
             print(f"[ERROR] 버튼 '{button_text}' 요소 자체를 찾을 수 없음")
             return False
         
-
+    #================ 추후 past_chat_page로 뺄 예정 ================ 
     def click_on_past_chat(self):
         items = self.get_elements_by_css_selector(SELECTORS["CHAT_LIST_ITEMS"])
         if not items:
@@ -48,7 +55,7 @@ class MainPage(BasePage):
         latest.click()
         time.sleep(1)
 
-    # Scroll
+    # ================  Scroll ================ 
     def scroll_up_chat(self):
         area = self.get_element_by_xpath(XPATH["SCROLL_MAIN_CHAT"])
         ScrollController.scroll_up(self.driver, area)
@@ -76,11 +83,9 @@ class MainPage(BasePage):
 
         raise TimeoutError("스크롤 버튼 안보임")
 
-    # Chat
+    # ================  Chat ================ 
     def click_send(self):
-        btn = self.get_element_by_xpath(XPATH["BTN_SEND"])
-        if btn.is_enabled():
-            btn.click()
+        self.click_btn_by_xpath(XPATH["BTN_SEND"], option = "presence")
 
     def input_chat(self, text: str):
         textarea = self.get_element_by_css_selector(SELECTORS["TEXTAREA"])
@@ -103,7 +108,7 @@ class MainPage(BasePage):
         )
         time.sleep(1)
 
-    # Clipboard
+    # ================ Clipboard ================ 
     def copy_last_response(self):
         btns = self.get_elements_by_xpath(XPATH["BTN_COPY_RESPONE"])
         if not btns:
@@ -124,7 +129,7 @@ class MainPage(BasePage):
         ChatInputController.reset_text(textarea)
         time.sleep(0.5)
     
-    # 메뉴 
+    # ================  메뉴 ================ 
     def sync_menu_status(self):
         try:
             # 메뉴 열기 버튼이 보이면 CLOSED 상태
@@ -142,8 +147,7 @@ class MainPage(BasePage):
                 self.menu_status = MenuStatus.OPENED   
         except NoSuchElementException:
             pass
-
-    # 메뉴
+        
     def toggle_menu(self, btn_element):
         if not btn_element:
             print("버튼 찾기 실패")
@@ -170,4 +174,38 @@ class MainPage(BasePage):
         btn_bar = self.get_element_by_css_selector(SELECTORS["BTN_MENU_BAR"])
         self.toggle_menu(btn_bar)
     
-    
+    #================ 파일 업로드 ================ 
+    def click_btn_upload_plus(self):
+        self.click_btn_by_xpath(XPATH["BTN_UPLOAD"], option = "presence")
+
+    def click_btn_upload_file(self):
+        self.click_btn_by_xpath(XPATH["BTN_UPLOAD_FILE"], option = "presence")
+
+    def click_btn_gen_image(self):
+        self.click_btn_by_xpath(XPATH["BTN_GEN_IMAGE"], option = "presence")
+
+    def click_btn_search_web(self):
+        self.click_btn_by_xpath(XPATH["BTN_SEARCH_WEB"], option = "presence")
+        
+
+    def upload_file(self, fm):
+        #file_input = self.get_element_by_xpath(XPATH["FILE_INPUT"])
+        #file_name = "test_asset.jpg"
+        # fm.file_upload(file_input, file_name = file_name)
+        # time.sleep(0.5)  
+        
+        #===== 테스트용 코드 =====#
+        file_name = "test upload successed"
+        file_data = [
+            {"message": "upload successed", "time": "12:00"},
+            {"message": "upload failed", "time": "12:05"}
+        ]
+
+
+        fm.save_log_file_to_csv(file_name = file_name, file_data=file_data)
+        fm.save_screenshot_png(self.driver, file_name = file_name)
+        
+        #fm.save_screenshot(self.driver, f"{file_name} upload successed")
+        #=======================
+        
+        time.sleep(0.5)
