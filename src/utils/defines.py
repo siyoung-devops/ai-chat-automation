@@ -7,7 +7,10 @@ SCREEN_WIDTH, SCREEN_HEIGHT = pyautogui.size()
 FULLSCREEN_SIZE = (SCREEN_WIDTH, SCREEN_HEIGHT)
 TIMEOUT_MAX = 10
 STOPPED_MAX = 5
-
+ACTIVE = "모델이 활성화되었습니다."
+DEACTIVE = "모델이 비활성화되었습니다."
+DEFAULT_MODEL = "Helpy Pro Agent"
+DEFAULT_CHAT = "새 대화"
 
 TARGET_URL = {
     "MAIN_URL": "https://qaproject.elice.io/ai-helpy-chat",
@@ -18,7 +21,7 @@ SELECTORS = {
     "BTNS_HOME_MENU" : 'a[href="/ai-helpy-chat"]',
     "MEMBER_MODAL" : "button.MuiAvatar-root.MuiAvatar-circular",
     "CHAT_LIST_ITEMS" : "a[data-item-index]",
-    "SCROLL_TO_BOTTOM_BUTTON" : 'button[aria-label="맨 아래로 스크롤"]',
+    "BTN_SCROLL_TO_BOTTOM" : 'button[aria-label="맨 아래로 스크롤"]',
     "TEXTAREA" : "textarea[name='input']",
     "CHECK_CHAT_COMPLETE" : 'div[data-status="complete"]',
     "INPUT_MOBILE" : "input[name='to'][autocomplete='tel']",
@@ -31,6 +34,7 @@ SELECTORS = {
 # By.ID
 ID = {
     "CHECKBOX_HEADER" : "agreement-header",
+    "SNACK_BAR" : "notistack-snackbar",
 }
 
 # By.NAME
@@ -90,18 +94,52 @@ XPATH = {
     "BTN_COPY_QUESTION" : "//div[@data-floating='true'])[last()]",
     "BTN_STOP" : '//button[@aria-label="취소"]',
     
-    # 메인 화면 '메뉴'
+    # 메인 화면 '메뉴' 확인용
     "BTN_MENU_OPEN": "//button[normalize-space(.)='메뉴 열기']",
     "BTN_MENU_CLOSE": "//button[normalize-space(.)='메뉴 접기']",
         
     # ai 모델
-    "BTN_MODEL_DROPDOWN" : "//button[.//div[contains(@class,'MuiStack-root')]]",
+    "BTN_MODEL_DROPDOWN" : '//button[.//p[normalize-space()="{model_name}"]]',
+    "MENU_PAPER": '//div[contains(@class,"MuiMenu-paper") and contains(@class,"MuiPopover-paper")]',  
+    "MODEL_ITEMS": '//div[contains(@class,"MuiMenu-paper")]//li[@role="menuitem"]',
+    "SELECTED_MODEL": '//button//p[contains(@class,"MuiTypography-body2")]',
+    "MODEL_BY_NAME":'//div[contains(@class,"MuiMenu-paper")]''//li[@role="menuitem"]''[.//span[normalize-space()="{model_name}"]]',
+
+    # # 모델 설정 창
+    "BTN_MODEL_SETTING" : '//a[contains(@class,"MuiMenuItem-root") and .//span[normalize-space(text())="모델 설정"]]',
+    "MODEL_LI": "//div[contains(@class, 'MuiStack-root') and contains(@class, 'css-8g8ihq')]//li[contains(@class,'MuiListItem-root')]",
+    "MODEL_NAME_IN_LI" : ".//span[contains(@class,'MuiListItemText-primary')]",
+    "MODEL_LI_BY_NAME" : '//li[.//span[contains(@class,"MuiListItemText-primary") and text()="{model_name}"]]',
+
+    # li 내부 (상대 XPath)
+    "MODEL_CHECKBOX": './/input[@type="checkbox"]',
+    "MODEL_SWITCH": './/span[contains(@class,"MuiSwitch-switchBase")]',
+    "MODEL_ALWAYS_ON": './/span[contains(@aria-label,"항상 활성화된 모델")]',
+
+    # 팝업
+    "MODEL_ENABLE_POPUP": '//div[@role="alert"]',
     
-    #agent 메뉴 버튼
+    # agent 메뉴
     "AGENT_MENU_BTN" : "//a[contains(@href, 'agents')]",
     "MY_AGENT_BTN" : "//a[contains(@href, 'mine')]",
-    "AGENT_SEARCH" : "//input[contains(@placeholder, 'agents')]",
+    "AGENT_SEARCH" : "//input[@type = 'text']",
     "AGENT_SEARCH_RESULT" : "//p[contains(text(), 'project')]",
+    "AGENT_SEARCH_NO_RESULT" : "//img[contains(@src, 'no_search')]",
+    "AGENT_TALK" : "//a[contains(@class, 'MuiCard')]",
+    "AGENT_TALK_CARD" : "//button[contains(@class, 'uy7nb7')]",
+    "AGENT_TALK_CARD_TEXT" : "//button[contains(@class, 'uy7nb7')]//span",
+    "AGENT_INPUT_TEXT" : "//span[@data-status = 'complete']",
+    "NAME_SETT" : "//input[@name = 'name']",
+    "INTRO_SETT" : "//input[@name = 'description']",
+    "RULE_SETT" : "//textarea[@name = 'systemPrompt']",
+    "CARD_SETT" : "//input[contains(@name, 'conversation')]",
+    "GO_MAKE_AGENT" : "//a[contains(@href, 'builder')]",
+    "BTN_AGENT_MAKE" : "//button[contains(@class, 'contained')]",
+    "BTN_FOR_ME" : "//input[@value = 'private']",
+    "BTN_FOR_AGENCY" : "//input[@value = 'organization']",
+    "BTN_AGENT_PUBLISH" : "//button[contains(@form, 'publish')]",
+    "CHECK_MAKE" : "//span[contains(@class, 'inherit')]",
+    "ERROR_MSG" : "//p[contains(@class, 'error')]",
     
 }
 
