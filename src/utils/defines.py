@@ -89,5 +89,11 @@ XPATH = {
     # ai 모델
     "BTN_MODEL_DROPDOWN" : "//button[.//div[contains(@class,'MuiStack-root')]]",
     
+    #agent 메뉴 버튼
+    "AGENT_MENU_BTN" : "//a[contains(@href, 'agents')]",
+    "MY_AGENT_BTN" : "//a[contains(@href, 'mine')]",
+    "AGENT_SEARCH" : "//input[contains(@placeholder, 'agents')]",
+    "AGENT_SEARCH_RESULT" : "//p[contains(text(), 'project')]",
+    
 }
 
