@@ -1,5 +1,5 @@
 import time
-from enums.ai_response import AIresponse
+from enums.ui_status import AIresponse
 
 from utils.defines import TIMEOUT_MAX, STOPPED_MAX
 

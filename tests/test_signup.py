@@ -307,7 +307,7 @@ def test_signup_14_age_verify(signup_page) :
         except TimeoutException :
             print("PHC-TS02-TC017 : Test fail")
             
-# PHC-TS02-TC021
+# PHC-TS02-TC018
 def test_signup_view_password(signup_page) :
     email = random_string()
     
@@ -316,9 +316,9 @@ def test_signup_view_password(signup_page) :
     element = signup_page.signup_pw("asdf1234!")
     signup_page.signup_name("이수진")
     signup_page.view_password()
-    assert element.get_attribute("type") == "text", "PHC-TS02-TC021 : Test fail"
-    print("PHC-TS02-TC021 : Test success")
+    assert element.get_attribute("type") == "text", "PHC-TS02-TC018 : Test fail"
+    print("PHC-TS02-TC018 : Test success")
     
     signup_page.view_password()
-    assert element.get_attribute("type") == "password", "PHC-TS02-TC021 : Test fail"
-    print("PHC-TS02-TC021 : Test success")
+    assert element.get_attribute("type") == "password", "PHC-TS02-TC018 : Test fail"
+    print("PHC-TS02-TC018 : Test success")
