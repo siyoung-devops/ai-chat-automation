@@ -1,7 +1,7 @@
 from utils.headers import *
 
 from utils.context import LoginContext
-from utils.defines import NAME
+from utils.defines import NAME, XPATH
 
 class BrowserUtils:
     
@@ -47,6 +47,14 @@ class BrowserUtils:
         else:
             print("로그인 폼이 없으니까 로그인 스킵")
         return ctx.main_page
+    
+    # 수진 - 추가
+    def is_logged_in(self, driver):
+        try:
+            driver.find_element(By.XPATH, XPATH["AGENT_MENU_BTN"])
+            return True
+        except:
+            return False
 
         
 # 수진 - 회원가입 시 랜덤 이메일 주소 생성

@@ -3,6 +3,7 @@ from utils.context import LoginContext
 from utils.browser_utils import BrowserUtils
 from utils.browser_setup import create_driver
 from utils.context import LoginContext
+from utils.defines import TARGET_URL
 
 from managers.file_manager import FileManager
 from pages.signup_page import SignupPage
@@ -10,6 +11,7 @@ from pages.signup_page import SignupPage
 from pages.main_page import MainPage
 from pages.login_page import LoginPage
 from pages.member_page import MemberPage
+from pages.agent_page import AgentPage
 
 # 모든 fixture를 관리하는 곳
 # session = 하나의 드라이버 공유
@@ -51,6 +53,11 @@ def member_page(driver):
     page = MemberPage(driver)
     return page
 
+@pytest.fixture
+def agent_page(driver) :
+    page = AgentPage(driver)
+    return page
+
 
 
 ####### 메안화면 확인용 #######
@@ -59,13 +66,14 @@ def user_data(fm):
     return fm.read_json_file("user_data.json")
 
 @pytest.fixture
-def logged_in_main(driver, fm, user_data, main_page, login_page, member_page):
+def logged_in_main(driver, fm, user_data, main_page, login_page, member_page, agent_page):
     ctx = LoginContext(
         driver=driver,
         fm=fm,
         login_page=login_page,
         main_page=main_page,
         member_page = member_page,
+        agent_page = agent_page,
         user_data=user_data
     )
     
@@ -77,3 +85,28 @@ def logged_in_main(driver, fm, user_data, main_page, login_page, member_page):
 def test_cases(fm):
     data = fm.read_json_file("member_test_data.json")
     return data or {}
+
+# 수진 - 추가
+@pytest.fixture
+def logged_in_agent(driver, fm, user_data, login_page, main_page, member_page, agent_page):
+    ctx = LoginContext(
+        driver=driver,
+        fm=fm,
+        login_page=login_page,
+        main_page=main_page,
+        member_page=member_page,
+        agent_page=agent_page,
+        user_data=user_data
+    )
+    
+    browser_utils = BrowserUtils()
+    loaded = browser_utils.load_cookies(
+        driver=driver,
+        fm=fm,
+        url=TARGET_URL["MAIN_URL"]
+    )
+    
+    if not browser_utils.is_logged_in(driver):
+        browser_utils.auto_login(ctx)
+
+    return agent_page
