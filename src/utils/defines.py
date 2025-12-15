@@ -89,11 +89,27 @@ XPATH = {
     # ai 모델
     "BTN_MODEL_DROPDOWN" : "//button[.//div[contains(@class,'MuiStack-root')]]",
     
-    #agent 메뉴 버튼
+    # agent 메뉴
     "AGENT_MENU_BTN" : "//a[contains(@href, 'agents')]",
     "MY_AGENT_BTN" : "//a[contains(@href, 'mine')]",
-    "AGENT_SEARCH" : "//input[contains(@placeholder, 'agents')]",
+    "AGENT_SEARCH" : "//input[@type = 'text']",
     "AGENT_SEARCH_RESULT" : "//p[contains(text(), 'project')]",
+    "AGENT_SEARCH_NO_RESULT" : "//img[contains(@src, 'no_search')]",
+    "AGENT_TALK" : "//a[contains(@class, 'MuiCard')]",
+    "AGENT_TALK_CARD" : "//button[contains(@class, 'uy7nb7')]",
+    "AGENT_TALK_CARD_TEXT" : "//button[contains(@class, 'uy7nb7')]//span",
+    "AGENT_INPUT_TEXT" : "//span[@data-status = 'complete']",
+    "NAME_SETT" : "//input[@name = 'name']",
+    "INTRO_SETT" : "//input[@name = 'description']",
+    "RULE_SETT" : "//textarea[@name = 'systemPrompt']",
+    "CARD_SETT" : "//input[contains(@name, 'conversation')]",
+    "GO_MAKE_AGENT" : "//a[contains(@href, 'builder')]",
+    "BTN_AGENT_MAKE" : "//button[contains(@class, 'contained')]",
+    "BTN_FOR_ME" : "//input[@value = 'private']",
+    "BTN_FOR_AGENCY" : "//input[@value = 'organization']",
+    "BTN_AGENT_PUBLISH" : "//button[contains(@form, 'publish')]",
+    "CHECK_MAKE" : "//span[contains(@class, 'inherit')]",
+    "ERROR_MSG" : "//p[contains(@class, 'error')]",
     
 }
 
