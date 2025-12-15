@@ -117,8 +117,12 @@ class MainPage(BasePage):
     def paste_last_response(self):
         textarea = self.get_element_by_css_selector(SELECTORS["TEXTAREA"])
         ChatInputController.paste_text(textarea, self.copy_last_response())
-        time.sleep(1)
-        print("붙여넣기 완성")
+        time.sleep(0.5)
+    
+    def reset_chat(self):
+        textarea = self.get_element_by_css_selector(SELECTORS["TEXTAREA"])
+        ChatInputController.reset_text(textarea)
+        time.sleep(0.5)
     
     # 메뉴 
     def sync_menu_status(self):
