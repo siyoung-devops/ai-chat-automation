@@ -65,13 +65,13 @@ class MemberPage(BasePage):
 
         print("'이름' 수정 버튼 찾음, 클릭 시도")
 
-        # 스크롤 + JS 클릭 (debug_find_name_edit_button과 동일 패턴)
+        # 스크롤 + JS 클릭 
         self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", edit_btn)
         time.sleep(0.3)
         self.driver.execute_script("arguments[0].click();", edit_btn)
         time.sleep(0.5)
 
-        # 2) fullname 입력 필드 대기
+        # 2) 이름 입력 필드 대기
         input_name = self.get_element_by_name(NAME["INPUT_NAME"], option="visibility", timeout=timeout)
         if not input_name:
             print("이름 입력란 안 나타남 (폼 안 열림)")
@@ -355,7 +355,7 @@ class MemberPage(BasePage):
             print("인증 문자 버튼 없음 (DOM에 없음)")
             return False
         try:
-            for i in range(1):
+            for i in range(5):
                 print(f"인증 버튼 {i+1}/5 클릭 시도")
                 self.driver.execute_script("arguments[0].click();", certi_btn)
                 time.sleep(0.8)
@@ -580,7 +580,6 @@ class MemberPage(BasePage):
         print("선호 언어 행 찾음")
         return True
         
-    
     def choose_lang_dropbox(self):
         lang_box = self.get_element_by_xpath(XPATH["BOX_LANG"])
         lang_box.click()
@@ -590,6 +589,94 @@ class MemberPage(BasePage):
         choose_eng =  self.get_element_by_css_selector(SELECTORS["BOX_LANG_ENG"])
         choose_eng.click()
         time.sleep(2)
+        return True
+    
+    #oauth 계정 연동 테스트 메서드
+    def open_oauth_edit_form(self, timeout=5):
+        print("open_oauth_edit_form 시작")
+
+        # 0) 선호언어 행 스크롤 위치 맞추기
+        social_row = self.get_element(
+            By.XPATH,
+            XPATH["SOCIAL_ROW"],
+            option="presence",
+            timeout=timeout,
+        )
+        if not social_row:
+            print(" 소셜 계정 연동 행을 찾지 못함 (SOCIAL_ROW)")
+            return False
+
+        self.driver.execute_script("""
+            const rect = arguments[0].getBoundingClientRect();
+            const y = rect.top + window.scrollY - 120;
+            window.scrollTo({top: y, behavior: 'instant'});
+        """, social_row)
+        time.sleep(0.3)
+        print("소셜 계정 연동 행 찾음")
+        return True
+    
+    def oauth_kko_click(self):
+        btn_oauth_kko = self.get_element_by_xpath(XPATH["BTN_OAUTH_KKO"])
+        btn_oauth_kko.click()
+        time.sleep(4)
+        print("카카오 연결하기 클릭")
+        self.oauth_popup_open_close()
+        return True
+    
+    def oauth_github_click(self):
+        btn_oauth_github = self.get_element_by_xpath(XPATH["BTN_OAUTH_GITHUB"])
+        btn_oauth_github.click()
+        time.sleep(4)
+        print("깃허브 연결하기 클릭")
+        self.oauth_popup_open_close()
+        return True
+        
+        
+    def oauth_popup_open_close(self):
+        handles = self.driver.window_handles
+        original_account_window = handles[1] #계정관리창 순서 고정해서 찾기
+        # 연동 관련 페이지 URL 패턴
+        oauth_patterns = ["login", "oauth", "signin"]
+        
+        for handle in handles:
+            self.driver.switch_to.window(handle) #팝업으로 전환
+            current_url = self.driver.current_url
+            
+            for pattern in oauth_patterns:
+                if pattern in current_url:
+                    print(f"연동 팝업 발견: {current_url[:50]}")
+                    self.debug_current_window_safe()   #현재창 확인용 메서드
+                    self.driver.close()
+                    time.sleep(2)
+                    print("팝업 창 종료")
+                    break
+            if len(self.driver.window_handles) < 3 : 
+                break
+        
+        self.driver.switch_to.window(original_account_window) 
+        return True        
+    
+    def oauth_google_login(self):
+        btn_oauth_google = self.get_element_by_xpath(XPATH["BTN_OAUTH_GOOGLE"])
+        btn_oauth_google.click()
+        time.sleep(4)
+        print("구글 연결하기 클릭")
+        
+        
+        # kko_id = self.get_element_by_id(ID["INPUT_OAUTH_KKO_ID"])
+        # kko_pwd = 
+        
+        # try:
+        #     kko_id.click()
+        #     input_new_pwd.click()
+        # except Exception as e:
+        #     print(f"input 클릭 실패: {e}")
+        #     self.driver.execute_script("arguments[0].focus();", kko_id)
+        #     self.driver.execute_script("arguments[0].focus();", input_new_pwd)
+
+        # self.driver.execute_script("arguments[0].value = '';", kko_id)
+        # self.driver.execute_script("arguments[0].value = '';", input_new_pwd)
+        
         return True
     
     def click_to_mkt(self):
