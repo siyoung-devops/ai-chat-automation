@@ -12,7 +12,6 @@ from controllers.response_controller import ResponseController
 from controllers.scroll_controller import ScrollController
 
 class AgentPage(BasePage) :
-        
     def go_to_agent_page(self):
         menu_btn = self.get_element_by_xpath(XPATH["AGENT_MENU_BTN"])
         menu_btn.click()
@@ -72,10 +71,6 @@ class AgentPage(BasePage) :
         cardarea = self.get_element_by_xpath(XPATH["CARD_SETT"])
         ChatInputController.send_text(cardarea, text)
         
-    def go_to_make_agent(self) :
-        element = self.get_element_by_xpath(XPATH["BTN_AGENT_MAKE"])
-        element.click()
-        
     def make_agent_for_me(self) :
         element = self.get_element_by_xpath(XPATH["BTN_AGENT_MAKE"])
         element.click()
@@ -104,6 +99,29 @@ class AgentPage(BasePage) :
     def error_message(self) :
         element = self.get_element_by_xpath(XPATH["ERROR_MSG"])
         return element
+    
+    def delete_card(self) :
+        element = self.get_element_by_xpath(XPATH["DELETE_CARD"])
+        element.click()
+        
+    def check_card_number(self) :
+        elements = self.get_elements_by_xpath(XPATH["DELETE_CARD"])
+        return elements
+    
+    def multi_function(self) :
+        elements = self.get_elements_by_xpath(
+        XPATH["SELECT_FUNCTION"],
+        option="clickable"
+    )
+        for element in elements :
+            if not element.is_selected():
+                element.click()
+                time.sleep(0.2)
+                
+    # Make Agent Screen Scroll
+    def scroll_down_setting(self) :
+        area = self.get_elements_by_xpath(XPATH["SCROLL_MAKE_AGENT"])
+        ScrollController.scroll_down(self.driver, area[0])
         
     # Agent Talk Scroll
     def scroll_up_chat(self):
