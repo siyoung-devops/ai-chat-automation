@@ -9,7 +9,8 @@ TIMEOUT_MAX = 10
 STOPPED_MAX = 5
 ACTIVE = "모델이 활성화되었습니다."
 DEACTIVE = "모델이 비활성화되었습니다."
-
+DEFAULT_MODEL = "Helpy Pro Agent"
+DEFAULT_CHAT = "새 대화"
 
 TARGET_URL = {
     "MAIN_URL": "https://qaproject.elice.io/ai-helpy-chat",

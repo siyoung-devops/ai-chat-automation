@@ -68,7 +68,7 @@ class BasePage:
     def get_elements_by_xpath(self, xp, option="presence", timeout = TIMEOUT_MAX):
         return self.get_elements(By.XPATH, xp, option, timeout)
     
-    def get_elements_by_css_selector(self, cs, option, timeout = TIMEOUT_MAX):
+    def get_elements_by_css_selector(self, cs, option = "presence", timeout = TIMEOUT_MAX):
         return self.get_elements(By.CSS_SELECTOR, cs, option, timeout)
     
     def debug_current_window_safe(self):

@@ -1,5 +1,5 @@
 from utils.headers import *
-from utils.defines import XPATH, ID, ACTIVE, DEACTIVE
+from utils.defines import XPATH, ID, ACTIVE, DEACTIVE, DEFAULT_MODEL
 
 from pages.base_page import BasePage
 from enums.ui_status import ModelState
@@ -29,8 +29,16 @@ class ModelSettingPage(BasePage):
         time.sleep(0.3) 
         return el.text.strip()
 
-    def select_model(self, model_name: str):       
-        xpath = XPATH["MODEL_BY_NAME"].format(model_name=model_name)
+    def select_last_model(self):       
+        model_namse = self.get_all_model_names()
+        
+        model_name = None
+        if len(model_namse) > 1:
+            model_name = model_namse[-1]
+        else:
+            model_name = DEFAULT_MODEL
+            
+        xpath = XPATH["MODEL_BY_NAME"].format(model_name = model_name)
         self.get_element_by_xpath(xpath).click()
         selected = self.get_current_model()
         time.sleep(0.3) 
@@ -122,9 +130,10 @@ class ModelSettingPage(BasePage):
             actual_state = self.get_model_state(model)
             print(f"{model} 토글 : {initial_state} => {actual_state}")
 
-    def compare_active_modes(self):
+    def compare_active_models(self):
         self.open_model_menu()
         models = self.get_all_model_names() # 스샷으로 해도 좋을듯
         
         assert models == self.active_models, f"active모델 일치하지 않음: {models} != {self.active_models}"
         time.sleep(0.5)
+        
