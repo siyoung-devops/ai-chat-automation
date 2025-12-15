@@ -149,19 +149,24 @@ def test_go_to_member(member_page):
 #     assert member_page.change_success_pwd()
 
 #PHC-TS05-TC010
-def test_update_lang(member_page):
-    assert member_page.refresh_member_account_page()
-    assert member_page.open_lang_edit_form()
-    assert member_page.choose_lang_dropbox()
-    assert member_page.refresh_member_account_page()
+# def test_update_lang(member_page):
+#     assert member_page.open_lang_edit_form()
+#     assert member_page.choose_lang_dropbox()
+#     assert member_page.refresh_member_account_page()
+#     assert member_page.choose_lang_check()
+#     member_page.revoke_lang_kor() #다음 테스트를 위한 언어 원복 메서드 필요, 테스트 항목 아님
 
-#PHC-TS05-TC011
+#PHC-TS05-TC011 DOM 아닌 영역 새로고침 메서드 제외하고 진행
 # def test_oauth_google(member_page):
-#     assert member_page.oauth_google_login()
+#     assert member_page.open_oauth_edit_form()
+#     assert member_page.oauth_google_click()
+#     assert member_page.oauth_popup_open_close()    
 
 #PHC-TS05-TC012
 # def test_oauth_naver(member_page):
-#     assert member_page.oauth_google_login()
+#     assert member_page.open_oauth_edit_form()
+#     assert member_page.oauth_naver_click()
+#     assert member_page.oauth_popup_open_close()
     
 #PHC-TS05-TC013 DOM 아닌 영역 새로고침 메서드 제외하고 진행
 # def test_oauth_kko(member_page):
@@ -200,7 +205,11 @@ def test_update_lang(member_page):
 #     assert member_page.oauth_popup_open_close()        
     
 # #PHC-TS05-TC019
-#def test_toast_save_info(member_page,test_cases):
-#     assert member_page.open_oauth_edit_form()
-#     assert member_page.oauth_microsoft_click()
-#     assert member_page.oauth_popup_open_close() 
+def test_toast_save_info(member_page,test_cases):
+    data = test_cases["normal"]
+    assert member_page.open_name_edit_form()
+    assert member_page.member_name(data["value"])
+    assert member_page.submit_name()
+    assert member_page.click_to_promotion()
+    assert member_page.toast_save_msg_compare()
+    

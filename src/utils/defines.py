@@ -27,6 +27,7 @@ SELECTORS = {
     "INPUT_MOBILE" : "input[name='to'][autocomplete='tel']",
     "BOX_LANG_ENG" : "ul[role='listbox'] li[data-value='en-US']",
     "BTN_MENU_BAR" : "button.EliceLayoutSidenavHamburger-root",
+    "BOX_LANG_KOR" : "ul[role='listbox'] li[data-value='ko-KR']",
     
 
 }
@@ -95,6 +96,7 @@ XPATH = {
     "BTN_OAUTH_MICROSOFT" : "//li[.//p[normalize-space(.)='마이크로소프트']]//button[normalize-space(.)='연결하기']",
     "LANG_ROW" :  "//div[contains(@class,'MuiStack-root')][.//h2[normalize-space(.)='선호 언어']]",
     "SOCIAL_ROW" :  "//h2[contains(@class,'MuiTypography-body1')][normalize-space(.)='소셜 연결 계정']",
+    "LANG_ROW_ENG" :  "//div[contains(@class,'MuiStack-root')][.//h2[normalize-space(.)='language']]",
     
     "BTN_COPY_QUESTION" : "//div[@data-floating='true'])[last()]",
     "BTN_STOP" : '//button[@aria-label="취소"]',
