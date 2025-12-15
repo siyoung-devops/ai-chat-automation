@@ -12,7 +12,7 @@ class MemberPage(BasePage):
     #우측 사람 이미지 > 계정관리 순차 클릭 > 새 창 이동
     def go_to_member_page(self):
         modal_btn = self.get_element_by_css_selector(SELECTORS["MEMBER_MODAL"])
-        modal_btn.click()
+        self.driver.execute_script("arguments[0].click();", modal_btn) #모달 무조건 스크립트로 클릭
         time.sleep(4)
         member_btn = self.get_element_by_xpath(XPATH["BTN_MEMBER"])
         self.driver.execute_script("arguments[0].click();", member_btn)
@@ -591,6 +591,32 @@ class MemberPage(BasePage):
         time.sleep(2)
         return True
     
+    def choose_lang_check(self): #언어변경 확인을 위한 계정관리 창 종료 후 다시 접속
+        handles = self.driver.window_handles
+        original_window = handles[0] 
+        self.driver.close()
+        self.driver.switch_to.window(original_window)
+        self.go_to_member_page()
+        print("계정 창 돌아와서 언어 변경 확인")
+        return True
+    
+    def revoke_lang_kor(self):
+        handles = self.driver.window_handles
+        original_window = handles[0] 
+        #다음 테스트를 위한 한국어 변경
+        lang_box = self.get_element_by_xpath(XPATH["BOX_LANG"])
+        lang_box.click()
+        time.sleep(2)
+        print("선호 언어 행 클릭")
+        
+        choose_kor =  self.get_element_by_css_selector(SELECTORS["BOX_LANG_KOR"])
+        choose_kor.click()
+        self.driver.close()
+        self.driver.switch_to.window(original_window)
+        self.go_to_member_page()
+        print("한국어 원복")
+        return True
+        
     #oauth 계정 연동 테스트 메서드
     def open_oauth_edit_form(self, timeout=5):
         print("open_oauth_edit_form 시작")
@@ -615,6 +641,20 @@ class MemberPage(BasePage):
         print("소셜 계정 연동 행 찾음")
         return True
     
+    def oauth_google_click(self):
+        btn_oauth_google = self.get_element_by_xpath(XPATH["BTN_OAUTH_GOOGLE"])
+        btn_oauth_google.click()
+        time.sleep(4)
+        print("구글 연결하기 클릭")
+        return True
+    
+    def oauth_naver_click(self):
+        btn_oauth_naver = self.get_element_by_xpath(XPATH["BTN_OAUTH_NAVER"])
+        btn_oauth_naver.click()
+        time.sleep(4)
+        print("네이버 연결하기 클릭")
+        return True
+
     def oauth_kko_click(self):
         btn_oauth_kko = self.get_element_by_xpath(XPATH["BTN_OAUTH_KKO"])
         btn_oauth_kko.click()
@@ -687,32 +727,20 @@ class MemberPage(BasePage):
         
         self.driver.switch_to.window(original_account_window) 
         return True        
-    
-    def oauth_google_login(self):
-        btn_oauth_google = self.get_element_by_xpath(XPATH["BTN_OAUTH_GOOGLE"])
-        btn_oauth_google.click()
-        time.sleep(4)
-        print("구글 연결하기 클릭")
-        
-        
-        # kko_id = self.get_element_by_id(ID["INPUT_OAUTH_KKO_ID"])
-        # kko_pwd = 
-        
-        # try:
-        #     kko_id.click()
-        #     input_new_pwd.click()
-        # except Exception as e:
-        #     print(f"input 클릭 실패: {e}")
-        #     self.driver.execute_script("arguments[0].focus();", kko_id)
-        #     self.driver.execute_script("arguments[0].focus();", input_new_pwd)
 
-        # self.driver.execute_script("arguments[0].value = '';", kko_id)
-        # self.driver.execute_script("arguments[0].value = '';", input_new_pwd)
+    #항목 별 저장 시 토스트 팝업 문구 비교 메서드
         
-        return True
+    def toast_save_msg_compare(self):
+        #toast 문구 확인
+        toast_containers = self.get_elements(By.XPATH,XPATH["TOAST_CONTAINER"],option="visibility", timeout=5 )
+        for toast_container in toast_containers:
+            toast_msg = toast_container.text
+            time.sleep(1)
+            print(f"{toast_msg}")
+            return True
     
-    def click_to_mkt(self):
+    def click_to_promotion(self):
         element = self.get_element_by_name(NAME["BTN_MKT"])
         element.click()
         time.sleep(4)
-
+        return True
