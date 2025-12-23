@@ -101,7 +101,6 @@ class MemberPage(BasePage):
             const y = rect.top + window.scrollY - 100;
             window.scrollTo({top: y, behavior: 'instant'});
         """, input_name)
-        self.driver.implicitly_wait(0.3)
 
         try:
             input_name.click()
@@ -425,7 +424,6 @@ class MemberPage(BasePage):
             const y = rect.top + window.scrollY - 100;
             window.scrollTo({top: y, behavior: 'instant'});
         """, input_mobile)
-        self.driver.implicitly_wait(0.3)
 
         try:
             input_mobile.click()
@@ -662,7 +660,6 @@ class MemberPage(BasePage):
         input_pwd.send_keys(pwd)
         input_new_pwd.send_keys(pwd_new)
 
-        self.driver.implicitly_wait(0.5)
         logger.info(f"기존 비밀번호 입력 완료: {repr(pwd)}")
         logger.info(f"신규 비밀번호 입력 완료: {repr(pwd_new)}")
         return True
