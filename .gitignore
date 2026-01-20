@@ -26,3 +26,6 @@ reports/screenshots/
 # 로그
 reports/logs/
 run.log
+# block huge files
+src/resources/assets/big_file.md
+src/resources/assets/test_big_img.tif
