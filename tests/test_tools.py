@@ -69,7 +69,7 @@ def logged_in_agent(driver, fm, user_data):
 
     driver.get(TARGET_URL["MAIN_URL"])
 
-        browser_utils.auto_login(ctx)
+    browser_utils.auto_login(ctx)
 
     return tools_page
 
