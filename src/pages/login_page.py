@@ -13,7 +13,7 @@ class LoginPage(BasePage):
         element.click()
         element.clear()
         element.send_keys(username)
-        self.driver.implicitly_wait(0.3)
+
 
     def input_pw(self, password):
         element = self.get_element_by_name(NAME["INPUT_PW"])
@@ -33,7 +33,7 @@ class LoginPage(BasePage):
         element = self.get_element_by_name(NAME["INPUT_ID"])
         element.click()
         element.clear()
-        self.driver.implicitly_wait(0.1)
+
 
     def clear_pw(self):
         element = self.get_element_by_name(NAME["INPUT_PW"])

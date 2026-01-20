@@ -2,7 +2,6 @@ from utils.headers import *
 from utils.context import LoginContext
 from utils.browser_utils import BrowserUtils
 from utils.browser_setup import create_driver
-from utils.context import LoginContext
 from utils.defines import TARGET_URL
 
 from managers.file_manager import FileManager

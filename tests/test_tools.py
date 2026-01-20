@@ -1,7 +1,11 @@
 import os
 import pytest
 
-from utils.headers import *
+import time
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
 from pages.tools_page import (ToolsPage)
 from utils.browser_utils import (BrowserUtils)
 from utils.defines import NAME,XPATH,SELECTORS,TARGET_URL
@@ -64,10 +68,7 @@ def logged_in_agent(driver, fm, user_data):
     )
 
     driver.get(TARGET_URL["MAIN_URL"])
-    driver.refresh()
-    time.sleep(0.5)
 
-    if not browser_utils.is_logged_in(driver):
         browser_utils.auto_login(ctx)
 
     return tools_page
@@ -672,7 +673,7 @@ def test_deepdive_input_info_result(logged_in_agent,tools_page):
     download_dir = "src/resources/downloads"
     downloaded = wait_for_download_contains(download_dir, ext=".md", timeout=30)
     assert downloaded is not None, "다운로드가 안됨"
-    time.sleep(2)
+
     
     
     # PHC-TS04-TC058: HWP 생성결과 다운받기 버튼 확인

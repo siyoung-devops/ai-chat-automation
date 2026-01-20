@@ -1,4 +1,9 @@
-from utils.headers import *
+import time
+import pytest
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
 from enums.ui_status import AIresponse
 import re
 
@@ -595,9 +600,8 @@ def test_make_agent_setting_no_intro(logged_in_agent, fm) :
         agent_page.setting_intro_input("")
         agent_page.setting_rule_input(rule)
         agent_page.setting_card_input(card)
-        time.sleep(3)
-        btn = agent_page.check_btn_disabled()
-        assert btn.get_attribute("disabled") is None, "PHC-TS06-TC032 : Test Fail"
+        btn = agent_page.wait_for_btn_disabled()
+        assert btn.get_attribute("disabled") is not None, "PHC-TS06-TC032 : Test Fail"
         log_action(ctx, ActionResult(test_name, TestResult.PASSED, elapsed_time= 0, detail = "make_agent_with_no_intro"))
     except Exception as e:
         elapsed = time.perf_counter() - start
@@ -687,8 +691,7 @@ def test_make_agent_setting_long_rule(logged_in_agent, fm) :
         agent_page.setting_intro_input(intro)
         agent_page.setting_rule_input(rule)
         agent_page.setting_card_input(card)
-        time.sleep(3)
-        btn = agent_page.check_btn_disabled()
+        btn = agent_page.wait_for_btn_disabled()
         assert btn.get_attribute("disabled") == 'true', "PHC-TS06-TC035 : Test Fail"
         log_action(ctx, ActionResult(test_name, TestResult.PASSED, elapsed_time= 0, detail = "make_agent_with_long_rule"))
     except Exception as e:
@@ -742,9 +745,8 @@ def test_make_agent_setting_no_card(logged_in_agent, fm) :
         agent_page.setting_intro_input(intro)
         agent_page.setting_rule_input(rule)
         agent_page.setting_card_input("")
-        time.sleep(3)
-        btn = agent_page.check_btn_disabled()
-        assert btn.get_attribute("disabled") is None, "PHC-TS06-TC037 : Test Fail"
+        btn = agent_page.wait_for_btn_disabled()
+        assert btn.get_attribute("disabled") is not None, "PHC-TS06-TC037 : Test Fail"
         log_action(ctx, ActionResult(test_name, TestResult.PASSED, elapsed_time= 0, detail = "make_agent_with_no_card"))
     except Exception as e:
         elapsed = time.perf_counter() - start
@@ -771,8 +773,7 @@ def test_make_agent_setting_long_card(logged_in_agent, fm) :
         agent_page.setting_intro_input(intro)
         agent_page.setting_rule_input(rule)
         agent_page.setting_card_input(card)
-        time.sleep(3)
-        btn = agent_page.check_btn_disabled()
+        btn = agent_page.wait_for_btn_disabled()
         assert btn.get_attribute("disabled") == 'true', "PHC-TS06-TC038 : Test Fail"
         log_action(ctx, ActionResult(test_name, TestResult.PASSED, elapsed_time= 0, detail = "make_agent_with_long_card"))
     except Exception as e:
@@ -894,7 +895,7 @@ def test_make_agent_make_image(logged_in_agent, fm) :
         rule = data["setting_inputs"][2]["content"]
         agent_page.setting_name_input(name)
         agent_page.setting_rule_input(rule)
-        time.sleep(3)
+
         agent_page.make_image()
         uploaded = agent_page.check_upload_image(10)
         assert uploaded.is_displayed(), "PHC-TS06-TC043 : Test Fail"

@@ -1,4 +1,6 @@
-from utils.headers import *
+import time
+import pytest
+
 from pages.member_page import MemberPage
 
 import logging

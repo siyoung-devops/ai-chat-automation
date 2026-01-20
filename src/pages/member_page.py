@@ -101,7 +101,7 @@ class MemberPage(BasePage):
             const y = rect.top + window.scrollY - 100;
             window.scrollTo({top: y, behavior: 'instant'});
         """, input_name)
-        self.driver.implicitly_wait(0.3)
+
 
         try:
             input_name.click()
@@ -425,7 +425,7 @@ class MemberPage(BasePage):
             const y = rect.top + window.scrollY - 100;
             window.scrollTo({top: y, behavior: 'instant'});
         """, input_mobile)
-        self.driver.implicitly_wait(0.3)
+
 
         try:
             input_mobile.click()
@@ -453,7 +453,6 @@ class MemberPage(BasePage):
         
         click_attempts = 0
         max_attempts = 6
-        server_responses = 0  # 서버 실제 반응 횟수 추적
         
         try:
             while click_attempts < max_attempts:
@@ -462,24 +461,21 @@ class MemberPage(BasePage):
                 
                 self.driver.execute_script("arguments[0].click();", certi_btn)
                 
-                # 점진적 대기 wait으로 서버 응답 대기 횟수가 차이나서 time.sleep() 사용
-                wait_time = 1.8 + (click_attempts * 0.1)  
-                time.sleep(wait_time)
+                # 점진적 대기: WebDriverWait 사용
+                wait_time = 1.8 + (click_attempts * 0.1)
                 
-                # 서버 응답 확인 (토스트/버튼 상태 변화)
                 try:
+                    # 토스트 메시지 확인 (서버 응답)
+                    WebDriverWait(self.driver, wait_time).until(
+                        EC.visibility_of_element_located((By.XPATH, XPATH["TOAST_CONTAINER"]))
+                    )
                     toast = self.driver.find_element(By.XPATH, XPATH["TOAST_CONTAINER"])
                     if toast.is_displayed() and toast.text.strip():
-                        server_responses += 1
-                        logger.info(f"서버 응답 #{server_responses}: {toast.text.strip()}")
-                        time.sleep(0.3)  # 토스트 읽고 난 후 추가 대기
-                except:
-                    pass  # 토스트 없음 = 서버 무시
+                        logger.info(f"서버 응답: {toast.text.strip()}")
+                        # 토스트가 사라질 때까지 대기하거나 다음 동작으로 넘어감
+                except TimeoutException:
+                    pass # 토스트 없으면 계속 진행
                 
-                # 스크롤 복귀 (생략)
-            
-            logger.info(f"클릭:{click_attempts}회, 서버응답:{server_responses}회")
-            
             # 최대 횟수 초과 토스트 대기
             wait = WebDriverWait(self.driver, 10)
             toast_xpath = XPATH["TOAST_CONTAINER"]
@@ -662,7 +658,7 @@ class MemberPage(BasePage):
         input_pwd.send_keys(pwd)
         input_new_pwd.send_keys(pwd_new)
 
-        self.driver.implicitly_wait(0.5)
+
         logger.info(f"기존 비밀번호 입력 완료: {repr(pwd)}")
         logger.info(f"신규 비밀번호 입력 완료: {repr(pwd_new)}")
         return True

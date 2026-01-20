@@ -20,14 +20,9 @@ class ChatInputController:
     @staticmethod
     def reset_text(element):
         element.click()
-        time.sleep(2)
-        
         system = platform.system()
-        if system == "Darwin": # 맥용!
-            element.send_keys(Keys.COMMAND, "A")
-        else:   # 윈도우 용!
-            element.send_keys(Keys.CONTROL, "A")
-        time.sleep(2)
+        modifier = Keys.COMMAND if system == "Darwin" else Keys.CONTROL
+        element.send_keys(modifier, "a")
         element.send_keys(Keys.BACK_SPACE)
-        time.sleep(2)
+
         

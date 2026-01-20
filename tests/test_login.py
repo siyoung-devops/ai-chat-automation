@@ -1,4 +1,4 @@
-from utils.headers import *
+import time
 from pages.login_page import (LoginPage)
 from utils.browser_utils import (BrowserUtils)
 from utils.browser_setup import create_driver
@@ -19,7 +19,7 @@ def test_login(login_page_test, fm):
         login_page_test.input_pw("team02fighting!") 
         login_page_test.click_login_button()
         assert login_page_test.is_main_page(), "로그인이 실행되지 않음"
-        log_action(ctx, ActionResult(test_name, TestResult.PASSED, elapsed_time= 0, detail = "successed_login"))
+        log_action(ctx, ActionResult(test_name, TestResult.PASSED, elapsed_time= 0, detail = "login_success"))
     except Exception as e:
         elapsed = time.perf_counter() - start
         fm.save_screenshot_png(login_page_test.driver, test_name)
@@ -40,7 +40,7 @@ def test_invalid_id_login(login_page_test, fm):
         log_action(ctx, ActionResult(test_name, TestResult.PASSED, elapsed_time= 0, detail = "error_message_visible"))
    
         assert login_page_test.get_error_msg() == "Email or password does not match", "에러메시지 오류"
-        log_action(ctx, ActionResult(test_name, TestResult.PASSED, elapsed_time= 0, detail = "successed_test"))
+        log_action(ctx, ActionResult(test_name, TestResult.PASSED, elapsed_time= 0, detail = "test_success"))
         
     except Exception as e:
         elapsed = time.perf_counter() - start
@@ -62,7 +62,7 @@ def test_invalid_password_login(login_page_test, fm):
         log_action(ctx, ActionResult(test_name, TestResult.PASSED, elapsed_time= 0, detail = "error_message_visible"))
         
         assert login_page_test.get_error_msg() == "Email or password does not match", "에러메시지 오류"
-        log_action(ctx, ActionResult(test_name, TestResult.PASSED, elapsed_time= 0, detail = "successed_test"))
+        log_action(ctx, ActionResult(test_name, TestResult.PASSED, elapsed_time= 0, detail = "test_success"))
         
     except Exception as e:
         elapsed = time.perf_counter() - start
@@ -84,7 +84,7 @@ def test_invalid_id_password_login(login_page_test, fm):
         log_action(ctx, ActionResult(test_name, TestResult.PASSED, elapsed_time= 0, detail = "error_message_visible"))
         
         assert login_page_test.get_error_msg() == "Email or password does not match", "에러메시지 오류"
-        log_action(ctx, ActionResult(test_name, TestResult.PASSED, elapsed_time= 0, detail = "successed_test"))
+        log_action(ctx, ActionResult(test_name, TestResult.PASSED, elapsed_time= 0, detail = "test_success"))
     except Exception as e:
         elapsed = time.perf_counter() - start
         fm.save_screenshot_png(login_page_test.driver, test_name)
@@ -102,7 +102,7 @@ def test_null_id_login(login_page_test, fm):
         login_page_test.input_pw("team02fighting!")
         login_page_test.click_login_button()
         assert login_page_test.is_login_page(), "아이디 입력값이 invalid 상태가 아님"
-        log_action(ctx, ActionResult(test_name, TestResult.PASSED, elapsed_time= 0, detail = "successed_test"))
+        log_action(ctx, ActionResult(test_name, TestResult.PASSED, elapsed_time= 0, detail = "test_success"))
         
     except Exception as e:
         elapsed = time.perf_counter() - start
@@ -121,7 +121,7 @@ def test_null_password_login(login_page_test, fm):
         login_page_test.clear_pw()
         login_page_test.click_login_button()
         assert login_page_test.is_login_page(), "비밀번호 입력값이 invalid 상태가 아님"
-        log_action(ctx, ActionResult(test_name, TestResult.PASSED, elapsed_time= 0, detail = "successed_test"))
+        log_action(ctx, ActionResult(test_name, TestResult.PASSED, elapsed_time= 0, detail = "test_success"))
         
     except Exception as e:
         elapsed = time.perf_counter() - start
@@ -136,10 +136,10 @@ def test_null_id_password_login(login_page_test, fm):
     start = time.perf_counter()
     try :    
         login_page_test.go_to_login_page()
-        login_page_test.clear_all_inputs
+        login_page_test.clear_all_inputs()
         login_page_test.click_login_button()
         assert login_page_test.is_login_page(), "아이디, 비밀번호 입력값이 invalid 상태가 아님"
-        log_action(ctx, ActionResult(test_name, TestResult.PASSED, elapsed_time= 0, detail = "successed_test"))
+        log_action(ctx, ActionResult(test_name, TestResult.PASSED, elapsed_time= 0, detail = "test_success"))
         
     except Exception as e:
         elapsed = time.perf_counter() - start
@@ -161,7 +161,7 @@ def test_login_invalid_format(login_page_test, fm):
         log_action(ctx, ActionResult(test_name, TestResult.PASSED, elapsed_time= 0, detail = "error_message_visible"))
         
         assert login_page_test.get_id_invalid_msg() == "Invalid email format.", "에러메시지 내용 오류"
-        log_action(ctx, ActionResult(test_name, TestResult.PASSED, elapsed_time= 0, detail = "successed_test"))
+        log_action(ctx, ActionResult(test_name, TestResult.PASSED, elapsed_time= 0, detail = "test_success"))
     except Exception as e:
         elapsed = time.perf_counter() - start
         fm.save_screenshot_png(login_page_test.driver, test_name)
@@ -182,7 +182,7 @@ def test_login_invalid_format2(login_page_test, fm):
         log_action(ctx, ActionResult(test_name, TestResult.PASSED, elapsed_time= 0, detail = "error_message_visible"))
         
         assert login_page_test.get_id_invalid_msg() == "Invalid email format.", "에러메시지 내용 오류"
-        log_action(ctx, ActionResult(test_name, TestResult.PASSED, elapsed_time= 0, detail = "successed_test"))
+        log_action(ctx, ActionResult(test_name, TestResult.PASSED, elapsed_time= 0, detail = "test_success"))
     except Exception as e:
         elapsed = time.perf_counter() - start
         fm.save_screenshot_png(login_page_test.driver, test_name)
@@ -203,7 +203,7 @@ def test_pw_invalid_format(login_page_test, fm):
         log_action(ctx, ActionResult(test_name, TestResult.PASSED, elapsed_time= 0, detail = "error_message_visible"))
         
         assert login_page_test.get_pw_invalid_msg() == "Please enter a password of at least 8 digits.", "에러메시지 내용 오류"
-        log_action(ctx, ActionResult(test_name, TestResult.PASSED, elapsed_time= 0, detail = "successed_test"))
+        log_action(ctx, ActionResult(test_name, TestResult.PASSED, elapsed_time= 0, detail = "test_success"))
     except Exception as e:
         elapsed = time.perf_counter() - start
         fm.save_screenshot_png(login_page_test.driver, test_name)
@@ -249,7 +249,7 @@ def test_logout(login_page_test, fm):
         login_page_test.click_account_button()
         login_page_test.click_logout_button()
         assert login_page_test.is_logged_out_page(), "로그아웃이 실행되지 않음"
-        log_action(ctx, ActionResult(test_name, TestResult.PASSED, elapsed_time= 0, detail = "successed_test"))
+        log_action(ctx, ActionResult(test_name, TestResult.PASSED, elapsed_time= 0, detail = "test_success"))
     except Exception as e:
         elapsed = time.perf_counter() - start
         fm.save_screenshot_png(login_page_test.driver, test_name)
@@ -269,7 +269,7 @@ def test_view_password(login_page_test, fm):
 
         login_page_test.click_view_password_button()
         assert login_page_test.is_password_visible(), "비밀번호가 표시 상태(text)로 변경되지 않음"
-        log_action(ctx, ActionResult(test_name, TestResult.PASSED, elapsed_time= 0, detail = "successed_test"))
+        log_action(ctx, ActionResult(test_name, TestResult.PASSED, elapsed_time= 0, detail = "test_success"))
     except Exception as e:
         elapsed = time.perf_counter() - start
         fm.save_screenshot_png(login_page_test.driver, test_name)
@@ -285,7 +285,7 @@ def test_forgot_password(login_page_test, fm):
         login_page_test.go_to_login_page()
         login_page_test.click_forgot_password_button()
         assert login_page_test.is_forgot_password_page(), "비밀번호 찾기 탭으로 이동 실패"
-        log_action(ctx, ActionResult(test_name, TestResult.PASSED, elapsed_time= 0, detail = "successed_test"))
+        log_action(ctx, ActionResult(test_name, TestResult.PASSED, elapsed_time= 0, detail = "test_success"))
     except Exception as e:
         elapsed = time.perf_counter() - start
         fm.save_screenshot_png(login_page_test.driver, test_name)
@@ -305,7 +305,7 @@ def test_diff_account(login_page_test, fm):
         login_page_test.logout()
         login_page_test.click_diff_account_button()
         assert login_page_test.is_login_page(), "초기화되지 않음"
-        log_action(ctx, ActionResult(test_name, TestResult.PASSED, elapsed_time= 0, detail = "successed_test"))
+        log_action(ctx, ActionResult(test_name, TestResult.PASSED, elapsed_time= 0, detail = "test_success"))
     except Exception as e:
         elapsed = time.perf_counter() - start
         fm.save_screenshot_png(login_page_test.driver, test_name)
@@ -325,7 +325,7 @@ def test_remove_history(login_page_test, fm):
         login_page_test.logout()
         login_page_test.click_remove_history_button()
         assert login_page_test.is_inputs_cleared(), "Remove history 클릭 후 입력값이 초기화되지 않음"
-        log_action(ctx, ActionResult(test_name, TestResult.PASSED, elapsed_time= 0, detail = "successed_test"))
+        log_action(ctx, ActionResult(test_name, TestResult.PASSED, elapsed_time= 0, detail = "test_success"))
     except Exception as e:
         elapsed = time.perf_counter() - start
         fm.save_screenshot_png(login_page_test.driver, test_name)

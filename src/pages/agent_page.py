@@ -204,6 +204,12 @@ class AgentPage(BasePage) :
     def check_btn_disabled(self) :
         element = self.get_element_by_xpath(XPATH["BTN_AGENT_MAKE"])
         return element
+
+    def wait_for_btn_disabled(self, timeout=10):
+        WebDriverWait(self.driver, timeout).until(
+            lambda d: self.get_element_by_xpath(XPATH["BTN_AGENT_MAKE"]).get_attribute("disabled") is not None
+        )
+        return self.get_element_by_xpath(XPATH["BTN_AGENT_MAKE"])
     
     def error_message(self) :
         element = self.get_element_by_xpath(XPATH["ERROR_MSG"], timeout=3)
@@ -249,10 +255,11 @@ class AgentPage(BasePage) :
     
     # 이미지 생성기
     def make_image(self) :
-        self.get_element_by_xpath(XPATH["BTN_ADD_IMAGE"]).click()
+        self.get_element_by_xpath(XPATH["BTN_ADD_IMAGE"], option="clickable").click()
         btns = self.get_elements_by_xpath(XPATH["BTN_MAKE_IMAGE"])
         btn = btns[1]
         btn.click()
+
         
 #======================= 에이전트 설정으로 만들기 - 파일 ==============================================
         
@@ -301,7 +308,7 @@ class AgentPage(BasePage) :
     # 설정 스크롤
     def scroll_down_setting(self) :
         area = self.get_elements_by_xpath(XPATH["SCROLL_MAKE_AGENT"])
-        ScrollController.scroll_down(self.driver, area[0])
+        ScrollController.scroll_to_element(self.driver, area[0], XPATH["SELECT_FUNCTION"])
         
 #========================== 에이전트 만들기 - 뒤로가기 관련 ============================================================
     
@@ -553,7 +560,8 @@ class AgentPage(BasePage) :
         btn = self.get_element_by_xpath(XPATH["BTN_UPLOAD_FILE"], option = "visibility")
         if btn and btn.is_enabled() :
             btn.click()
-            time.sleep(3)
+            btn.click()
+
 
     # 단일 파일 업로드
     def upload_file_in_chat(self) :

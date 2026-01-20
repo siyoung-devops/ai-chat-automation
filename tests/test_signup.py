@@ -1,4 +1,5 @@
-from utils.headers import *
+import time
+from selenium.common.exceptions import TimeoutException
 from pages.signup_page import (
     SignupPage
 )
